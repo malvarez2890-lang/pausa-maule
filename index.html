@@ -316,6 +316,16 @@
   .revitbox .rline{font-family:'IBM Plex Mono'; font-size:12.5px; word-break:break-all;}
   .revitbox .rlabel{font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--zinc-soft); margin-bottom:2px;}
 
+  .bim-stats{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:0;
+    border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    margin-bottom:20px; background:var(--card);
+  }
+  .bstat{padding:16px 12px; text-align:center; border-left:1px solid var(--line);}
+  .bstat:first-child{border-left:none;}
+  .bstat .n{font-family:'Big Shoulders Display'; font-weight:700; font-size:24px; font-variant-numeric:tabular-nums;}
+  .bstat .l{font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; letter-spacing:0.03em; color:var(--ink-soft); margin-top:4px;}
+
   footer{
     padding:36px 32px 60px; max-width:1180px; margin:0 auto;
     font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft);
@@ -335,6 +345,9 @@
     .files{grid-template-columns:1fr;}
     .materiales{grid-template-columns:1fr;}
     table.prov{display:block; overflow-x:auto;}
+    .bim-stats{grid-template-columns:repeat(3,1fr);}
+    .bstat:nth-child(4){border-left:none;}
+    .bstat:nth-child(n+4){border-top:1px solid var(--line);}
   }
 </style>
 </head>
@@ -458,6 +471,16 @@
     <div class="gallery" style="margin-top:12px; grid-template-columns:1fr;">
       <a href="06_Imagenes/04_Exterior_Vinedo.png" target="_blank">
         <figure style="aspect-ratio:21/8;"><img src="06_Imagenes/04_Exterior_Vinedo.png" alt="Exterior entre viñedos" style="aspect-ratio:21/8;"><figcaption>Exterior — el habitáculo entre el valle y cordillera de la costa</figcaption></figure>
+      </a>
+    </div>
+    <div class="gallery" style="margin-top:12px; grid-template-columns:1fr;">
+      <a href="06_Imagenes/05_Isometrica.jpg" target="_blank">
+        <figure style="aspect-ratio:2619/1913;"><img src="06_Imagenes/05_Isometrica.jpg" alt="Isométrica del volumen" style="aspect-ratio:2619/1913; object-fit:contain; background:var(--card);"><figcaption>Isométrica — volumen, cubierta y patio</figcaption></figure>
+      </a>
+    </div>
+    <div class="gallery" style="margin-top:12px; grid-template-columns:1fr; justify-items:center;">
+      <a href="06_Imagenes/06_Isometrica_Explotada.jpg" target="_blank" style="max-width:460px; width:100%;">
+        <figure style="aspect-ratio:3063/4002;"><img src="06_Imagenes/06_Isometrica_Explotada.jpg" alt="Isométrica explotada" style="aspect-ratio:3063/4002; object-fit:contain; background:var(--card);"><figcaption>Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario</figcaption></figure>
       </a>
     </div>
   </section>
@@ -591,6 +614,14 @@
       <span class="num mono">08</span>
       <h2>Modelo Revit</h2>
       <span class="sub">HAB_ARQ_MODELO_R01.RVT</span>
+    </div>
+    <div class="bim-stats">
+      <div class="bstat"><div class="n mono">7 199</div><div class="l">Elementos totales</div></div>
+      <div class="bstat"><div class="n mono">939</div><div class="l">Tipos</div></div>
+      <div class="bstat"><div class="n mono">55</div><div class="l">Familias</div></div>
+      <div class="bstat"><div class="n mono">70</div><div class="l">Categorías</div></div>
+      <div class="bstat"><div class="n mono">46</div><div class="l">Vistas</div></div>
+      <div class="bstat"><div class="n mono">5</div><div class="l">Niveles</div></div>
     </div>
     <div class="filecard pdf">
       <div class="ficon">RVT</div>
