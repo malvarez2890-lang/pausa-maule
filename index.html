@@ -187,6 +187,12 @@
   .gallery figure{margin:0; height:100%;}
   .gallery .g-main img{aspect-ratio:auto;}
   .gallery .g-side img{aspect-ratio:16/10.5;}
+  .gallery-divider{
+    margin:28px 0 12px; padding-top:20px; border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.05em; color:var(--ink-soft);
+  }
+  .gallery.gallery-2col{grid-template-columns:1fr 1fr;}
 
   /* ---- Partido section ---- */
   .partido-block{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;}
@@ -339,6 +345,7 @@
     .strip{grid-template-columns:repeat(2,1fr); gap:16px 0;}
     .strip .stat{border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:14px;}
     .gallery{grid-template-columns:1fr; grid-template-rows:auto;}
+    .gallery.gallery-2col{grid-template-columns:1fr;}
     .gallery .g-main{grid-row:auto;}
     .partido-block{grid-template-columns:1fr;}
     .ref-list{grid-template-columns:repeat(2,1fr);}
@@ -473,19 +480,18 @@
         <figure style="aspect-ratio:21/8;"><img src="06_Imagenes/04_Exterior_Vinedo.png" alt="Exterior entre viñedos" style="aspect-ratio:21/8;"><figcaption>Exterior — el habitáculo entre el valle y cordillera de la costa</figcaption></figure>
       </a>
     </div>
-    <div class="gallery" style="margin-top:12px; grid-template-columns:1fr;">
+    <div class="gallery-divider">Vistas isométricas</div>
+    <div class="gallery gallery-2col">
       <a href="06_Imagenes/05_Isometrica.jpg" target="_blank">
-        <figure style="aspect-ratio:2619/1913;"><img src="06_Imagenes/05_Isometrica.jpg" alt="Isométrica del volumen" style="aspect-ratio:2619/1913; object-fit:contain; background:var(--card);"><figcaption>Isométrica — volumen, cubierta y patio</figcaption></figure>
+        <figure style="aspect-ratio:2619/1913;"><img src="06_Imagenes/05_Isometrica.jpg" alt="Isométrica del volumen" style="aspect-ratio:2619/1913; object-fit:contain; background:var(--card);"><figcaption>Volumen, cubierta y patio</figcaption></figure>
+      </a>
+      <a href="06_Imagenes/07_Isometrica_Cortada.jpg" target="_blank">
+        <figure style="aspect-ratio:2619/1868;"><img src="06_Imagenes/07_Isometrica_Cortada.jpg" alt="Isométrica sin cubierta" style="aspect-ratio:2619/1868; object-fit:contain; background:var(--card);"><figcaption>Sin cubierta — bebederos, baño, apoyo y bicicletas</figcaption></figure>
       </a>
     </div>
     <div class="gallery" style="margin-top:12px; grid-template-columns:1fr; justify-items:center;">
       <a href="06_Imagenes/06_Isometrica_Explotada.jpg" target="_blank" style="max-width:460px; width:100%;">
         <figure style="aspect-ratio:3063/4002;"><img src="06_Imagenes/06_Isometrica_Explotada.jpg" alt="Isométrica explotada" style="aspect-ratio:3063/4002; object-fit:contain; background:var(--card);"><figcaption>Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario</figcaption></figure>
-      </a>
-    </div>
-    <div class="gallery" style="margin-top:12px; grid-template-columns:1fr;">
-      <a href="06_Imagenes/07_Isometrica_Cortada.jpg" target="_blank">
-        <figure style="aspect-ratio:2619/1868;"><img src="06_Imagenes/07_Isometrica_Cortada.jpg" alt="Isométrica sin cubierta" style="aspect-ratio:2619/1868; object-fit:contain; background:var(--card);"><figcaption>Isométrica sin cubierta — organización interior: bebederos, baño, zona de apoyo y estacionamiento de bicicletas</figcaption></figure>
       </a>
     </div>
   </section>
