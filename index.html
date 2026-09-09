@@ -189,7 +189,8 @@
   .gallery .g-side img{aspect-ratio:16/10.5;}
 
   /* ---- Partido section ---- */
-  .partido-block{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;}
+  .partido-block{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start;}
+  .partido-visual{display:flex; flex-direction:column; gap:14px;}
   .partido-grid{
     aspect-ratio:1;
     display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
@@ -389,10 +390,16 @@
       <span class="sub">04_Laminas/Partido_Pausa_Maule.pdf</span>
     </div>
     <div class="partido-block">
-      <div class="partido-grid">
-        <div class="acceso"></div><div class="lleno"></div><div></div>
-        <div class="lleno"></div><div class="patio"></div><div class="lleno"></div>
-        <div></div><div class="lleno"></div><div></div>
+      <div class="partido-visual">
+        <div class="partido-grid">
+          <div class="acceso"></div><div class="lleno"></div><div></div>
+          <div class="lleno"></div><div class="patio"></div><div class="lleno"></div>
+          <div></div><div class="lleno"></div><div></div>
+        </div>
+        <a class="lam-thumb full" href="04_Laminas/Partido_Pausa_Maule.pdf" target="_blank">
+          <img src="04_Laminas/Partido_Pausa_Maule.jpg" alt="Lámina del Partido">
+          <span>Lámina del Partido — abrir en pestaña nueva ↗</span>
+        </a>
       </div>
       <div class="partido-text">
         <p>El partido organiza el programa sobre una retícula de nueve cuadrantes: cuatro llenos estructurales (madera + quincha) sostienen un vacío central, el patio, donde crece un árbol a través de la cubierta.</p>
@@ -401,10 +408,6 @@
           <li>Los <b>muros cortina</b> perimetrales quedaron libres de accesos tras la corrección del partido: los recorridos pasan entre los llenos, no a través de los paños vidriados.</li>
           <li>El <b>patio central</b> es el umbral entre paisaje y recinto — ahí ocurre la pausa.</li>
         </ul>
-        <a class="lam-thumb" href="04_Laminas/Partido_Pausa_Maule.pdf" target="_blank">
-          <img src="04_Laminas/Partido_Pausa_Maule.jpg" alt="Lámina del Partido">
-          <span>Lámina del Partido — abrir en pestaña nueva ↗</span>
-        </a>
       </div>
     </div>
   </section>
