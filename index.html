@@ -211,6 +211,18 @@
   .partido-text p{color:var(--ink-soft); margin:0 0 14px;}
   .partido-text ul{margin:0 0 20px; padding-left:18px; color:var(--ink-soft);}
   .partido-text li{margin-bottom:6px;}
+  .lam-thumb{
+    display:inline-block; max-width:220px;
+    border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    text-decoration:none; color:inherit;
+  }
+  .lam-thumb img{width:100%; display:block;}
+  .lam-thumb span{
+    display:block; padding:8px 10px;
+    font-family:'IBM Plex Mono'; font-size:10.5px; color:var(--ink-soft);
+    border-top:1px solid var(--line); background:var(--card);
+  }
+  .lam-thumb:hover span{color:var(--madera);}
 
   /* ---- Referentes ---- */
   .ref-list{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:26px;}
@@ -387,14 +399,10 @@
           <li>Los <b>muros cortina</b> perimetrales quedaron libres de accesos tras la corrección del partido: los recorridos pasan entre los llenos, no a través de los paños vidriados.</li>
           <li>El <b>patio central</b> es el umbral entre paisaje y recinto — ahí ocurre la pausa.</li>
         </ul>
-        <div class="filecard pdf" style="margin-top:6px;">
-          <div class="ficon">PDF</div>
-          <div class="fbody">
-            <div class="ftitle">Lámina del Partido</div>
-            <div class="fsub">04_Laminas · llenos, vacíos, accesos y volumen principal</div>
-          </div>
-          <div class="flinks"><a class="primary" href="04_Laminas/Partido_Pausa_Maule.pdf">Abrir</a></div>
-        </div>
+        <a class="lam-thumb" href="04_Laminas/Partido_Pausa_Maule.pdf" target="_blank">
+          <img src="04_Laminas/Partido_Pausa_Maule.jpg" alt="Lámina del Partido">
+          <span>Lámina del Partido — abrir en pestaña nueva ↗</span>
+        </a>
       </div>
     </div>
   </section>
