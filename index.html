@@ -251,6 +251,27 @@
   .filecard .flinks a.primary{background:var(--ink); color:#fff;}
   .filecard .flinks a.primary:hover{background:var(--madera); border-color:var(--madera);}
 
+  /* ---- Visor de laminas ---- */
+  .lam-viewer{margin-bottom:28px;}
+  .lam-viewer:last-child{margin-bottom:0;}
+  .lam-head{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:16px;
+    margin-bottom:10px; flex-wrap:wrap;
+  }
+  .lam-title{font-weight:600; font-size:15.5px;}
+  .lam-sub{font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--ink-soft); margin-top:2px;}
+  .lam-head a.primary{
+    font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase;
+    text-decoration:none; padding:8px 14px; border-radius:999px;
+    background:var(--ink); color:#fff; letter-spacing:0.03em; flex:none;
+    transition:background 0.15s;
+  }
+  .lam-head a.primary:hover{background:var(--madera);}
+  .lam-viewer iframe{
+    width:100%; height:620px; border:1px solid var(--line); border-radius:6px;
+    background:var(--card);
+  }
+
   /* ---- Materialidad swatches ---- */
   .materiales{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
   .mat{border-radius:6px; overflow:hidden; border:1px solid var(--line);}
@@ -301,6 +322,7 @@
     .files{grid-template-columns:1fr;}
     .materiales{grid-template-columns:1fr;}
     table.prov{display:block; overflow-x:auto;}
+    .lam-viewer iframe{height:360px;}
   }
 </style>
 </head>
@@ -352,7 +374,7 @@
     <div class="sec-head">
       <span class="num mono">01</span>
       <h2>El partido</h2>
-      <span class="sub">retícula 3×3 · llenos y vacío</span>
+      <span class="sub">04_Laminas/Partido_Pausa_Maule.pdf</span>
     </div>
     <div class="partido-block">
       <div class="partido-grid">
@@ -367,6 +389,14 @@
           <li>Los <b>muros cortina</b> perimetrales quedaron libres de accesos tras la corrección del partido: los recorridos pasan entre los llenos, no a través de los paños vidriados.</li>
           <li>El <b>patio central</b> es el umbral entre paisaje y recinto — ahí ocurre la pausa.</li>
         </ul>
+        <div class="filecard pdf" style="margin-top:6px;">
+          <div class="ficon">PDF</div>
+          <div class="fbody">
+            <div class="ftitle">Lámina del Partido</div>
+            <div class="fsub">04_Laminas · llenos, vacíos, accesos y volumen principal</div>
+          </div>
+          <div class="flinks"><a class="primary" href="04_Laminas/Partido_Pausa_Maule.pdf">Abrir</a></div>
+        </div>
       </div>
     </div>
   </section>
@@ -428,23 +458,25 @@
       <h2>Láminas</h2>
       <span class="sub">04_Laminas</span>
     </div>
-    <div class="files">
-      <div class="filecard pdf">
-        <div class="ficon">PDF</div>
-        <div class="fbody">
-          <div class="ftitle">Lámina del Partido</div>
-          <div class="fsub">llenos, vacíos, accesos y volumen principal</div>
+    <div class="lam-viewer">
+      <div class="lam-head">
+        <div>
+          <div class="lam-title">Lámina del Partido</div>
+          <div class="lam-sub">llenos, vacíos, accesos y volumen principal</div>
         </div>
-        <div class="flinks"><a class="primary" href="04_Laminas/Partido_Pausa_Maule.pdf">Abrir</a></div>
+        <a class="primary" href="04_Laminas/Partido_Pausa_Maule.pdf" target="_blank">Abrir en pestaña nueva</a>
       </div>
-      <div class="filecard pdf">
-        <div class="ficon">PDF</div>
-        <div class="fbody">
-          <div class="ftitle">Lámina A101 — Planimetría general</div>
-          <div class="fsub">planta, 4 elevaciones, 3 cortes e isométricas · 1:50</div>
+      <iframe src="04_Laminas/Partido_Pausa_Maule.pdf" loading="lazy"></iframe>
+    </div>
+    <div class="lam-viewer">
+      <div class="lam-head">
+        <div>
+          <div class="lam-title">Lámina A101 — Planimetría general</div>
+          <div class="lam-sub">planta, 4 elevaciones, 3 cortes e isométricas · 1:50</div>
         </div>
-        <div class="flinks"><a class="primary" href="04_Laminas/L01_HAB_ARQ_MODELO_R01.pdf">Abrir</a></div>
+        <a class="primary" href="04_Laminas/L01_HAB_ARQ_MODELO_R01.pdf" target="_blank">Abrir en pestaña nueva</a>
       </div>
+      <iframe src="04_Laminas/L01_HAB_ARQ_MODELO_R01.pdf" loading="lazy"></iframe>
     </div>
   </section>
 
