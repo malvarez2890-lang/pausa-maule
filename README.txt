@@ -17,6 +17,7 @@ ESTRUCTURA DE CARPETAS
     uno por elemento constructivo del proyecto.
 
 03_Documentos_Tecnicos/
+  Reglas_de_Trabajo_BIM_Pausa_Maule.pdf
   Especificacion_Tecnica_Pausa_Maule.docx / .pdf
   PEB_Preliminar_Pausa_Maule.docx / .pdf
   PEB_Pausa_Maule_completado.xlsx / .pdf
