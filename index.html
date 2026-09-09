@@ -193,6 +193,22 @@
     letter-spacing:0.05em; color:var(--ink-soft);
   }
   .gallery.gallery-2col{grid-template-columns:1fr 1fr;}
+  .iso-layout{display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:stretch;}
+  .iso-stack{display:flex; flex-direction:column; gap:12px;}
+  .iso-stack a, .iso-large{display:block; position:relative; overflow:hidden; border-radius:4px; background:#000;}
+  .iso-stack figure, .iso-large figure{margin:0; height:100%;}
+  .iso-large{height:100%;}
+  .iso-large figure{display:flex; align-items:center;}
+  .iso-layout img{width:100%; height:100%; object-fit:contain; display:block; transition:transform 0.4s ease;}
+  .iso-layout a:hover img{transform:scale(1.035);}
+  .iso-layout figcaption{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:10px 14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:#fff;
+    background:linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
+    letter-spacing:0.02em;
+  }
 
   /* ---- Partido section ---- */
   .partido-block{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;}
@@ -346,6 +362,7 @@
     .strip .stat{border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:14px;}
     .gallery{grid-template-columns:1fr; grid-template-rows:auto;}
     .gallery.gallery-2col{grid-template-columns:1fr;}
+    .iso-layout{grid-template-columns:1fr;}
     .gallery .g-main{grid-row:auto;}
     .partido-block{grid-template-columns:1fr;}
     .ref-list{grid-template-columns:repeat(2,1fr);}
@@ -481,17 +498,17 @@
       </a>
     </div>
     <div class="gallery-divider">Vistas isométricas</div>
-    <div class="gallery gallery-2col">
-      <a href="06_Imagenes/05_Isometrica.jpg" target="_blank">
-        <figure style="aspect-ratio:2619/1913;"><img src="06_Imagenes/05_Isometrica.jpg" alt="Isométrica del volumen" style="aspect-ratio:2619/1913; object-fit:contain; background:var(--card);"><figcaption>Volumen, cubierta y patio</figcaption></figure>
-      </a>
-      <a href="06_Imagenes/07_Isometrica_Cortada.jpg" target="_blank">
-        <figure style="aspect-ratio:2619/1868;"><img src="06_Imagenes/07_Isometrica_Cortada.jpg" alt="Isométrica sin cubierta" style="aspect-ratio:2619/1868; object-fit:contain; background:var(--card);"><figcaption>Sin cubierta — bebederos, baño, apoyo y bicicletas</figcaption></figure>
-      </a>
-    </div>
-    <div class="gallery" style="margin-top:12px; grid-template-columns:1fr; justify-items:center;">
-      <a href="06_Imagenes/06_Isometrica_Explotada.jpg" target="_blank" style="max-width:460px; width:100%;">
-        <figure style="aspect-ratio:3063/4002;"><img src="06_Imagenes/06_Isometrica_Explotada.jpg" alt="Isométrica explotada" style="aspect-ratio:3063/4002; object-fit:contain; background:var(--card);"><figcaption>Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario</figcaption></figure>
+    <div class="iso-layout">
+      <div class="iso-stack">
+        <a href="06_Imagenes/05_Isometrica.jpg" target="_blank">
+          <figure style="aspect-ratio:2869/2163;"><img src="06_Imagenes/05_Isometrica.jpg" alt="Isométrica del volumen" style="aspect-ratio:2869/2163; object-fit:contain; background:var(--card);"><figcaption>Volumen, cubierta y patio</figcaption></figure>
+        </a>
+        <a href="06_Imagenes/07_Isometrica_Cortada.jpg" target="_blank">
+          <figure style="aspect-ratio:2619/1868;"><img src="06_Imagenes/07_Isometrica_Cortada.jpg" alt="Isométrica sin cubierta" style="aspect-ratio:2619/1868; object-fit:contain; background:var(--card);"><figcaption>Sin cubierta — bebederos, baño, apoyo y bicicletas</figcaption></figure>
+        </a>
+      </div>
+      <a class="iso-large" href="06_Imagenes/06_Isometrica_Explotada.jpg" target="_blank">
+        <figure style="aspect-ratio:3070/3861;"><img src="06_Imagenes/06_Isometrica_Explotada.jpg" alt="Isométrica explotada" style="aspect-ratio:3070/3861; object-fit:contain; background:var(--card);"><figcaption>Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario</figcaption></figure>
       </a>
     </div>
   </section>
