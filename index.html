@@ -540,8 +540,14 @@
 
 <footer>
   <span>Pausa Maule — Habitáculo ciclista · Workshop BIM + IA · Método TBC</span>
-  <span>Entregable Hito 01 · 14-09-2026</span>
+  <span>Entregable Hito 01 · <span id="today-date"></span></span>
 </footer>
+
+<script>
+  const d = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  document.getElementById("today-date").textContent = `${pad(d.getDate())}-${pad(d.getMonth() + 1)}-${d.getFullYear()}`;
+</script>
 
 </body>
 </html>
