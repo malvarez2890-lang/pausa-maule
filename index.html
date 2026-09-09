@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pausa Maule — Entregable Hito 01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#eef1ee;
+    --paper-2:#e3e8e3;
+    --ink:#141b1f;
+    --ink-soft:#3d474a;
+    --zinc:#5c7079;
+    --zinc-soft:#c4d0d2;
+    --madera:#a8672f;
+    --madera-soft:#e7d3bd;
+    --line:#c7ccc6;
+    --card:#f7f8f6;
+    --shadow: 0 1px 0 rgba(20,27,31,0.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    font-size:15px;
+    line-height:1.55;
+  }
+  .mono{font-family:'IBM Plex Mono', ui-monospace, monospace;}
+  .display{font-family:'Big Shoulders Display', sans-serif;}
+
+  a{color:inherit;}
+
+  /* ---- Top bar ---- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(238,241,238,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 32px;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .topbar .brand{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:700;
+    font-size:20px;
+    letter-spacing:0.02em;
+  }
+  .topbar nav{display:flex; gap:4px; flex-wrap:wrap;}
+  .topbar nav a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--ink-soft);
+    padding:7px 12px;
+    border-radius:999px;
+    transition:background 0.15s, color 0.15s;
+  }
+  .topbar nav a:hover{ background:var(--zinc); color:#fff; }
+
+  /* ---- Hero ---- */
+  .hero{
+    padding:76px 32px 56px;
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:40px;
+    align-items:end;
+  }
+  .hero .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--madera);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:900;
+    font-size:clamp(52px, 8vw, 104px);
+    line-height:0.88;
+    letter-spacing:-0.01em;
+    margin:0 0 18px;
+    text-wrap:balance;
+  }
+  .hero p.lede{
+    max-width:52ch;
+    font-size:16.5px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .hero .meta-box{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    border-left:2px solid var(--zinc);
+    padding-left:16px;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .hero .meta-box b{color:var(--ink); font-weight:600;}
+
+  /* ---- Data strip ---- */
+  .stripwrap{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper-2);}
+  .strip{
+    max-width:1180px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(4,1fr);
+    padding:22px 32px;
+  }
+  .strip .stat{padding:0 20px; border-left:1px solid var(--line);}
+  .strip .stat:first-child{border-left:none; padding-left:0;}
+  .strip .stat .n{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:700;
+    font-size:34px;
+    font-variant-numeric:tabular-nums;
+    line-height:1;
+  }
+  .strip .stat .l{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+
+  main{max-width:1180px; margin:0 auto; padding:0 32px;}
+
+  section{padding:64px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:34px;}
+  .sec-head .num{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:700; font-size:22px; color:var(--zinc);
+  }
+  .sec-head h2{
+    font-family:'Big Shoulders Display', sans-serif;
+    font-weight:700; font-size:32px; margin:0;
+    letter-spacing:-0.01em;
+  }
+  .sec-head .sub{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--ink-soft);
+    margin-left:auto; text-align:right;
+  }
+
+  /* ---- Gallery (renders) ---- */
+  .gallery{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    grid-template-rows:auto auto;
+    gap:12px;
+  }
+  .gallery a{display:block; position:relative; overflow:hidden; border-radius:4px; background:#000;}
+  .gallery img{width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease;}
+  .gallery a:hover img{transform:scale(1.035);}
+  .gallery .g-main{grid-row:1 / 3;}
+  .gallery figcaption{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:10px 14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:#fff;
+    background:linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
+    letter-spacing:0.02em;
+  }
+  .gallery figure{margin:0; height:100%;}
+  .gallery .g-main img{aspect-ratio:auto;}
+  .gallery .g-side img{aspect-ratio:16/10.5;}
+
+  /* ---- Partido section ---- */
+  .partido-block{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;}
+  .partido-grid{
+    aspect-ratio:1;
+    display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
+    gap:3px;
+    background:var(--ink);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .partido-grid div{background:var(--card);}
+  .partido-grid div.lleno{background:var(--zinc);}
+  .partido-grid div.acceso{background:var(--madera-soft);}
+  .partido-grid div.patio{background:var(--paper); position:relative;}
+  .partido-grid div.patio::after{
+    content:"";
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:34%; height:34%; border-radius:50%;
+    background:var(--madera); opacity:0.35;
+  }
+  .partido-text p{color:var(--ink-soft); margin:0 0 14px;}
+  .partido-text ul{margin:0 0 20px; padding-left:18px; color:var(--ink-soft);}
+  .partido-text li{margin-bottom:6px;}
+
+  /* ---- Referentes ---- */
+  .ref-list{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:26px;}
+  .ref-list .ref{
+    background:var(--card); border:1px solid var(--line); border-radius:4px;
+    padding:14px 12px; text-align:center;
+  }
+  .ref-list .ref .rn{font-family:'Big Shoulders Display'; font-weight:700; font-size:20px; color:var(--zinc);}
+  .ref-list .ref .rt{font-size:12.5px; margin-top:4px; color:var(--ink-soft);}
+
+  /* ---- File cards ---- */
+  .files{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  .files.single{grid-template-columns:1fr;}
+  .filecard{
+    background:var(--card); border:1px solid var(--line); border-radius:6px;
+    padding:18px 20px;
+    display:flex; align-items:center; gap:16px;
+    box-shadow:var(--shadow);
+  }
+  .filecard .ficon{
+    width:40px; height:40px; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:6px; background:var(--zinc); color:#fff;
+    font-family:'IBM Plex Mono'; font-weight:600; font-size:10px;
+  }
+  .filecard.pdf .ficon{background:var(--madera);}
+  .filecard .fbody{flex:1; min-width:0;}
+  .filecard .ftitle{font-weight:600; font-size:14.5px; margin-bottom:2px;}
+  .filecard .fsub{font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-soft);}
+  .filecard .flinks{display:flex; gap:8px; flex:none;}
+  .filecard .flinks a{
+    font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase;
+    text-decoration:none; padding:6px 11px; border-radius:999px;
+    border:1px solid var(--ink); letter-spacing:0.03em;
+    transition:background 0.15s,color 0.15s;
+  }
+  .filecard .flinks a:hover{background:var(--ink); color:#fff;}
+  .filecard .flinks a.primary{background:var(--ink); color:#fff;}
+  .filecard .flinks a.primary:hover{background:var(--madera); border-color:var(--madera);}
+
+  /* ---- Materialidad swatches ---- */
+  .materiales{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .mat{border-radius:6px; overflow:hidden; border:1px solid var(--line);}
+  .mat .swatch{height:90px;}
+  .mat.tierra .swatch{background:linear-gradient(135deg,#9c6b3f,#7a4f2b);}
+  .mat.madera .swatch{background:linear-gradient(135deg,#c99a5f,#a8672f);}
+  .mat.zinc .swatch{background:linear-gradient(135deg,#8b969a,#5c7079);}
+  .mat .matbody{padding:14px 16px; background:var(--card);}
+  .mat .matname{font-family:'Big Shoulders Display'; font-weight:700; font-size:18px;}
+  .mat .matcode{font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-soft); margin-top:3px;}
+  .mat .matnote{font-size:13px; color:var(--ink-soft); margin-top:8px;}
+
+  /* ---- Proveedores table ---- */
+  table.prov{width:100%; border-collapse:collapse; font-size:13px;}
+  table.prov th{
+    text-align:left; font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.03em; color:var(--ink-soft); padding:8px 10px; border-bottom:1px solid var(--ink);
+  }
+  table.prov td{padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
+  table.prov tr:hover td{background:var(--card);}
+
+  /* ---- Revit box ---- */
+  .revitbox{
+    background:var(--ink); color:#f2f4f2; border-radius:6px; padding:22px 26px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .revitbox .rline{font-family:'IBM Plex Mono'; font-size:12.5px; word-break:break-all;}
+  .revitbox .rlabel{font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--zinc-soft); margin-bottom:2px;}
+
+  footer{
+    padding:36px 32px 60px; max-width:1180px; margin:0 auto;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;}
+    .strip{grid-template-columns:repeat(2,1fr); gap:16px 0;}
+    .strip .stat{border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:14px;}
+    .gallery{grid-template-columns:1fr; grid-template-rows:auto;}
+    .gallery .g-main{grid-row:auto;}
+    .partido-block{grid-template-columns:1fr;}
+    .ref-list{grid-template-columns:repeat(2,1fr);}
+    .files{grid-template-columns:1fr;}
+    .materiales{grid-template-columns:1fr;}
+    table.prov{display:block; overflow-x:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">PAUSA MAULE</div>
+  <nav>
+    <a href="#partido">01 Partido</a>
+    <a href="#referentes">02 Referentes</a>
+    <a href="#imagenes">03 Imágenes</a>
+    <a href="#materialidad">04 Materialidad</a>
+    <a href="#documentos">05 Documentos</a>
+    <a href="#proveedores">06 Proveedores</a>
+    <a href="#revit">07 Modelo</a>
+  </nav>
+</div>
+
+<div class="hero">
+  <div>
+    <div class="eyebrow">Workshop BIM + IA · Método TBC · Entregable Hito 01</div>
+    <h1>Habitáculo<br>para ciclistas</h1>
+    <p class="lede">Pausa Maule es un punto de descanso para ciclistas de ruta en el corredor vitivinícola de Talca, Región del Maule. Un vacío central bajo una retícula de nueve cuadrantes ordena masa, umbral y paisaje.</p>
+  </div>
+  <div class="meta-box">
+    <div><b>Proyecto</b> — Habitáculo Pausa Maule</div>
+    <div><b>Ubicación</b> — Talca, Región del Maule, Chile</div>
+    <div><b>Programa</b> — 9 recintos, 79.44 m² totales</div>
+    <div><b>Modelo</b> — HAB_ARQ_MODELO_R01.rvt</div>
+  </div>
+</div>
+
+<div class="stripwrap">
+  <div class="strip">
+    <div class="stat"><div class="n mono">3×3</div><div class="l">Retícula nine-square</div></div>
+    <div class="stat"><div class="n mono">9</div><div class="l">Recintos modelados</div></div>
+    <div class="stat"><div class="n mono">79.44</div><div class="l">m² área total</div></div>
+    <div class="stat"><div class="n mono">12</div><div class="l">Proveedores verificados</div></div>
+  </div>
+</div>
+
+<main>
+
+  <section id="partido">
+    <div class="sec-head">
+      <span class="num mono">01</span>
+      <h2>El partido</h2>
+      <span class="sub">04_Laminas/Partido_Pausa_Maule.pdf</span>
+    </div>
+    <div class="partido-block">
+      <div class="partido-grid">
+        <div class="acceso"></div><div class="lleno"></div><div></div>
+        <div class="lleno"></div><div class="patio"></div><div class="lleno"></div>
+        <div></div><div class="lleno"></div><div></div>
+      </div>
+      <div class="partido-text">
+        <p>El partido organiza el programa sobre una retícula de nueve cuadrantes: cuatro llenos estructurales (madera + quincha) sostienen un vacío central, el patio, donde crece un árbol a través de la cubierta.</p>
+        <ul>
+          <li><b>Acceso principal</b> resuelto en el cuadrante superior izquierdo, sin cruzar muros cortina.</li>
+          <li>Los <b>muros cortina</b> perimetrales quedaron libres de accesos tras la corrección del partido: los recorridos pasan entre los llenos, no a través de los paños vidriados.</li>
+          <li>El <b>patio central</b> es el umbral entre paisaje y recinto — ahí ocurre la pausa.</li>
+        </ul>
+        <div class="filecard pdf" style="margin-top:6px;">
+          <div class="ficon">PDF</div>
+          <div class="fbody">
+            <div class="ftitle">Lámina del Partido</div>
+            <div class="fsub">04_Laminas · llenos, vacíos, accesos y volumen principal</div>
+          </div>
+          <div class="flinks"><a class="primary" href="04_Laminas/Partido_Pausa_Maule.pdf">Abrir</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="referentes">
+    <div class="sec-head">
+      <span class="num mono">02</span>
+      <h2>Referentes</h2>
+      <span class="sub">01_Referentes/Referentes_Aires_Mateus_Habitaculo_3x3.pdf</span>
+    </div>
+    <div class="ref-list">
+      <div class="ref"><div class="rn mono">01</div><div class="rt">Masa</div></div>
+      <div class="ref"><div class="rn mono">02</div><div class="rt">Vacío</div></div>
+      <div class="ref"><div class="rn mono">03</div><div class="rt">Umbral</div></div>
+      <div class="ref"><div class="rn mono">04</div><div class="rt">Paisaje</div></div>
+      <div class="ref"><div class="rn mono">05</div><div class="rt">Recorrido</div></div>
+    </div>
+    <div class="filecard pdf">
+      <div class="ficon">PDF</div>
+      <div class="fbody">
+        <div class="ftitle">Referentes Aires Mateus — contraste nine-square</div>
+        <div class="fsub">01_Referentes · 5 precedentes contrastados contra el partido de Pausa Maule</div>
+      </div>
+      <div class="flinks"><a class="primary" href="01_Referentes/Referentes_Aires_Mateus_Habitaculo_3x3.pdf">Abrir</a></div>
+    </div>
+  </section>
+
+  <section id="imagenes">
+    <div class="sec-head">
+      <span class="num mono">03</span>
+      <h2>Imágenes del proyecto</h2>
+      <span class="sub">06_Imagenes · renders</span>
+    </div>
+    <div class="gallery">
+      <a class="g-main" href="06_Imagenes/01_Vista_Aerea_Patio.png" target="_blank">
+        <figure><img src="06_Imagenes/01_Vista_Aerea_Patio.png" alt="Vista aérea del patio central"><figcaption>Vista aérea — el patio y el árbol atravesando la cubierta</figcaption></figure>
+      </a>
+      <div class="g-side">
+        <a href="06_Imagenes/02_Interior_Bebederos.png" target="_blank">
+          <figure><img src="06_Imagenes/02_Interior_Bebederos.png" alt="Interior, zona de bebederos"><figcaption>Interior — bebederos y descanso</figcaption></figure>
+        </a>
+      </div>
+      <div class="g-side">
+        <a href="06_Imagenes/03_Interior_Acceso.png" target="_blank">
+          <figure><img src="06_Imagenes/03_Interior_Acceso.png" alt="Interior hacia el paisaje"><figcaption>Interior — umbral hacia el viñedo</figcaption></figure>
+        </a>
+      </div>
+    </div>
+    <div class="gallery" style="margin-top:12px; grid-template-columns:1fr;">
+      <a href="06_Imagenes/04_Exterior_Vinedo.png" target="_blank">
+        <figure style="aspect-ratio:21/8;"><img src="06_Imagenes/04_Exterior_Vinedo.png" alt="Exterior entre viñedos" style="aspect-ratio:21/8;"><figcaption>Exterior — el habitáculo entre viñedos y cordillera</figcaption></figure>
+      </a>
+    </div>
+  </section>
+
+  <section id="materialidad">
+    <div class="sec-head">
+      <span class="num mono">04</span>
+      <h2>Materialidad</h2>
+      <span class="sub">verificada contra fichas de fabricante</span>
+    </div>
+    <div class="materiales">
+      <div class="mat tierra">
+        <div class="swatch"></div>
+        <div class="matbody">
+          <div class="matname">Quincha</div>
+          <div class="matcode mono">MURO_EXT_QUINCHA_12cm</div>
+          <div class="matnote">Sistema quincha liviana húmeda — Corporación Protierra Chile, red MINVU/DITEC.</div>
+        </div>
+      </div>
+      <div class="mat madera">
+        <div class="swatch"></div>
+        <div class="matbody">
+          <div class="matname">Pino Radiata</div>
+          <div class="matcode mono">MT_PINO RADIATA · MLE 20c</div>
+          <div class="matnote">Pilares glulam Hilam MLE, armazón dimensionado y paneles Arauco Machihembrado.</div>
+        </div>
+      </div>
+      <div class="mat zinc">
+        <div class="swatch"></div>
+        <div class="matbody">
+          <div class="matname">Zincalum</div>
+          <div class="matcode mono">MT_PLANCHA ONDULADA ZINCALUM</div>
+          <div class="matnote">Plancha ondulada sobre estructura de madera — Cubiertas Nacionales CN-1020.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="documentos">
+    <div class="sec-head">
+      <span class="num mono">05</span>
+      <h2>Documentos técnicos</h2>
+      <span class="sub">03_Documentos_Tecnicos</span>
+    </div>
+    <div class="files">
+      <div class="filecard pdf">
+        <div class="ficon">PDF</div>
+        <div class="fbody"><div class="ftitle">Especificación Técnica</div><div class="fsub">Materiales, fichas de fabricante, categorías cerradas</div></div>
+        <div class="flinks">
+          <a href="03_Documentos_Tecnicos/Especificacion_Tecnica_Pausa_Maule.docx">Docx</a>
+          <a class="primary" href="03_Documentos_Tecnicos/Especificacion_Tecnica_Pausa_Maule.pdf">Abrir</a>
+        </div>
+      </div>
+      <div class="filecard pdf">
+        <div class="ficon">PDF</div>
+        <div class="fbody"><div class="ftitle">PEB Preliminar</div><div class="fsub">Plan de Ejecución BIM — etapa preliminar</div></div>
+        <div class="flinks">
+          <a href="03_Documentos_Tecnicos/PEB_Preliminar_Pausa_Maule.docx">Docx</a>
+          <a class="primary" href="03_Documentos_Tecnicos/PEB_Preliminar_Pausa_Maule.pdf">Abrir</a>
+        </div>
+      </div>
+      <div class="filecard pdf">
+        <div class="ficon">XLS</div>
+        <div class="fbody"><div class="ftitle">PEB Completado</div><div class="fsub">9 recintos, nombre/número/nivel/área/perímetro</div></div>
+        <div class="flinks">
+          <a href="03_Documentos_Tecnicos/PEB_Pausa_Maule_completado.xlsx">Xlsx</a>
+          <a class="primary" href="03_Documentos_Tecnicos/PEB_Pausa_Maule_completado.pdf">Abrir</a>
+        </div>
+      </div>
+      <div class="filecard pdf">
+        <div class="ficon">PDF</div>
+        <div class="fbody"><div class="ftitle">Tabla NDI</div><div class="fsub">Niveles de Desarrollo de la Información</div></div>
+        <div class="flinks"><a class="primary" href="03_Documentos_Tecnicos/Tabla_NDI_Pausa_Maule_v6.pdf">Abrir</a></div>
+      </div>
+      <div class="filecard pdf" style="grid-column:1 / -1;">
+        <div class="ficon">PDF</div>
+        <div class="fbody"><div class="ftitle">Parámetros Compartidos</div><div class="fsub">Grupo NDI2 — parámetros compartidos del proyecto</div></div>
+        <div class="flinks"><a class="primary" href="03_Documentos_Tecnicos/Parametros_Compartidos_Pausa_Maule_NDI2.pdf">Abrir</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proveedores">
+    <div class="sec-head">
+      <span class="num mono">06</span>
+      <h2>Proveedores</h2>
+      <span class="sub">02_Proveedores/Fichas_Proveedores_Pausa_Maule.xlsx</span>
+    </div>
+    <div class="filecard pdf" style="margin-bottom:24px;">
+      <div class="ficon">XLS</div>
+      <div class="fbody"><div class="ftitle">Fichas de Proveedores</div><div class="fsub">12 proveedores verificados · contacto, sitio web, ficha técnica</div></div>
+      <div class="flinks"><a class="primary" href="02_Proveedores/Fichas_Proveedores_Pausa_Maule.xlsx">Abrir</a></div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="prov">
+        <tr><th>Elemento</th><th>Empresa</th><th>Producto</th><th>Sitio web</th></tr>
+        <tr><td>Muro / Quincha</td><td>Corporación Protierra Chile</td><td>Sistema Quincha Liviana Húmeda</td><td class="mono">redproterra.org</td></tr>
+        <tr><td>Cubierta</td><td>Cubiertas Nacionales</td><td>Panel Ondulado CN-1020</td><td class="mono">cubiertasnacionales.cl</td></tr>
+        <tr><td>Radier</td><td>Melón</td><td>Hormigón con Fibra</td><td class="mono">melon.cl</td></tr>
+        <tr><td>Radier pulido</td><td>Sika Chile</td><td>Sikafloor-3 QuartzTop</td><td class="mono">chl.sika.com</td></tr>
+        <tr><td>Pilar estructural</td><td>Arauco — Hilam</td><td>Madera Laminada Encolada MLE 20c</td><td class="mono">arauco.com/hilam</td></tr>
+        <tr><td>Armazón</td><td>Arauco — MSD</td><td>Construcción Premium MSD</td><td class="mono">arauco.com</td></tr>
+        <tr><td>Muro cortina — montante</td><td>Arauco — MSD</td><td>Pino Radiata Cepillado</td><td class="mono">arauco.com</td></tr>
+        <tr><td>Muro cortina — panel</td><td>Arauco</td><td>MSD Revestimiento Machihembrado</td><td class="mono">arauco.com/chile</td></tr>
+        <tr><td>Puerta</td><td>Moldupanel (Puertas Chile)</td><td>Puerta Pino Radiata Italia 100×200</td><td class="mono">puertaschile.cl</td></tr>
+        <tr><td>Herrajes</td><td>Häfele (vía El Carpintero)</td><td>Bisagras y cerraduras</td><td class="mono">elcarpintero.cl</td></tr>
+        <tr><td>Sanitarios</td><td>Fanaloza</td><td>New Valencia a Muro / Lavamanos Ciro</td><td class="mono">fanaloza.cl</td></tr>
+        <tr><td>Abastecimiento local</td><td>Sodimac / Construmart Talca</td><td>Distribución general</td><td class="mono">sodimac.cl</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="revit">
+    <div class="sec-head">
+      <span class="num mono">07</span>
+      <h2>Modelo Revit</h2>
+      <span class="sub">no incluido — peso de archivo</span>
+    </div>
+    <div class="revitbox">
+      <div>
+        <div class="rlabel">Modelo</div>
+        <div class="rline">HAB_ARQ_MODELO_R01.rvt</div>
+      </div>
+      <div>
+        <div class="rlabel">Plantilla</div>
+        <div class="rline">PLANTILLA GENERAL DEL TALLER BIM-CONTENT.rte</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>Pausa Maule — Habitáculo ciclista · Workshop BIM + IA · Método TBC</span>
+  <span>Entregable Hito 01 · 09-09-2026</span>
+</footer>
+
+</body>
+</html>
