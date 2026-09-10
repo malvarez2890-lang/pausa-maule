@@ -216,6 +216,17 @@
     letter-spacing:0.02em;
   }
 
+  /* ---- Videos ---- */
+  .video-layout{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .video-card{border-radius:4px; overflow:hidden; border:1px solid var(--line); background:#000;}
+  .video-card video{width:100%; display:block; aspect-ratio:16/9; background:#000;}
+  .video-caption{
+    padding:8px 14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:var(--ink-soft);
+    background:var(--card); letter-spacing:0.02em;
+  }
+
   /* ---- Partido section ---- */
   .partido-block{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;}
   .partido-grid{
@@ -378,6 +389,7 @@
     .gallery{grid-template-columns:1fr; grid-template-rows:auto;}
     .gallery.gallery-2col{grid-template-columns:1fr;}
     .iso-layout{grid-template-columns:1fr;}
+    .video-layout{grid-template-columns:1fr;}
     .gallery .g-main{grid-row:auto;}
     .partido-block{grid-template-columns:1fr;}
     .ref-list{grid-template-columns:repeat(2,1fr);}
@@ -524,6 +536,21 @@
       <a class="iso-large" href="06_Imagenes/06_Isometrica_Explotada.png" target="_blank">
         <figure style="aspect-ratio:1381/1710;"><img src="06_Imagenes/06_Isometrica_Explotada.png" alt="Isométrica explotada" style="aspect-ratio:1381/1710; object-fit:contain; background:var(--card);"><figcaption>Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario</figcaption></figure>
       </a>
+    </div>
+    <div class="gallery-divider">Videos</div>
+    <div class="video-layout">
+      <div class="video-card">
+        <video controls preload="metadata">
+          <source src="06_Imagenes/videos/01_Video_Interior.mp4" type="video/mp4">
+        </video>
+        <div class="video-caption">Interior — bebederos y descanso</div>
+      </div>
+      <div class="video-card">
+        <video controls preload="metadata">
+          <source src="06_Imagenes/videos/02_Video_Exterior.mp4" type="video/mp4">
+        </video>
+        <div class="video-caption">Exterior — el habitáculo entre viñedos</div>
+      </div>
     </div>
   </section>
 
@@ -676,7 +703,7 @@
       <div class="dl-band-title">Descargar documentos e imágenes</div>
       <div class="dl-band-sub">Referentes, proveedores, documentos técnicos, láminas e imágenes — no incluye el modelo Revit (ver punto 08)</div>
     </div>
-    <a class="dl-all" href="Pausa_Maule_Completo.rar" target="_blank">↓ Descargar todo (.rar, 20 MB)</a>
+    <a class="dl-all" href="Pausa_Maule_Completo.rar" target="_blank">↓ Descargar todo (.rar, 85 MB)</a>
   </div>
 
   <section id="revit">
