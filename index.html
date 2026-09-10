@@ -320,12 +320,11 @@
     text-decoration:none; color:inherit; transition:box-shadow 0.15s, transform 0.15s;
   }
   .mat:hover{box-shadow:0 4px 14px rgba(20,27,31,0.12); transform:translateY(-2px);}
-  .mat .swatch{height:90px; flex:none; transition:transform 0.4s ease;}
+  .mat .swatch{
+    height:90px; flex:none; transition:transform 0.4s ease;
+    background-size:cover; background-position:center; background-color:var(--zinc-soft);
+  }
   .mat:hover .swatch{transform:scale(1.04);}
-  .mat.tierra .swatch{background:linear-gradient(135deg,#9c6b3f,#7a4f2b);}
-  .mat.madera .swatch{background:linear-gradient(135deg,#c99a5f,#a8672f);}
-  .mat.zinc .swatch{background:linear-gradient(135deg,#8b969a,#5c7079);}
-  .mat.hormigon .swatch{background:linear-gradient(135deg,#b7b9b6,#8d8f8c);}
   .mat .matbody{padding:14px 16px; background:var(--card); flex:1; display:flex; flex-direction:column;}
   .mat .matname{font-family:'Big Shoulders Display'; font-weight:700; font-size:18px;}
   .mat .matcode{font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-soft); margin-top:3px;}
@@ -551,40 +550,40 @@
       <span class="sub">verificada contra fichas de fabricante</span>
     </div>
     <div class="materiales">
-      <a class="mat tierra" href="https://redproterra.org" target="_blank" rel="noopener">
-        <div class="swatch"></div>
+      <a class="mat tierra" href="06_Imagenes/materiales/ejemplo/quincha.jpg" target="_blank">
+        <div class="swatch" style="background-image:url('06_Imagenes/materiales/texturas/quincha.jpg')"></div>
         <div class="matbody">
           <div class="matname">Quincha</div>
           <div class="matcode mono">MURO_EXT_QUINCHA_12cm</div>
           <div class="matnote">Sistema quincha liviana húmeda — Corporación Protierra Chile, red MINVU/DITEC.</div>
-          <div class="matlink">Ver ficha del proveedor ↗</div>
+          <div class="matlink">Ver elemento construido ↗</div>
         </div>
       </a>
-      <a class="mat madera" href="https://arauco.com/hilam" target="_blank" rel="noopener">
-        <div class="swatch"></div>
+      <a class="mat madera" href="06_Imagenes/materiales/ejemplo/pino_radiata.jpg" target="_blank">
+        <div class="swatch" style="background-image:url('06_Imagenes/materiales/texturas/pino_radiata.jpg')"></div>
         <div class="matbody">
           <div class="matname">Pino Radiata</div>
           <div class="matcode mono">MT_PINO RADIATA · MLE 20c</div>
           <div class="matnote">Pilares glulam Hilam MLE, armazón dimensionado y paneles Arauco Machihembrado.</div>
-          <div class="matlink">Ver ficha del proveedor ↗</div>
+          <div class="matlink">Ver elemento construido ↗</div>
         </div>
       </a>
-      <a class="mat zinc" href="https://www.cubiertasnacionales.cl" target="_blank" rel="noopener">
-        <div class="swatch"></div>
+      <a class="mat zinc" href="06_Imagenes/materiales/ejemplo/zincalum.jpg" target="_blank">
+        <div class="swatch" style="background-image:url('06_Imagenes/materiales/texturas/zincalum.jpg')"></div>
         <div class="matbody">
           <div class="matname">Zincalum</div>
           <div class="matcode mono">MT_PLANCHA ONDULADA ZINCALUM</div>
           <div class="matnote">Plancha ondulada sobre estructura de madera — Cubiertas Nacionales CN-1020.</div>
-          <div class="matlink">Ver ficha del proveedor ↗</div>
+          <div class="matlink">Ver elemento construido ↗</div>
         </div>
       </a>
-      <a class="mat hormigon" href="https://chl.sika.com" target="_blank" rel="noopener">
-        <div class="swatch"></div>
+      <a class="mat hormigon" href="06_Imagenes/materiales/ejemplo/hormigon.jpg" target="_blank">
+        <div class="swatch" style="background-image:url('06_Imagenes/materiales/texturas/hormigon.jpg')"></div>
         <div class="matbody">
           <div class="matname">Hormigón</div>
           <div class="matcode mono">RADIER_PULIDO_INT_HA_2cm</div>
           <div class="matnote">Radier con fibra Melón + endurecedor superficial Sikafloor-3 QuartzTop.</div>
-          <div class="matlink">Ver ficha del proveedor ↗</div>
+          <div class="matlink">Ver elemento construido ↗</div>
         </div>
       </a>
     </div>
