@@ -314,16 +314,26 @@
   .lam-viewer a:hover .lam-img{transform:scale(1.01);}
 
   /* ---- Materialidad swatches ---- */
-  .materiales{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
-  .mat{border-radius:6px; overflow:hidden; border:1px solid var(--line);}
-  .mat .swatch{height:90px;}
+  .materiales{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  .mat{
+    display:block; border-radius:6px; overflow:hidden; border:1px solid var(--line);
+    text-decoration:none; color:inherit; transition:box-shadow 0.15s, transform 0.15s;
+  }
+  .mat:hover{box-shadow:0 4px 14px rgba(20,27,31,0.12); transform:translateY(-2px);}
+  .mat .swatch{height:90px; transition:transform 0.4s ease;}
+  .mat:hover .swatch{transform:scale(1.04);}
   .mat.tierra .swatch{background:linear-gradient(135deg,#9c6b3f,#7a4f2b);}
   .mat.madera .swatch{background:linear-gradient(135deg,#c99a5f,#a8672f);}
   .mat.zinc .swatch{background:linear-gradient(135deg,#8b969a,#5c7079);}
+  .mat.hormigon .swatch{background:linear-gradient(135deg,#b7b9b6,#8d8f8c);}
   .mat .matbody{padding:14px 16px; background:var(--card);}
   .mat .matname{font-family:'Big Shoulders Display'; font-weight:700; font-size:18px;}
   .mat .matcode{font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-soft); margin-top:3px;}
   .mat .matnote{font-size:13px; color:var(--ink-soft); margin-top:8px;}
+  .mat .matlink{
+    font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:0.03em;
+    color:var(--madera); margin-top:10px; padding-top:10px; border-top:1px solid var(--line);
+  }
 
   /* ---- Proveedores table ---- */
   table.prov{width:100%; border-collapse:collapse; font-size:13px;}
@@ -373,7 +383,7 @@
     .partido-block{grid-template-columns:1fr;}
     .ref-list{grid-template-columns:repeat(2,1fr);}
     .files{grid-template-columns:1fr;}
-    .materiales{grid-template-columns:1fr;}
+    .materiales{grid-template-columns:repeat(2,1fr);}
     table.prov{display:block; overflow-x:auto;}
     .bim-stats{grid-template-columns:repeat(3,1fr);}
     .bstat:nth-child(4){border-left:none;}
@@ -541,30 +551,42 @@
       <span class="sub">verificada contra fichas de fabricante</span>
     </div>
     <div class="materiales">
-      <div class="mat tierra">
+      <a class="mat tierra" href="https://redproterra.org" target="_blank" rel="noopener">
         <div class="swatch"></div>
         <div class="matbody">
           <div class="matname">Quincha</div>
           <div class="matcode mono">MURO_EXT_QUINCHA_12cm</div>
           <div class="matnote">Sistema quincha liviana húmeda — Corporación Protierra Chile, red MINVU/DITEC.</div>
+          <div class="matlink">Ver ficha del proveedor ↗</div>
         </div>
-      </div>
-      <div class="mat madera">
+      </a>
+      <a class="mat madera" href="https://arauco.com/hilam" target="_blank" rel="noopener">
         <div class="swatch"></div>
         <div class="matbody">
           <div class="matname">Pino Radiata</div>
           <div class="matcode mono">MT_PINO RADIATA · MLE 20c</div>
           <div class="matnote">Pilares glulam Hilam MLE, armazón dimensionado y paneles Arauco Machihembrado.</div>
+          <div class="matlink">Ver ficha del proveedor ↗</div>
         </div>
-      </div>
-      <div class="mat zinc">
+      </a>
+      <a class="mat zinc" href="https://www.cubiertasnacionales.cl" target="_blank" rel="noopener">
         <div class="swatch"></div>
         <div class="matbody">
           <div class="matname">Zincalum</div>
           <div class="matcode mono">MT_PLANCHA ONDULADA ZINCALUM</div>
           <div class="matnote">Plancha ondulada sobre estructura de madera — Cubiertas Nacionales CN-1020.</div>
+          <div class="matlink">Ver ficha del proveedor ↗</div>
         </div>
-      </div>
+      </a>
+      <a class="mat hormigon" href="https://chl.sika.com" target="_blank" rel="noopener">
+        <div class="swatch"></div>
+        <div class="matbody">
+          <div class="matname">Hormigón</div>
+          <div class="matcode mono">RADIER_PULIDO_INT_HA_2cm</div>
+          <div class="matnote">Radier con fibra Melón + endurecedor superficial Sikafloor-3 QuartzTop.</div>
+          <div class="matlink">Ver ficha del proveedor ↗</div>
+        </div>
+      </a>
     </div>
   </section>
 
