@@ -21,7 +21,7 @@ ESTRUCTURA DE CARPETAS
   Especificacion_Tecnica_Pausa_Maule.docx / .pdf
   PEB_Preliminar_Pausa_Maule.docx / .pdf
   PEB_Pausa_Maule_completado.xlsx / .pdf
-  Tabla_NDI_Pausa_Maule_v6.pdf
+  Tabla_NDI_Pausa_Maule_v7.pdf
   Parametros_Compartidos_Pausa_Maule_NDI2.pdf
 
 04_Laminas/
