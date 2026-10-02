@@ -203,8 +203,8 @@
   .iso-stack{display:flex; flex-direction:column; gap:12px;}
   .iso-stack a, .iso-large{display:block; position:relative; overflow:hidden; border-radius:4px; background:#fff;}
   .iso-stack figure, .iso-large figure{margin:0; height:100%;}
-  .iso-large{height:100%;}
-  .iso-large figure{display:flex; align-items:center;}
+  .iso-large{height:auto; display:flex; align-self:stretch;}
+  .iso-large figure{display:flex; align-items:center; flex:1; height:auto;}
   .iso-layout img{width:100%; height:100%; object-fit:contain; display:block; transition:transform 0.4s ease;}
   .iso-layout a:hover img{transform:scale(1.035);}
   .iso-layout figcaption{
@@ -534,7 +534,7 @@
         </a>
       </div>
       <a class="iso-large" href="06_Imagenes/06_Isometrica_Explotada.png" target="_blank">
-        <figure style="aspect-ratio:3884/4419;"><img src="06_Imagenes/06_Isometrica_Explotada.png" alt="Isométrica explotada" style="aspect-ratio:3884/4419; object-fit:contain; background:#fff;"><figcaption>Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario</figcaption></figure>
+        <figure><img src="06_Imagenes/06_Isometrica_Explotada.png" alt="Isométrica explotada" style="object-fit:contain; background:#fff;"><figcaption>Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario</figcaption></figure>
       </a>
     </div>
     <div class="gallery-divider">Videos</div>
