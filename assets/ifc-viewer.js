@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import * as WebIFC from "https://cdn.jsdelivr.net/npm/web-ifc@0.0.66/web-ifc-api.js";
+import * as WebIFC from "./vendor/web-ifc-api.js";
 
 export async function startViewer(host, url, onStatus) {
   const W = () => host.clientWidth, H = () => host.clientHeight;
@@ -22,7 +22,7 @@ export async function startViewer(host, url, onStatus) {
 
   onStatus("Iniciando motor IFC…");
   const api = new WebIFC.IfcAPI();
-  api.SetWasmPath("https://cdn.jsdelivr.net/npm/web-ifc@0.0.66/", true);
+  api.SetWasmPath(new URL("./vendor/", import.meta.url).href, true);
   await api.Init();
 
   onStatus("Descargando modelo…");

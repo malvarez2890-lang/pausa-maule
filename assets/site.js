@@ -243,6 +243,7 @@
         console.error(err);
         st.style.display = "block";
         st.textContent = PM_t("No se pudo cargar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.");
+        var d = document.createElement("small"); d.style.cssText = "display:block;margin-top:10px;font-size:13px;opacity:.7"; d.textContent = String(err && err.message ? err.message : err); st.appendChild(d);
       });
     });
   }
