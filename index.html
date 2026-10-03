@@ -341,7 +341,7 @@ table.qty td:nth-child(4),table.qty th:nth-child(4){white-space:nowrap}
 <section class="sec" id="revit" style="margin-top:0"><header><span><i>08</i>Modelo Revit</span><span>HAB_ARQ_MODELO_R01.RVT</span></header>
 <div class="stats six"><div><b>7 276</b><span>Elementos totales</span></div><div><b>939</b><span>Tipos</span></div><div><b>56</b><span>Familias</span></div><div><b>71</b><span>Categorías</span></div><div><b>48</b><span>Vistas</span></div><div><b>3+2</b><span>Niveles principales + subniveles</span></div></div>
 <div class="sub-t">Visor 3D</div><div class="v3d" id="v3d"><div id="v3d-canvas"></div><div id="v3d-status"></div><button type="button" class="btn p" id="v3d-load">Cargar visor 3D</button><p>Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, rueda para acercar, clic derecho para desplazar.</p></div><div class="sub-t">Cantidades del modelo</div>
-<p class="qty-note">Cantidades obtenidas del modelo Revit (HAB_ARQ_MODELO_R01.rvt, 02-10-2026).</p>
+<p class="qty-note">Cantidades obtenidas del modelo Revit.</p>
 <div style="overflow-x:auto;margin-bottom:40px"><table class="qty">
 <tr><th>Categoría</th><th>Tipo</th><th>Cant.</th><th>Medida</th></tr>
 <tr><td>Muros</td><td>MURO_EXT_QUINCHA_12cm</td><td>11</td><td>55,69 m² · 6,68 m³</td></tr>
@@ -387,5 +387,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=3" defer></script>
+</script><script src="assets/site.js?v=4" defer></script>
 </body></html>
