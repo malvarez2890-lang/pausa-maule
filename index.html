@@ -236,8 +236,8 @@ table.qty td:nth-child(4),table.qty th:nth-child(4){white-space:nowrap}
 .logo b,.logo span{margin-left:0 !important;display:block}
 
 /* barra fija: mismo espacio entre "PM" y el menú que entre los títulos */
-#bar{padding-left:calc(clamp(16px,3vw,40px) + 58px + 26px)}
-@media(max-width:800px){#bar{padding-left:calc(16px + 46px + 18px)}}
+#bar{padding-left:calc(clamp(16px,3vw,40px) + 42px + 26px)}
+@media(max-width:800px){#bar{padding-left:calc(16px + 34px + 18px)}}
 
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
@@ -395,5 +395,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=7" defer></script>
+</script><script src="assets/site.js?v=8" defer></script>
 </body></html>
