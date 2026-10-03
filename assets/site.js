@@ -101,6 +101,10 @@
     "Volver arriba": "Back to top", "Cerrar": "Close", "Anterior": "Previous", "Siguiente": "Next",
     "Abrir original ↗": "Open original ↗",
     "Cargando…": "Loading…",
+    "Muros": "Walls", "Muros cortina": "Curtain walls", "Montantes de muro cortina": "Curtain wall mullions",
+    "Paneles de muro cortina": "Curtain wall panels", "Puertas": "Doors", "Pilares estructurales": "Structural columns",
+    "Armazón principal": "Main framing", "Armazón secundario": "Secondary framing", "Zapatas aisladas": "Isolated footings",
+    "Radier estructural": "Structural slab", "Recintos": "Rooms", "Empty (celosía)": "Empty (lattice)", "9 recintos": "9 rooms",
     "Iniciando motor IFC…": "Starting IFC engine…", "Descargando modelo…": "Downloading model…", "Leyendo geometría…": "Reading geometry…",
     "No se pudo cargar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.": "The 3D viewer could not be loaded. You can download the IFC and open it in your BIM software."
   };
