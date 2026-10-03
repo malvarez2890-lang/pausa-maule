@@ -96,7 +96,7 @@
     "Visor 3D": "3D viewer", "Cantidades del modelo": "Model quantities", "Archivos del modelo": "Model files",
     "Cargar visor 3D": "Load 3D viewer",
     "Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, rueda para acercar, clic derecho para desplazar.": "Downloads the IFC4x3 file (4.5 MB) and shows it in the browser. Drag to orbit, scroll to zoom, right-click to pan.",
-    "Cantidades obtenidas del modelo Revit.": "Quantities taken from the Revit model (HAB_ARQ_MODELO_R01.rvt, 02-10-2026).",
+    "Cantidades obtenidas del modelo Revit.": "Quantities taken from the Revit model.",
     "Categoría": "Category", "Tipo": "Type", "Cant.": "Qty", "Medida": "Measure",
     "Volver arriba": "Back to top", "Cerrar": "Close", "Anterior": "Previous", "Siguiente": "Next",
     "Abrir original ↗": "Open original ↗",
