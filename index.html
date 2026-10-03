@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pausa Maule — Entregable Hito 01-02</title><meta name="description" content="Pausa Maule — habitáculo para ciclistas en el corredor vitivinícola de Talca. Entregable Hito 01-02, Workshop BIM + IA."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<title>Pausa Maule — Entregable Hito 01-02</title><meta name="theme-color" content="#ffffff"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2064%2064'%3E%3Crect%20width%3D'64'%20height%3D'64'%20fill%3D'%23000'%2F%3E%3Ctext%20x%3D'32'%20y%3D'45'%20font-family%3D'Arial%20Narrow%2CArial%2Csans-serif'%20font-weight%3D'700'%20font-size%3D'38'%20text-anchor%3D'middle'%20fill%3D'%23fff'%20letter-spacing%3D'-2'%3EPM%3C%2Ftext%3E%3C%2Fsvg%3E"><meta property="og:type" content="website"><meta property="og:title" content="Pausa Maule — Habitáculo para ciclistas"><meta property="og:description" content="Punto de descanso para ciclistas en el corredor vitivinícola de Talca. Entregable Hito 01-02, Workshop BIM + IA: modelo Revit, IFC4x3, láminas y documentos."><meta property="og:image" content="https://malvarez2890-lang.github.io/pausa-maule/06_Imagenes/web/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:url" content="https://malvarez2890-lang.github.io/pausa-maule/"><meta property="og:locale" content="es_CL"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pausa Maule — Habitáculo para ciclistas"><meta name="twitter:image" content="https://malvarez2890-lang.github.io/pausa-maule/06_Imagenes/web/og.jpg"><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script><meta name="description" content="Pausa Maule — habitáculo para ciclistas en el corredor vitivinícola de Talca. Entregable Hito 01-02, Workshop BIM + IA."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#e8eeea;--ink:#20221e;--mute:#6b706a;--line:#20221e;--soft:#20221e22}
 *{box-sizing:border-box;margin:0}
@@ -182,16 +182,66 @@ td{font-size:17px}
 .dl p{font-size:18px}
 footer{font-size:16px}
 @media(max-width:800px){body{font-size:17px}.btn{font-size:18px}}
+/* ===== v2: idioma, barra fija, lightbox, visor 3D, cantidades ===== */
+.top{align-items:center}
+.top-r{display:flex;gap:26px;align-items:center}
+.lang{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:18px;letter-spacing:.06em;white-space:nowrap}
+.lang button{all:unset;cursor:pointer;padding:0 4px;opacity:.45}
+.lang button.on{opacity:1;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+.lang button:focus-visible{outline:2px solid #000;outline-offset:2px}
+
+#bar{position:fixed;top:0;left:0;right:0;z-index:40;background:#fff;border-bottom:3px solid #000;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:10px clamp(16px,3vw,40px) 8px 84px;transform:translateY(-110%);transition:transform .4s cubic-bezier(.2,.7,.1,1)}
+#bar.show{transform:none}
+#bar nav{border:0;padding:0;margin:0;display:flex;flex-wrap:nowrap;gap:6px 26px;font-size:21px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
+#bar nav::-webkit-scrollbar{display:none}
+#bar nav a{white-space:nowrap;padding-bottom:2px;border-bottom:3px solid transparent}
+#bar nav a.act{border-bottom-color:#000}
+#up{position:fixed;right:18px;bottom:18px;z-index:40;width:48px;height:48px;background:#000;color:#fff;border:0;font-size:24px;line-height:1;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s}
+#up.show{opacity:1;pointer-events:auto}
+
+#lb{position:fixed;inset:0;z-index:100;background:rgba(255,255,255,.98);display:none;align-items:center;justify-content:center}
+#lb.on{display:flex}
+#lb figure{margin:0;max-width:94vw;max-height:94vh;display:flex;flex-direction:column;align-items:center}
+#lb img{max-width:94vw;max-height:82vh;object-fit:contain;display:block;background:#fff}
+#lb figcaption{display:flex;gap:6px 24px;justify-content:space-between;width:100%;margin-top:12px;font-size:16px;color:#000;flex-wrap:wrap;position:static;text-shadow:none}
+#lb a{text-decoration:underline}
+#lb button{position:absolute;background:#000;color:#fff;border:0;cursor:pointer;font-size:24px;width:52px;height:52px;line-height:1}
+#lb .lbx{top:16px;right:16px}#lb .lbp{left:16px;top:50%;margin-top:-26px}#lb .lbq{right:16px;top:50%;margin-top:-26px}
+a[data-lb]{cursor:zoom-in}
+
+.v3d{position:relative;aspect-ratio:16/9;background:#f2f2f2;border:2px solid #000;margin-bottom:40px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px}
+.v3d.run{display:block;padding:0}
+.v3d.run p{display:none}
+#v3d-canvas{position:absolute;inset:0}
+#v3d-canvas canvas{width:100%;height:100%;display:block;cursor:grab}
+#v3d-status{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-size:19px;display:none;z-index:2;padding:0 20px}
+.v3d p{max-width:34em;font-size:16px;margin:14px 0 0}
+.qty-note{font-size:15px;margin:0 0 14px}
+table.qty td:nth-child(3),table.qty th:nth-child(3){text-align:right;white-space:nowrap}
+table.qty td:nth-child(4),table.qty th:nth-child(4){white-space:nowrap}
+@media(max-width:800px){
+  .v3d{aspect-ratio:4/5}
+  #bar{padding-left:62px;gap:10px}
+  #bar nav{font-size:19px;gap:6px 18px}
+  .top-r{gap:14px}
+  .meta b{display:block;margin-bottom:1px}
+  .logo b,.logo span{display:block;margin-left:0}
+  .top{font-size:14px}
+  .lang{font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){#bar{transition:none}}
+
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
+<div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
 <div class="wrap">
-<div class="top"><span>Talca / Región del Maule — Chile</span><span>Entregable Hito 01-02</span></div>
+<div class="top"><span>Talca / Región del Maule — Chile</span><span class="top-r"><span>Entregable Hito 01-02</span><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></span></div>
 <div class="logo"><b>PM</b><span>Pausa Maule</span></div>
 <nav>
 <a href="#partido"><small>01</small>Partido</a><a href="#referentes"><small>02</small>Referentes</a><a href="#imagenes"><small>03</small>Imágenes</a><a href="#laminas"><small>04</small>Láminas</a><a href="#materialidad"><small>05</small>Materialidad</a><a href="#documentos"><small>06</small>Documentos</a><a href="#proveedores"><small>07</small>Proveedores</a><a href="#revit"><small>08</small>Modelo</a>
 </nav>
 </div>
-<div class="hero"><img class="hbg" src="06_Imagenes/04_Exterior_Vinedo.png" alt="Exterior entre viñedos"><div class="cap"><span>Habitáculo para ciclistas · Workshop BIM + IA · Método TBC<br>Exterior — el habitáculo entre el valle y cordillera de la costa</span><a href="#imagenes">Ver imágenes ↗</a></div></div>
+<div class="hero"><img class="hbg" src="06_Imagenes/web/04_Exterior_Vinedo.jpg" fetchpriority="high" alt="Exterior entre viñedos"><div class="cap"><span>Habitáculo para ciclistas · Workshop BIM + IA · Método TBC<br>Exterior — el habitáculo entre el valle y cordillera de la costa</span><a href="#imagenes">Ver imágenes ↗</a></div></div>
 
 <div class="wrap">
 <section class="intro">
@@ -226,22 +276,22 @@ footer{font-size:16px}
 
 <section class="sec" id="imagenes"><header><span><i>03</i>Imágenes del proyecto</span><span>renders e isométricas</span></header>
 <div class="gal">
-<a class="main" href="06_Imagenes/01_Vista_Aerea_Patio.png" target="_blank"><figure><img src="06_Imagenes/01_Vista_Aerea_Patio.png" alt="Vista aérea"><figcaption>Vista aérea — el patio y el árbol atravesando la cubierta</figcaption></figure></a>
-<a href="06_Imagenes/02_Interior_Bebederos.png" target="_blank"><figure><img src="06_Imagenes/02_Interior_Bebederos.png" alt="Interior bebederos"><figcaption>Interior — bebederos y descanso</figcaption></figure></a>
-<a href="06_Imagenes/03_Interior_Acceso.png" target="_blank"><figure><img src="06_Imagenes/03_Interior_Acceso.png" alt="Interior acceso"><figcaption>Interior — umbral hacia el valle</figcaption></figure></a>
+<a class="main" href="06_Imagenes/01_Vista_Aerea_Patio.png" data-lb="06_Imagenes/web/01_Vista_Aerea_Patio.jpg" data-full="06_Imagenes/01_Vista_Aerea_Patio.png"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/01_Vista_Aerea_Patio.jpg" alt="Vista aérea"><figcaption>Vista aérea — el patio y el árbol atravesando la cubierta</figcaption></figure></a>
+<a href="06_Imagenes/02_Interior_Bebederos.png" data-lb="06_Imagenes/web/02_Interior_Bebederos.jpg" data-full="06_Imagenes/02_Interior_Bebederos.png"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/02_Interior_Bebederos.jpg" alt="Interior bebederos"><figcaption>Interior — bebederos y descanso</figcaption></figure></a>
+<a href="06_Imagenes/03_Interior_Acceso.png" data-lb="06_Imagenes/web/03_Interior_Acceso.jpg" data-full="06_Imagenes/03_Interior_Acceso.png"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/03_Interior_Acceso.jpg" alt="Interior acceso"><figcaption>Interior — umbral hacia el valle</figcaption></figure></a>
 </div>
 <div class="sub-t">Vistas isométricas</div>
 <div class="iso">
 <div class="st">
-<a href="06_Imagenes/05_Isometrica.png" target="_blank"><figure><img src="06_Imagenes/05_Isometrica.png" alt="Isométrica del volumen"><figcaption>Volumen, cubierta y patio</figcaption></figure></a>
-<a href="06_Imagenes/07_Isometrica_Cortada.png" target="_blank"><figure><img src="06_Imagenes/07_Isometrica_Cortada.png" alt="Isométrica sin cubierta"><figcaption>Sin cubierta — bebederos, baño, apoyo y bicicletas</figcaption></figure></a>
+<a href="06_Imagenes/05_Isometrica.png" data-lb="06_Imagenes/05_Isometrica.png"><figure><img loading="lazy" decoding="async" src="06_Imagenes/05_Isometrica.png" alt="Isométrica del volumen"><figcaption>Volumen, cubierta y patio</figcaption></figure></a>
+<a href="06_Imagenes/07_Isometrica_Cortada.png" data-lb="06_Imagenes/07_Isometrica_Cortada.png"><figure><img loading="lazy" decoding="async" src="06_Imagenes/07_Isometrica_Cortada.png" alt="Isométrica sin cubierta"><figcaption>Sin cubierta — bebederos, baño, apoyo y bicicletas</figcaption></figure></a>
 </div>
-<a class="big" href="06_Imagenes/06_Isometrica_Explotada.png" target="_blank"><figure><img src="06_Imagenes/06_Isometrica_Explotada.png" alt="Isométrica explotada"><figcaption>Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario</figcaption></figure></a>
+<a class="big" href="06_Imagenes/06_Isometrica_Explotada.png" data-lb="06_Imagenes/06_Isometrica_Explotada.png"><figure><img loading="lazy" decoding="async" src="06_Imagenes/06_Isometrica_Explotada.png" alt="Isométrica explotada"><figcaption>Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario</figcaption></figure></a>
 </div>
 <div class="sub-t">Videos</div>
 <div class="vid">
-<figure><video controls preload="metadata"><source src="06_Imagenes/videos/01_Video_Interior.mp4" type="video/mp4"></video><figcaption>Interior — bebederos y descanso</figcaption></figure>
-<figure><video controls preload="metadata"><source src="06_Imagenes/videos/02_Video_Exterior.mp4" type="video/mp4"></video><figcaption>Exterior — el habitáculo entre viñedos</figcaption></figure>
+<figure><video controls preload="none" poster="06_Imagenes/web/poster_interior.jpg"><source src="06_Imagenes/videos/01_Video_Interior.mp4" type="video/mp4"></video><figcaption>Interior — bebederos y descanso</figcaption></figure>
+<figure><video controls preload="none" poster="06_Imagenes/web/poster_exterior.jpg"><source src="06_Imagenes/videos/02_Video_Exterior.mp4" type="video/mp4"></video><figcaption>Exterior — el habitáculo entre viñedos</figcaption></figure>
 </div></section>
 
 <section class="sec" id="laminas"><header><span><i>04</i>Láminas</span><span>planimetría técnica</span></header>
@@ -250,10 +300,10 @@ footer{font-size:16px}
 
 <section class="sec" id="materialidad"><header><span><i>05</i>Materialidad</span><span>verificada contra fichas de fabricante</span></header>
 <div class="mats">
-<a class="mat" href="06_Imagenes/materiales/ejemplo/quincha.jpg" target="_blank"><div class="sw" style="background-image:url(06_Imagenes/materiales/texturas/quincha.jpg)"></div><h3>Quincha</h3><code>MURO_EXT_QUINCHA_12cm</code><p>Sistema quincha liviana húmeda — Corporación Protierra Chile, red MINVU/DITEC.</p><u>Ver elemento ↗</u></a>
-<a class="mat" href="06_Imagenes/materiales/ejemplo/pino_radiata.jpg" target="_blank"><div class="sw" style="background-image:url(06_Imagenes/materiales/texturas/pino_radiata.jpg)"></div><h3>Pino Radiata</h3><code>MT_PINO RADIATA · MLE 20c</code><p>Pilares glulam Hilam MLE, armazón dimensionado y montantes Arauco. Los paneles del muro cortina quedan vacíos (celosía).</p><u>Ver elemento ↗</u></a>
-<a class="mat" href="06_Imagenes/materiales/ejemplo/zincalum.jpg" target="_blank"><div class="sw" style="background-image:url(06_Imagenes/materiales/texturas/zincalum.jpg)"></div><h3>Zincalum</h3><code>MT_PLANCHA ONDULADA ZINCALUM</code><p>Plancha ondulada sobre estructura de madera — Cubiertas Nacionales CN-1020.</p><u>Ver elemento ↗</u></a>
-<a class="mat" href="06_Imagenes/materiales/ejemplo/hormigon.jpg" target="_blank"><div class="sw" style="background-image:url(06_Imagenes/materiales/texturas/hormigon.jpg)"></div><h3>Hormigón</h3><code>RADIER_PULIDO_INT_HA_2cm</code><p>Radier con fibra Melón + endurecedor superficial Sikafloor-3 QuartzTop. El mismo hormigón armado forma las 16 zapatas aisladas bajo los pilares.</p><u>Ver elemento ↗</u></a>
+<a class="mat" href="06_Imagenes/materiales/ejemplo/quincha.jpg" data-lb="06_Imagenes/materiales/ejemplo/quincha.jpg"><div class="sw" style="background-image:url(06_Imagenes/materiales/texturas/quincha.jpg)"></div><h3>Quincha</h3><code>MURO_EXT_QUINCHA_12cm</code><p>Sistema quincha liviana húmeda — Corporación Protierra Chile, red MINVU/DITEC.</p><u>Ver elemento ↗</u></a>
+<a class="mat" href="06_Imagenes/materiales/ejemplo/pino_radiata.jpg" data-lb="06_Imagenes/materiales/ejemplo/pino_radiata.jpg"><div class="sw" style="background-image:url(06_Imagenes/materiales/texturas/pino_radiata.jpg)"></div><h3>Pino Radiata</h3><code>MT_PINO RADIATA · MLE 20c</code><p>Pilares glulam Hilam MLE, armazón dimensionado y montantes Arauco. Los paneles del muro cortina quedan vacíos (celosía).</p><u>Ver elemento ↗</u></a>
+<a class="mat" href="06_Imagenes/materiales/ejemplo/zincalum.jpg" data-lb="06_Imagenes/materiales/ejemplo/zincalum.jpg"><div class="sw" style="background-image:url(06_Imagenes/materiales/texturas/zincalum.jpg)"></div><h3>Zincalum</h3><code>MT_PLANCHA ONDULADA ZINCALUM</code><p>Plancha ondulada sobre estructura de madera — Cubiertas Nacionales CN-1020.</p><u>Ver elemento ↗</u></a>
+<a class="mat" href="06_Imagenes/materiales/ejemplo/hormigon.jpg" data-lb="06_Imagenes/materiales/ejemplo/hormigon.jpg"><div class="sw" style="background-image:url(06_Imagenes/materiales/texturas/hormigon.jpg)"></div><h3>Hormigón</h3><code>RADIER_PULIDO_INT_HA_2cm</code><p>Radier con fibra Melón + endurecedor superficial Sikafloor-3 QuartzTop. El mismo hormigón armado forma las 16 zapatas aisladas bajo los pilares.</p><u>Ver elemento ↗</u></a>
 </div></section>
 
 <section class="sec" id="documentos"><header><span><i>06</i>Documentos técnicos</span><span>reglas, PEB, NDI y parámetros</span></header>
@@ -290,6 +340,7 @@ footer{font-size:16px}
 <div class="wrap">
 <section class="sec" id="revit" style="margin-top:0"><header><span><i>08</i>Modelo Revit</span><span>HAB_ARQ_MODELO_R01.RVT</span></header>
 <div class="stats six"><div><b>7 276</b><span>Elementos totales</span></div><div><b>939</b><span>Tipos</span></div><div><b>56</b><span>Familias</span></div><div><b>71</b><span>Categorías</span></div><div><b>48</b><span>Vistas</span></div><div><b>3+2</b><span>Niveles principales + subniveles</span></div></div>
+<div class="sub-t">Visor 3D</div><div class="v3d" id="v3d"><div id="v3d-canvas"></div><div id="v3d-status"></div><button type="button" class="btn p" id="v3d-load">Cargar visor 3D</button><p>Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, rueda para acercar, clic derecho para desplazar.</p></div><div class="sub-t">Archivos del modelo</div>
 <div class="list">
 <div class="row"><div class="d"><b>HAB_ARQ_MODELO_R01.rvt</b><span>Modelo BIM del habitáculo Pausa Maule · 214 MB</span></div><div class="acts"><a class="btn p" href="https://github.com/malvarez2890-lang/pausa-maule/releases/download/modelo-revit/HAB_ARQ_MODELO_R01.rvt" target="_blank">Descargar ↓</a></div></div>
 <div class="row"><div class="d"><b>HAB_ARQ_MODELO_R01_IFC4x3.ifc</b><span>Export IFC4X3_ADD2 · MVD CoordinationView · 4,5 MB</span></div><div class="acts"><a class="btn p" href="05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc" target="_blank">Descargar ↓</a></div></div>
@@ -318,4 +369,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script></body></html>
+</script><script src="assets/site.js" defer></script>
+</body></html>
