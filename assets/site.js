@@ -101,6 +101,7 @@
     "Volver arriba": "Back to top", "Cerrar": "Close", "Anterior": "Previous", "Siguiente": "Next",
     "Abrir original ↗": "Open original ↗",
     "Cargando…": "Loading…",
+    "Isométrica": "Isometric", "Planta": "Plan", "Frente": "Front", "Lateral": "Side", "Ocultar cubierta": "Hide roof", "Mostrar cubierta": "Show roof",
     "Tu navegador tiene WebGL desactivado o no disponible, por eso no se puede mostrar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.": "Your browser has WebGL disabled or unavailable, so the 3D viewer cannot be shown. You can download the IFC and open it in your BIM software.",
     "Muros": "Walls", "Muros cortina": "Curtain walls", "Montantes de muro cortina": "Curtain wall mullions",
     "Paneles de muro cortina": "Curtain wall panels", "Puertas": "Doors", "Pilares estructurales": "Structural columns",
@@ -137,6 +138,7 @@
     nodes.forEach(function (o) { o.n.nodeValue = tr(o.es, l); });
     attrs.forEach(function (o) { o.e.setAttribute(o.a, tr(o.es, l)); });
     document.documentElement.lang = l;
+    document.dispatchEvent(new CustomEvent("pm-lang"));
     document.title = l === "en" ? "Pausa Maule — Deliverable Milestone 01-02" : titleES;
     $$("[data-l]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-l") === l); });
     store.set("pm-lang", l);
@@ -251,7 +253,7 @@
     show("Cargando…");
     var slow = setTimeout(function () { if (viewerStarted && st.style.display === "block" && !$("#v3d-canvas canvas")) st.setAttribute("data-slow", "1"); }, 15000);
     try {
-      import("./ifc-viewer.js?v=3").then(function (m) {
+      import("./ifc-viewer.js?v=5").then(function (m) {
         return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", show);
       }).catch(function (err) {
         console.error(err); clearTimeout(slow);

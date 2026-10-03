@@ -246,6 +246,14 @@ table.qty td:nth-child(4),table.qty th:nth-child(4){white-space:nowrap}
 /* cursor de mano en todo lo clickeable */
 button,.btn,a[href],#v3d-load,#up,.lang button,#lb button,.dl a,.thumb{cursor:pointer}
 
+/* visor 3D: barra de vistas */
+.v3d-ui{position:absolute;left:12px;top:12px;z-index:5;display:flex;flex-wrap:wrap;gap:6px;max-width:calc(100% - 24px)}
+.v3d-b{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-transform:uppercase;letter-spacing:.04em;font-size:17px;font-weight:600;background:#fff;color:#000;border:2px solid #000;padding:5px 12px;cursor:pointer;line-height:1.1}
+.v3d-b:hover{background:#000;color:#fff}
+.v3d-b.on{background:#000;color:#fff}
+.v3d-b.sep{margin-left:10px}
+@media(max-width:800px){.v3d-b{font-size:15px;padding:4px 9px}.v3d-b.sep{margin-left:0}}
+
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
@@ -402,5 +410,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=11" defer></script>
+</script><script src="assets/site.js?v=13" defer></script>
 </body></html>
