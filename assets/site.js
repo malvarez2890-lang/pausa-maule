@@ -237,7 +237,7 @@
       host.classList.add("run");
       var status = function (t) { st.textContent = t ? PM_t(t) : ""; st.style.display = t ? "block" : "none"; };
       status("Cargando…");
-      import("./ifc-viewer.js").then(function (m) {
+      import("./ifc-viewer.js?v=3").then(function (m) {
         return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", status);
       }).catch(function (err) {
         console.error(err);
