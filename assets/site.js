@@ -101,6 +101,7 @@
     "Volver arriba": "Back to top", "Cerrar": "Close", "Anterior": "Previous", "Siguiente": "Next",
     "Abrir original ↗": "Open original ↗",
     "Cargando…": "Loading…",
+    "Tu navegador tiene WebGL desactivado o no disponible, por eso no se puede mostrar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.": "Your browser has WebGL disabled or unavailable, so the 3D viewer cannot be shown. You can download the IFC and open it in your BIM software.",
     "Muros": "Walls", "Muros cortina": "Curtain walls", "Montantes de muro cortina": "Curtain wall mullions",
     "Paneles de muro cortina": "Curtain wall panels", "Puertas": "Doors", "Pilares estructurales": "Structural columns",
     "Armazón principal": "Main framing", "Armazón secundario": "Secondary framing", "Zapatas aisladas": "Isolated footings",
@@ -228,30 +229,47 @@
     up.addEventListener("click", function () { scrollTo({ top: 0, behavior: "smooth" }); });
   }
 
-  /* ---------- Visor IFC ---------- */
-  function initViewer() {
-    var btn = $("#v3d-load"), host = $("#v3d"), st = $("#v3d-status");
-    if (!btn) return;
-    btn.addEventListener("click", function () {
-      btn.style.display = "none";
-      host.classList.add("run");
-      var status = function (t) { st.textContent = t ? PM_t(t) : ""; st.style.display = t ? "block" : "none"; };
-      status("Cargando…");
-      import("./ifc-viewer.js?v=3").then(function (m) {
-        return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", status);
-      }).catch(function (err) {
-        console.error(err);
-        st.style.display = "block";
-        st.textContent = PM_t("No se pudo cargar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.");
-        var d = document.createElement("small"); d.style.cssText = "display:block;margin-top:10px;font-size:13px;opacity:.7"; d.textContent = String(err && err.message ? err.message : err); st.appendChild(d);
-      });
-    });
+  /* ---------- Visor IFC (delegado: funciona aunque falle otra inicializacion) ---------- */
+  var viewerStarted = false;
+  function hasWebGL() {
+    try { var c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; }
   }
+  function loadViewer(btn) {
+    if (viewerStarted) return;
+    var host = $("#v3d"), st = $("#v3d-status");
+    var show = function (t) { st.textContent = t ? PM_t(t) : ""; st.style.display = t ? "block" : "none"; };
+    var fail = function (msg, detail) {
+      host.classList.add("run"); btn.style.display = "none";
+      st.style.display = "block"; st.textContent = PM_t(msg);
+      if (detail) { var d = document.createElement("small"); d.style.cssText = "display:block;margin-top:10px;font-size:13px;opacity:.7"; d.textContent = detail; st.appendChild(d); }
+      viewerStarted = false;
+    };
+    viewerStarted = true;
+    if (!hasWebGL()) { fail("Tu navegador tiene WebGL desactivado o no disponible, por eso no se puede mostrar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM."); return; }
+    btn.style.display = "none";
+    host.classList.add("run");
+    show("Cargando…");
+    var slow = setTimeout(function () { if (viewerStarted && st.style.display === "block" && !$("#v3d-canvas canvas")) st.setAttribute("data-slow", "1"); }, 15000);
+    try {
+      import("./ifc-viewer.js?v=3").then(function (m) {
+        return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", show);
+      }).catch(function (err) {
+        console.error(err); clearTimeout(slow);
+        fail("No se pudo cargar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.", String(err && err.message ? err.message : err));
+      });
+    } catch (err) {
+      fail("No se pudo cargar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.", String(err && err.message ? err.message : err));
+    }
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target && e.target.closest ? e.target.closest("#v3d-load") : null;
+    if (b) { e.preventDefault(); loadViewer(b); }
+  });
 
   document.addEventListener("DOMContentLoaded", function () {
-    collect();
+    try { collect(); } catch (e) { console.error(e); }
     $$("[data-l]").forEach(function (b) { b.addEventListener("click", function () { setLang(b.getAttribute("data-l")); }); });
     setLang(store.get("pm-lang") === "en" ? "en" : "es");
-    initLB(); initBar(); initViewer();
+    [initLB, initBar].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
   });
 })();
