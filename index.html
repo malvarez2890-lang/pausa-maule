@@ -254,6 +254,17 @@ button,.btn,a[href],#v3d-load,#up,.lang button,#lb button,.dl a,.thumb{cursor:po
 .v3d-b.sep{margin-left:10px}
 @media(max-width:800px){.v3d-b{font-size:15px;padding:4px 9px}.v3d-b.sep{margin-left:0}}
 
+/* móvil: sin desborde horizontal en Materialidad */
+.mats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.mat{min-width:0}
+.mat code,.mat h3,.mat p{overflow-wrap:anywhere}
+@media(max-width:800px){.mats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.mat h3{font-size:25px}.mat p{font-size:15px}.mat code{font-size:13px}}
+
+/* móvil: avisos y objetivos táctiles más grandes */
+.swipe{display:none;font-size:14px;margin:0 0 8px;opacity:.7}
+@media(max-width:800px){.swipe{display:block}.v3d-b{padding:9px 12px;font-size:16px}.lang button{padding:8px 6px}#bar nav a{padding:6px 0 4px}}
+
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
@@ -341,7 +352,7 @@ button,.btn,a[href],#v3d-load,#up,.lang button,#lb button,.dl a,.thumb{cursor:po
 
 <section class="sec" id="proveedores"><header><span><i>07</i>Proveedores</span><span>12 proveedores verificados</span></header>
 <div class="list" style="margin-bottom:30px;border:0"><div class="row"><div class="d"><b>Fichas de Proveedores</b><span>12 proveedores verificados · contacto, sitio web, ficha técnica</span></div><div class="acts"><a class="btn p" href="02_Proveedores/Fichas_Proveedores_Pausa_Maule.xlsx" target="_blank">XLSX ↓</a></div></div></div>
-<div style="overflow-x:auto"><table>
+<p class="swipe">Desliza la tabla para ver todas las columnas →</p><div style="overflow-x:auto"><table>
 <tr><th>Elemento</th><th>Empresa</th><th>Producto</th><th>Sitio web</th></tr>
 <tr><td>Muro / Quincha</td><td>Corporación Protierra Chile</td><td>Sistema Quincha Liviana Húmeda</td><td><a href="https://redproterra.org" target="_blank" rel="noopener">redproterra.org</a></td></tr>
 <tr><td>Cubierta</td><td>Cubiertas Nacionales</td><td>Panel Ondulado CN-1020</td><td><a href="https://www.cubiertasnacionales.cl" target="_blank" rel="noopener">cubiertasnacionales.cl</a></td></tr>
@@ -358,14 +369,14 @@ button,.btn,a[href],#v3d-load,#up,.lang button,#lb button,.dl a,.thumb{cursor:po
 </table></div></section>
 </div>
 
-<div class="dl"><div><h2>Descargar documentos e imágenes</h2><p>Referentes, proveedores, documentos técnicos, láminas e imágenes — no incluye el modelo Revit ni el IFC (ver punto 08).</p></div><a href="Pausa_Maule_Completo.zip" target="_blank">↓ Descargar todo (.zip, 88 MB)</a></div>
+<div class="dl"><div><h2>Descargar documentos e imágenes</h2><p>Referentes, proveedores, documentos técnicos, láminas e imágenes — no incluye el modelo Revit ni el IFC (ver punto 08).</p></div><a href="Pausa_Maule_Completo.zip" target="_blank">↓ Descargar todo (.zip, 32 MB)</a></div>
 
 <div class="wrap">
 <section class="sec" id="revit" style="margin-top:0"><header><span><i>08</i>Modelo Revit</span><span>HAB_ARQ_MODELO_R01.RVT</span></header>
 <div class="stats six"><div><b>7 276</b><span>Elementos totales</span></div><div><b>939</b><span>Tipos</span></div><div><b>56</b><span>Familias</span></div><div><b>71</b><span>Categorías</span></div><div><b>48</b><span>Vistas</span></div><div><b>3+2</b><span>Niveles principales + subniveles</span></div></div>
 <div class="sub-t">Visor 3D</div><div class="v3d" id="v3d"><div id="v3d-canvas"></div><div id="v3d-status"></div><button type="button" class="btn p" id="v3d-load">Cargar visor 3D</button><p>Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, rueda para acercar, clic derecho para desplazar.</p></div><div class="sub-t">Cantidades del modelo</div>
 <p class="qty-note">Cantidades obtenidas del modelo Revit.</p>
-<div style="overflow-x:auto;margin-bottom:40px"><table class="qty">
+<p class="swipe">Desliza la tabla para ver todas las columnas →</p><div style="overflow-x:auto;margin-bottom:40px"><table class="qty">
 <tr><th>Categoría</th><th>Tipo</th><th>Cant.</th><th>Medida</th></tr>
 <tr><td>Muros</td><td>MURO_EXT_QUINCHA_12cm</td><td>11</td><td>55,69 m² · 6,68 m³</td></tr>
 <tr><td>Muros cortina</td><td>MURO_CORTINA_EXT_MADERA</td><td>6</td><td>36,68 m²</td></tr>
@@ -410,5 +421,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=13" defer></script>
+</script><script src="assets/site.js?v=16" defer></script>
 </body></html>
