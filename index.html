@@ -287,6 +287,47 @@ section.sec[id]{scroll-margin-top:84px}
 .v3d{aspect-ratio:auto;height:clamp(420px,calc(100vh - 150px),780px)}
 @media(max-width:800px){.v3d{aspect-ratio:4/5;height:auto}}
 
+/* visor 3D v2: herramientas (capas, color, corte, medir, buscar, explotar) */
+.v3d-top{position:absolute;left:12px;top:12px;z-index:5;max-width:calc(100% - 372px)}
+.v3d-ui{position:static;max-width:none;left:auto;top:auto}
+.v3d-b.open{background:#000;color:#fff}
+.v3d-pop{margin-top:6px;background:#fff;border:2px solid #000;padding:10px 12px;width:max-content;max-width:100%;max-height:50vh;overflow:auto}
+.v3d-pop[hidden]{display:none}
+.v3d-row{display:flex;align-items:center;gap:8px;font-size:14px;padding:3px 0;cursor:pointer}
+.v3d-row input[type=range]{width:210px;cursor:pointer}
+.v3d-row input{cursor:pointer;accent-color:#000}
+.v3d-links{margin-top:6px;border-top:1px solid #0002;padding-top:6px}
+.v3d-links button{background:none;border:0;padding:0;font-size:13px;text-decoration:underline;cursor:pointer;color:#000}
+.v3d-search{position:absolute;left:12px;bottom:38px;z-index:5;display:flex;align-items:center;gap:8px}
+.v3d-search input{font:inherit;font-size:14px;border:2px solid #000;background:#fff;padding:5px 8px;width:230px;border-radius:0}
+.v3d-count{font-size:13px;background:rgba(255,255,255,.85);padding:2px 6px}
+.v3d-legend{position:absolute;right:12px;bottom:10px;z-index:4;background:rgba(255,255,255,.92);border:1px solid #0003;padding:8px 10px;font-size:13px;max-width:240px}
+.v3d-legend div{display:flex;align-items:center;gap:7px;padding:1px 0}
+.v3d-legend i{display:inline-block;width:14px;height:14px;border:1px solid #0004;flex:none}
+.v3d-measure{position:absolute;z-index:6;background:#000;color:#fff;font-size:13px;line-height:1.35;padding:6px 10px;pointer-events:none;width:180px}
+.v3d-measure[hidden],.v3d-legend[hidden],.v3d-mhint[hidden]{display:none}
+.v3d-mhint{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;z-index:5;background:#000;color:#fff;font-size:14px;padding:6px 12px;pointer-events:none;white-space:nowrap}
+@media(max-width:800px){
+  .v3d-top{max-width:calc(100% - 24px);right:12px}
+  .v3d-search{bottom:12px;right:12px}
+  .v3d-search input{width:100%;flex:1}
+  .v3d-legend{bottom:56px;right:12px;font-size:12px}
+  .v3d-mhint{white-space:normal;text-align:center;width:calc(100% - 24px);bottom:56px}
+  .v3d-pop{max-height:40vh}
+}
+
+/* visor 3D: las ventanas emergentes nunca salen del recuadro */
+.v3d-top{display:flex;flex-direction:column;max-height:calc(100% - 60px)}
+.v3d-pop{min-height:0;max-height:none;flex:0 1 auto}
+@media(max-width:800px){
+  .v3d{aspect-ratio:auto;height:min(80vh,680px)}
+  .v3d-ui{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .v3d-ui::-webkit-scrollbar{display:none}
+  .v3d-ui .v3d-b{flex:none;font-size:14px;padding:7px 10px}
+  .v3d-b.sep{margin-left:0}
+  .v3d-top{max-height:calc(100% - 80px)}
+}
+
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
@@ -443,5 +484,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=23" defer></script>
+</script><script src="assets/site.js?v=27" defer></script>
 </body></html>
