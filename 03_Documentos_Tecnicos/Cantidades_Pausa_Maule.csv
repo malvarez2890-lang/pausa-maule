@@ -1,0 +1,26 @@
+﻿Categoría;Familia;Tipo;Material;Cantidad;Área (m²);Volumen (m³);Longitud (m);Estructural;Exterior
+Muros;Muro básico;MURO_EXT_QUINCHA_12cm;MADERA ESTRUCTURAL, MT_TIERRA_QUINCHA;11;55,69;6,68;;No;Sí
+Muros cortina;Muro cortina;MURO_CORTINA_EXT_MADERA;;6;36,68;;;No;Sí
+Montantes de muro cortina;Rectangular Mullion;MADERA_1.25X10cm;MT_PINO RADIATA;396;;0,62;246,6;;
+Paneles de muro cortina;;Empty (celosía);;192;30,51;;;;
+Puertas;PRT_INT_SIMPLE_MADERA;80X210;M_Aluminio Grafito, TBC_Madera, TBC_Generico;2;;;;;No
+Pilares estructurales;PILAR_Pino Radiata_Rectangular;130X130;MT_PINO RADIATA;16;;0,64;;Sí;No
+Armazón principal;VIGA_Pino Radiata Dimensionada_Rectangular;2X8_PRINCIPAL;MT_PINO RADIATA;8;;0,71;71,2;Sí;No
+Armazón secundario;VIGA_Pino Radiata Dimensionada_Rectangular;2X4_SECUNDARIA;MT_PINO RADIATA;16;;0,24;48;Sí;No
+Zapatas aisladas;Zapata;ZAPATA_Hormigon Armado_Aislada;MT_HORMIGON ARMADO;16;;3,03;;Sí;No
+Radier estructural;Suelo;RADIER_INT_HA_15cm;MT_HORMIGON ARMADO;1;76,56;11,49;;No;No
+Radier pulido;Suelo;RADIER_PULIDO_INT_HA_2cm;MT_HORMIGÓN PULIDO;1;76,31;1,53;;No;No
+Cubierta;Cubierta básica;CUBIERTA_ZINC_ONDULADO_MADERA;MT_PLANCHA ONDULADA ZINCALUM, MT_PINO RADIATA;1;76,56;7,66;;No;Sí
+Recintos;;9 recintos;;9;79,45;;;;
+
+Recinto N°;Nombre;Departamento;Área (m²)
+01;Baño 1;Servicios higiénicos;2,7
+02;Baño 2;Servicios higiénicos;2,7
+03;Zona apoyo;Descanso y apoyo;8,92
+04;Zona de descanso 2;Descanso y apoyo;9,04
+05;Zona de descanso 1;Descanso y apoyo;26,34
+06;Estacionamiento bicicletas;Estacionamiento;9,16
+07;Bebederos;Descanso y apoyo;9,23
+08;Patio;Patio / exterior;8,78
+09;Pasillo;;2,6
+;Total recintos;;79,45

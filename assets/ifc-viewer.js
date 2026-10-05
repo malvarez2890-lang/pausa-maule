@@ -449,7 +449,7 @@ export async function startViewer(host, url, onStatus) {
   }
   Object.keys(views).forEach(k => mk(k, views[k].es, () => {
     goTo(k); setActive(k);
-    if (k === "plan") { if (roofOn) { setRoof(false); roofAuto = true; } } else if (roofAuto) { setRoof(true); roofAuto = false; }
+    if (k === "plan") { if (roofOn) { setRoof(false); roofAuto = true; } } else if (roofAuto && !roomsOn) { setRoof(true); roofAuto = false; }
   }));
   setActive("iso");
   mk("roof", "Ocultar cubierta", () => { roofAuto = false; setRoof(!roofOn); }, "sep");
@@ -541,6 +541,7 @@ export async function startViewer(host, url, onStatus) {
   mk("color", "Color", () => openPop("color"));
   mk("cut", "Corte", () => openPop("cut"));
   mk("measure", "Medir", () => setMeasure(!measureOn));
+  mk("rooms", "Recintos", () => setRooms(!roomsOn));
   mk("explode", "Explotar", () => {
     explodeFrom = explodeK; explodeT0 = performance.now();
     explodeTarget = explodeTarget ? 0 : 1;
@@ -666,6 +667,34 @@ export async function startViewer(host, url, onStatus) {
     cubeDir.copy(camera.position).sub(controls.target).normalize().multiplyScalar(3.6);
     cubeCam.position.copy(cubeDir); cubeCam.up.copy(camera.up); cubeCam.lookAt(0, 0, 0);
     cubeR.render(cubeScene, cubeCam);
+  }
+
+  // ---------- etiquetas de recintos ----------
+  let roomsOn = false;
+  const roomsLayer = document.createElement("div"); roomsLayer.className = "v3d-rooms"; roomsLayer.hidden = true; root.appendChild(roomsLayer);
+  const roomItems = ((info && info.rooms) || []).map(r => {
+    const el = document.createElement("div"); el.className = "v3d-room";
+    el.innerHTML = "<b data-es=\"" + esc(r.name) + "\">" + esc(T(r.name)) + "</b><i>" + fmtN(r.area) + " m²</i>";
+    roomsLayer.appendChild(el);
+    return { el, p: new THREE.Vector3(r.x, 0.17 + 0.25, -r.y) }; // Revit (x, y) -> visor (x, nivel, -y)
+  });
+  function setRooms(on) {
+    roomsOn = on;
+    btns.rooms.classList.toggle("on", on);
+    roomsLayer.hidden = !on;
+    if (on) { if (roofOn) { setRoof(false); roofAuto = true; } }
+    else if (roofAuto) { setRoof(true); roofAuto = false; }
+  }
+  const rv = new THREE.Vector3();
+  function placeRooms() {
+    if (!roomsOn) return;
+    const hide = explodeTarget || explodeK > 0.02;
+    roomItems.forEach(it => {
+      rv.copy(it.p).project(camera);
+      const ok = !hide && rv.z < 1 && Math.abs(rv.x) < 1.1 && Math.abs(rv.y) < 1.1;
+      it.el.style.display = ok ? "" : "none";
+      if (ok) it.el.style.transform = "translate(" + Math.round((rv.x * 0.5 + 0.5) * W()) + "px," + Math.round((-rv.y * 0.5 + 0.5) * H()) + "px) translate(-50%,-50%)";
+    });
   }
 
   // leyenda de colores
@@ -850,6 +879,12 @@ export async function startViewer(host, url, onStatus) {
     renderer.render(scene, camera);
     renderCube();
     placeMeasureLabel();
+    placeRooms();
   })();
+  window.PM_viewerApi = {
+    focus: q => { sin.value = q; runSearch(); },
+    clear: () => { sin.value = ""; runSearch(); },
+    rooms: on => { if (on !== roomsOn) setRooms(on); }
+  };
   onStatus("");
 }

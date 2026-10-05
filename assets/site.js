@@ -83,7 +83,7 @@
     "Abastecimiento local": "Local supply", "Distribución general": "General distribution",
     "Descargar documentos e imágenes": "Download documents and images",
     "Referentes, proveedores, documentos técnicos, láminas e imágenes — no incluye el modelo Revit ni el IFC (ver punto 08).": "References, suppliers, technical documents, sheets and images — does not include the Revit model or the IFC (see section 08).",
-    "↓ Descargar todo (.zip, 32 MB)": "↓ Download all (.zip, 32 MB)",
+    "↓ Descargar todo (.zip, 35 MB)": "↓ Download all (.zip, 35 MB)",
     "Modelo Revit": "Revit model",
     "Elementos totales": "Total elements", "Tipos": "Types", "Familias": "Families", "Categorías": "Categories", "Vistas": "Views",
     "Niveles principales + subniveles": "Main levels + sublevels",
@@ -101,7 +101,10 @@
     "Volver arriba": "Back to top", "Cerrar": "Close", "Anterior": "Previous", "Siguiente": "Next",
     "Abrir original ↗": "Open original ↗",
     "Cargando…": "Loading…",
-    "Cimentación estructural": "Structural foundation", "Suelos": "Floors", "Cubiertas": "Roofs", "Armazón estructural": "Structural framing", "Capas": "Layers", "Color": "Color", "Corte": "Cut", "Medir": "Measure", "Explotar": "Explode", "Juntar": "Assemble", "Mostrar todo": "Show all", "Original": "Original", "Estructural / no estructural": "Structural / non-structural", "Exterior / interior": "Exterior / interior", "Horizontal (altura)": "Horizontal (height)", "Vertical (ancho)": "Vertical (width)", "Vertical (fondo)": "Vertical (depth)", "Invertir": "Flip", "Quitar corte": "Remove cut", "Buscar tipo o categoría…": "Search type or category…", "piezas": "parts", "Haz clic en dos puntos del modelo para medir": "Click two points on the model to measure", "Distancia": "Distance", "horizontal": "horizontal", "vertical": "vertical", "Sin dato": "No data", "No estructural": "Non-structural", "Interior": "Interior", "Otros": "Others", "Derecha": "Right", "Izquierda": "Left", "Superior": "Top", "Inferior": "Bottom", "Frontal": "Front", "Posterior": "Back", "Realista": "Realistic", "Original (IFC)": "Original (IFC)", "Colores de materiales": "Material colors", "Restaurar colores": "Reset colors", "Maqueta": "Model", "Haz clic en una pieza para ver su ficha": "Click a part to see its data sheet", "Sin ficha en el modelo": "No data sheet in the model", "Familia": "Family", "Material": "Material", "Materiales": "Materials", "Estructural": "Structural", "Exterior": "Exterior", "Nivel": "Level", "Área": "Area", "Volumen": "Volume", "Longitud": "Length", "Ficha de fabricante": "Manufacturer data sheet", "ID de Revit": "Revit ID", "Sí": "Yes", "No": "No",
+    "Cimentación estructural": "Structural foundation", "Suelos": "Floors", "Cubiertas": "Roofs", "Armazón estructural": "Structural framing", "Capas": "Layers", "Color": "Color", "Corte": "Cut", "Medir": "Measure", "Explotar": "Explode", "Juntar": "Assemble", "Mostrar todo": "Show all", "Original": "Original", "Estructural / no estructural": "Structural / non-structural", "Exterior / interior": "Exterior / interior", "Horizontal (altura)": "Horizontal (height)", "Vertical (ancho)": "Vertical (width)", "Vertical (fondo)": "Vertical (depth)", "Invertir": "Flip", "Quitar corte": "Remove cut", "Buscar tipo o categoría…": "Search type or category…", "piezas": "parts", "Haz clic en dos puntos del modelo para medir": "Click two points on the model to measure", "Distancia": "Distance", "horizontal": "horizontal", "vertical": "vertical", "Sin dato": "No data", "No estructural": "Non-structural", "Interior": "Interior", "Otros": "Others", "Derecha": "Right", "Izquierda": "Left", "Superior": "Top", "Inferior": "Bottom", "Frontal": "Front", "Posterior": "Back", "Realista": "Realistic", "Original (IFC)": "Original (IFC)", "Colores de materiales": "Material colors", "Restaurar colores": "Reset colors", "Maqueta": "Model", "Recintos": "Rooms", "Baño 1": "Restroom 1", "Baño 2": "Restroom 2", "Zona apoyo": "Support zone", "Zona de descanso 1": "Rest zone 1", "Zona de descanso 2": "Rest zone 2", "Estacionamiento bicicletas": "Bicycle parking", "Bebederos": "Drinking fountains", "Patio": "Courtyard", "Pasillo": "Corridor",
+    "Ajustar": "Fit", "Pantalla completa": "Fullscreen", "Arrastra para mover · haz clic y usa la rueda para acercar · doble clic para ampliar": "Drag to move · click and use the wheel to zoom · double-click to enlarge",
+    "Haz clic en una fila para verla en el visor 3D.": "Click a row to see it in the 3D viewer.", "Descargar Excel (.xlsx) ↓": "Download Excel (.xlsx) ↓", "Descargar CSV ↓": "Download CSV ↓",
+    "Haz clic en una pieza para ver su ficha": "Click a part to see its data sheet", "Sin ficha en el modelo": "No data sheet in the model", "Familia": "Family", "Material": "Material", "Materiales": "Materials", "Estructural": "Structural", "Exterior": "Exterior", "Nivel": "Level", "Área": "Area", "Volumen": "Volume", "Longitud": "Length", "Ficha de fabricante": "Manufacturer data sheet", "ID de Revit": "Revit ID", "Sí": "Yes", "No": "No",
     "Desliza la tabla para ver todas las columnas →": "Swipe the table to see all columns →",
     "Isométrica": "Isometric", "Planta": "Plan", "Frente": "Front", "Lateral": "Side", "Ocultar cubierta": "Hide roof", "Mostrar cubierta": "Show roof",
     "Tu navegador tiene WebGL desactivado o no disponible, por eso no se puede mostrar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.": "Your browser has WebGL disabled or unavailable, so the 3D viewer cannot be shown. You can download the IFC and open it in your BIM software.",
@@ -256,7 +259,7 @@
     try { host.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
     var slow = setTimeout(function () { if (viewerStarted && st.style.display === "block" && !$("#v3d-canvas canvas")) st.setAttribute("data-slow", "1"); }, 15000);
     try {
-      import("./ifc-viewer.js?v=32").then(function (m) {
+      import("./ifc-viewer.js?v=33").then(function (m) {
         return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", show);
       }).catch(function (err) {
         console.error(err); clearTimeout(slow);
@@ -271,10 +274,106 @@
     if (b) { e.preventDefault(); loadViewer(b); }
   });
 
+  /* ---------- Zoom de la lámina ---------- */
+  function initZoom() {
+    $$(".zoomer").forEach(function (z) {
+      var stage = $(".zoom-stage", z), img = $("img", stage), hi = z.getAttribute("data-hi"), hiLoaded = false;
+      var asp = 4769 / 3368, s = 1, x = 0, y = 0, bw = 0, bh = 0, act = false;
+      var pts = {}, last = null, pinch = 0;
+      function base() {
+        var cw = z.clientWidth, ch = z.clientHeight;
+        bw = Math.min(cw, ch * asp); bh = bw / asp;
+        stage.style.width = bw + "px"; stage.style.height = bh + "px";
+      }
+      function clamp() {
+        var cw = z.clientWidth, ch = z.clientHeight, w = bw * s, h = bh * s;
+        x = w <= cw ? (cw - w) / 2 : Math.min(0, Math.max(cw - w, x));
+        y = h <= ch ? (ch - h) / 2 : Math.min(0, Math.max(ch - h, y));
+      }
+      function apply() {
+        clamp();
+        stage.style.transform = "translate(" + x + "px," + y + "px) scale(" + s + ")";
+        if (s > 1.35 && !hiLoaded) { hiLoaded = true; var im = new Image(); im.onload = function () { img.src = hi; }; im.src = hi; }
+      }
+      function fit() { base(); s = 1; x = (z.clientWidth - bw) / 2; y = (z.clientHeight - bh) / 2; apply(); }
+      function zoomAt(f, cx, cy) {
+        var ns = Math.max(1, Math.min(8, s * f)); f = ns / s;
+        x = cx - (cx - x) * f; y = cy - (cy - y) * f; s = ns; apply();
+      }
+      var rect = function () { return z.getBoundingClientRect(); };
+      z.addEventListener("wheel", function (e) {
+        if (!act && !e.ctrlKey) return;
+        e.preventDefault();
+        var r = rect(); zoomAt(Math.exp(-e.deltaY * 0.0016), e.clientX - r.left, e.clientY - r.top);
+      }, { passive: false });
+      z.addEventListener("pointerdown", function (e) {
+        if (e.target.closest(".zoom-ui")) return;
+        act = true; z.classList.add("act");
+        pts[e.pointerId] = { x: e.clientX, y: e.clientY }; last = { x: e.clientX, y: e.clientY };
+        try { z.setPointerCapture(e.pointerId); } catch (er) {}
+        z.classList.add("drag");
+      });
+      z.addEventListener("pointermove", function (e) {
+        if (!pts[e.pointerId]) return;
+        pts[e.pointerId] = { x: e.clientX, y: e.clientY };
+        var ids = Object.keys(pts);
+        if (ids.length === 2) {
+          var a = pts[ids[0]], b = pts[ids[1]], d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (pinch) { var r = rect(); zoomAt(d / pinch, (a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top); }
+          pinch = d;
+        } else if (last) { x += e.clientX - last.x; y += e.clientY - last.y; apply(); }
+        last = { x: e.clientX, y: e.clientY };
+      });
+      var up = function (e) { delete pts[e.pointerId]; pinch = 0; last = Object.keys(pts).length ? last : null; z.classList.remove("drag"); };
+      z.addEventListener("pointerup", up); z.addEventListener("pointercancel", up);
+      z.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") { act = false; z.classList.remove("act"); } });
+      z.addEventListener("dblclick", function (e) {
+        if (e.target.closest(".zoom-ui")) return;
+        var r = rect(); if (s > 1.2) fit(); else zoomAt(3, e.clientX - r.left, e.clientY - r.top);
+      });
+      $(".zoom-ui", z).addEventListener("click", function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        var a = b.getAttribute("data-z"), cx = z.clientWidth / 2, cy = z.clientHeight / 2;
+        if (a === "in") zoomAt(1.6, cx, cy); else if (a === "out") zoomAt(1 / 1.6, cx, cy); else if (a === "fit") fit();
+        else if (a === "full") { if (document.fullscreenElement) document.exitFullscreen(); else if (z.requestFullscreen) z.requestFullscreen(); }
+      });
+      document.addEventListener("fullscreenchange", fit);
+      addEventListener("resize", fit);
+      if (img.complete) fit(); else img.addEventListener("load", fit);
+    });
+  }
+
+  /* ---------- Tabla de cantidades ↔ visor 3D ---------- */
+  function initQty() {
+    var rows = $$("tr.qrow"); if (!rows.length) return;
+    var cur = null;
+    function withApi(cb) {
+      if (window.PM_viewerApi) return cb(window.PM_viewerApi);
+      var b = $("#v3d-load"); if (b && b.style.display !== "none") b.click();
+      var n = 0;
+      (function wait() { if (window.PM_viewerApi) return cb(window.PM_viewerApi); if (++n < 90) setTimeout(wait, 500); })();
+    }
+    rows.forEach(function (r) {
+      r.tabIndex = 0; r.setAttribute("role", "button");
+      function go() {
+        var q = r.getAttribute("data-q"), was = r === cur;
+        rows.forEach(function (x) { x.classList.remove("on"); });
+        withApi(function (a) {
+          if (was) { cur = null; a.clear(); a.rooms(false); return; }
+          cur = r; r.classList.add("on");
+          if (q === "@rooms") { a.clear(); a.rooms(true); } else { a.rooms(false); a.focus(q); }
+          var v = $("#v3d"); if (v) v.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      }
+      r.addEventListener("click", go);
+      r.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     try { collect(); } catch (e) { console.error(e); }
     $$("[data-l]").forEach(function (b) { b.addEventListener("click", function () { setLang(b.getAttribute("data-l")); }); });
     setLang(store.get("pm-lang") === "en" ? "en" : "es");
-    [initLB, initBar].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
+    [initLB, initBar, initZoom, initQty].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
   });
 })();

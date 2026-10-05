@@ -352,6 +352,37 @@ section.sec[id]{scroll-margin-top:84px}
 .v3d-mat input[type=color]{width:34px;height:22px;padding:0;border:1px solid #000;background:none;cursor:pointer}
 .v3d-mat span{font-size:13px}
 
+/* lámina con zoom */
+.zoomer{position:relative;aspect-ratio:4769/3368;overflow:hidden;background:#fff;border:1px solid #0003;touch-action:none;cursor:grab;user-select:none}
+.zoomer.drag{cursor:grabbing}
+.zoom-stage{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.zoom-stage img{display:block;width:100%;height:100%;max-width:none;-webkit-user-drag:none;pointer-events:none}
+.zoomer:fullscreen{aspect-ratio:auto;background:#fff}
+.zoom-ui{position:absolute;left:10px;top:10px;z-index:3;display:flex;flex-wrap:wrap;gap:6px;max-width:calc(100% - 20px)}
+.zoom-ui button,.zoom-ui .zoom-pdf{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-transform:uppercase;letter-spacing:.04em;font-size:17px;font-weight:600;background:#fff;color:#000;border:2px solid #000;padding:5px 12px;cursor:pointer;line-height:1.1}
+.zoom-ui button:hover,.zoom-ui .zoom-pdf:hover{background:#000;color:#fff}
+.zoom-hint{position:absolute;left:10px;bottom:10px;z-index:3;font-size:13px;background:rgba(255,255,255,.88);padding:3px 8px;pointer-events:none}
+.zoomer.act .zoom-hint{opacity:0}
+@media(max-width:800px){.zoom-ui button,.zoom-ui .zoom-pdf{font-size:15px;padding:6px 10px}.zoom-hint{display:none}}
+
+/* tabla de cantidades enlazada al visor */
+.qty-hint{font-size:14px;margin:0 0 10px;opacity:.75}
+table.qty tr.qrow{cursor:pointer;transition:background .15s}
+table.qty tr.qrow:hover{background:#0000000a}
+table.qty tr.qrow.on{background:#000;color:#fff}
+table.qty tr.qrow.on td{border-bottom-color:#000}
+table.qty tr.qrow:focus-visible{outline:2px solid #000;outline-offset:-2px}
+.qty-dl{margin:-22px 0 44px;display:flex;flex-wrap:wrap;gap:10px}
+
+/* etiquetas de recintos en el visor */
+.v3d-rooms{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.v3d-rooms[hidden]{display:none}
+.v3d-room{position:absolute;left:0;top:0;background:#fff;border:2px solid #000;padding:3px 8px 4px;text-align:center;line-height:1.15;white-space:nowrap}
+.v3d-room b{display:block;font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-transform:uppercase;font-size:14px;letter-spacing:.03em}
+.v3d-room i{display:block;font-style:normal;font-size:12px;opacity:.7}
+@media(max-width:800px){.v3d-room{padding:2px 5px 3px}.v3d-room b{font-size:11px}.v3d-room i{font-size:10px}}
+.zoomer{max-height:calc(100vh - 110px)}
+
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
@@ -417,7 +448,7 @@ section.sec[id]{scroll-margin-top:84px}
 
 <section class="sec" id="laminas"><header><span><i>04</i>Láminas</span><span>planimetría técnica</span></header>
 <p class="t" style="font-size:13px">Lámina A101 — Planimetría general · planta, 4 elevaciones, 3 cortes e isométricas · 1:50</p>
-<a class="thumb" href="04_Laminas/L01_HAB_ARQ_MODELO_R01.pdf" target="_blank"><img src="04_Laminas/L01_HAB_ARQ_MODELO_R01.jpg" alt="Lámina A101"><span>Abrir PDF ↗</span></a></section>
+<div class="zoomer" data-hi="04_Laminas/web/L01_zoom.jpg"><div class="zoom-stage"><img src="04_Laminas/L01_HAB_ARQ_MODELO_R01.jpg" alt="Lámina A101" draggable="false"></div><div class="zoom-ui"><button type="button" data-z="in" aria-label="Acercar">+</button><button type="button" data-z="out" aria-label="Alejar">−</button><button type="button" data-z="fit">Ajustar</button><button type="button" data-z="full">Pantalla completa</button><a class="zoom-pdf" href="04_Laminas/L01_HAB_ARQ_MODELO_R01.pdf" target="_blank" rel="noopener">Abrir PDF ↗</a></div><div class="zoom-hint">Arrastra para mover · haz clic y usa la rueda para acercar · doble clic para ampliar</div></div></section>
 
 <section class="sec" id="materialidad"><header><span><i>05</i>Materialidad</span><span>verificada contra fichas de fabricante</span></header>
 <div class="mats">
@@ -456,29 +487,31 @@ section.sec[id]{scroll-margin-top:84px}
 </table></div></section>
 </div>
 
-<div class="dl"><div><h2>Descargar documentos e imágenes</h2><p>Referentes, proveedores, documentos técnicos, láminas e imágenes — no incluye el modelo Revit ni el IFC (ver punto 08).</p></div><a href="Pausa_Maule_Completo.zip" target="_blank">↓ Descargar todo (.zip, 32 MB)</a></div>
+<div class="dl"><div><h2>Descargar documentos e imágenes</h2><p>Referentes, proveedores, documentos técnicos, láminas e imágenes — no incluye el modelo Revit ni el IFC (ver punto 08).</p></div><a href="Pausa_Maule_Completo.zip" target="_blank">↓ Descargar todo (.zip, 35 MB)</a></div>
 
 <div class="wrap">
 <section class="sec" id="revit" style="margin-top:0"><header><span><i>08</i>Modelo Revit</span><span>HAB_ARQ_MODELO_R01.RVT</span></header>
 <div class="stats six"><div><b>7 276</b><span>Elementos totales</span></div><div><b>939</b><span>Tipos</span></div><div><b>56</b><span>Familias</span></div><div><b>71</b><span>Categorías</span></div><div><b>48</b><span>Vistas</span></div><div><b>3+2</b><span>Niveles principales + subniveles</span></div></div>
 <div class="sub-t">Visor 3D</div><div class="v3d" id="v3d"><div id="v3d-canvas"></div><div id="v3d-status"></div><button type="button" class="btn p" id="v3d-load">Cargar visor 3D</button><p>Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, usa la rueda para acercar y mantén presionada la rueda (botón central) para desplazar la vista, como en Revit.</p></div><div class="sub-t">Cantidades del modelo</div>
 <p class="qty-note">Cantidades obtenidas del modelo Revit.</p>
+<p class="qty-hint">Haz clic en una fila para verla en el visor 3D.</p>
 <p class="swipe">Desliza la tabla para ver todas las columnas →</p><div style="overflow-x:auto;margin-bottom:40px"><table class="qty">
 <tr><th>Categoría</th><th>Tipo</th><th>Cant.</th><th>Medida</th></tr>
-<tr><td>Muros</td><td>MURO_EXT_QUINCHA_12cm</td><td>11</td><td>55,69 m² · 6,68 m³</td></tr>
-<tr><td>Muros cortina</td><td>MURO_CORTINA_EXT_MADERA</td><td>6</td><td>36,68 m²</td></tr>
-<tr><td>Montantes de muro cortina</td><td>MADERA_1.25X10cm</td><td>396</td><td>246,6 m · 0,62 m³</td></tr>
+<tr class="qrow" data-q="MURO_EXT_QUINCHA_12cm"><td>Muros</td><td>MURO_EXT_QUINCHA_12cm</td><td>11</td><td>55,69 m² · 6,68 m³</td></tr>
+<tr class="qrow" data-q="MURO_CORTINA_EXT_MADERA"><td>Muros cortina</td><td>MURO_CORTINA_EXT_MADERA</td><td>6</td><td>36,68 m²</td></tr>
+<tr class="qrow" data-q="MADERA_1.25X10cm"><td>Montantes de muro cortina</td><td>MADERA_1.25X10cm</td><td>396</td><td>246,6 m · 0,62 m³</td></tr>
 <tr><td>Paneles de muro cortina</td><td>Empty (celosía)</td><td>192</td><td>30,51 m²</td></tr>
-<tr><td>Puertas</td><td>80X210</td><td>2</td><td>—</td></tr>
-<tr><td>Pilares estructurales</td><td>130X130</td><td>16</td><td>0,64 m³</td></tr>
-<tr><td>Armazón principal</td><td>2X8_PRINCIPAL</td><td>8</td><td>71,2 m · 0,71 m³</td></tr>
-<tr><td>Armazón secundario</td><td>2X4_SECUNDARIA</td><td>16</td><td>48,0 m · 0,24 m³</td></tr>
-<tr><td>Zapatas aisladas</td><td>ZAPATA_Hormigon Armado_Aislada</td><td>16</td><td>3,03 m³</td></tr>
-<tr><td>Radier estructural</td><td>RADIER_INT_HA_15cm</td><td>1</td><td>76,56 m² · 11,49 m³</td></tr>
-<tr><td>Radier pulido</td><td>RADIER_PULIDO_INT_HA_2cm</td><td>1</td><td>76,31 m² · 1,53 m³</td></tr>
-<tr><td>Cubierta</td><td>CUBIERTA_ZINC_ONDULADO_MADERA</td><td>1</td><td>76,56 m² · 7,66 m³</td></tr>
-<tr><td>Recintos</td><td>9 recintos</td><td>9</td><td>79,45 m²</td></tr>
+<tr class="qrow" data-q="80X210"><td>Puertas</td><td>80X210</td><td>2</td><td>—</td></tr>
+<tr class="qrow" data-q="130X130"><td>Pilares estructurales</td><td>130X130</td><td>16</td><td>0,64 m³</td></tr>
+<tr class="qrow" data-q="2X8_PRINCIPAL"><td>Armazón principal</td><td>2X8_PRINCIPAL</td><td>8</td><td>71,2 m · 0,71 m³</td></tr>
+<tr class="qrow" data-q="2X4_SECUNDARIA"><td>Armazón secundario</td><td>2X4_SECUNDARIA</td><td>16</td><td>48,0 m · 0,24 m³</td></tr>
+<tr class="qrow" data-q="ZAPATA_Hormigon Armado_Aislada"><td>Zapatas aisladas</td><td>ZAPATA_Hormigon Armado_Aislada</td><td>16</td><td>3,03 m³</td></tr>
+<tr class="qrow" data-q="RADIER_INT_HA_15cm"><td>Radier estructural</td><td>RADIER_INT_HA_15cm</td><td>1</td><td>76,56 m² · 11,49 m³</td></tr>
+<tr class="qrow" data-q="RADIER_PULIDO_INT_HA_2cm"><td>Radier pulido</td><td>RADIER_PULIDO_INT_HA_2cm</td><td>1</td><td>76,31 m² · 1,53 m³</td></tr>
+<tr class="qrow" data-q="CUBIERTA_ZINC_ONDULADO_MADERA"><td>Cubierta</td><td>CUBIERTA_ZINC_ONDULADO_MADERA</td><td>1</td><td>76,56 m² · 7,66 m³</td></tr>
+<tr class="qrow" data-q="@rooms"><td>Recintos</td><td>9 recintos</td><td>9</td><td>79,45 m²</td></tr>
 </table></div>
+<p class="qty-dl"><a class="btn p" href="03_Documentos_Tecnicos/Cantidades_Pausa_Maule.xlsx" download>Descargar Excel (.xlsx) ↓</a> <a class="btn" href="03_Documentos_Tecnicos/Cantidades_Pausa_Maule.csv" download>Descargar CSV ↓</a></p>
 <div class="sub-t">Archivos del modelo</div>
 <div class="list">
 <div class="row"><div class="d"><b>HAB_ARQ_MODELO_R01.rvt</b><span>Modelo BIM del habitáculo Pausa Maule · 214 MB</span></div><div class="acts"><a class="btn p" href="https://github.com/malvarez2890-lang/pausa-maule/releases/download/modelo-revit/HAB_ARQ_MODELO_R01.rvt" target="_blank">Descargar ↓</a></div></div>
@@ -508,5 +541,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=46" defer></script>
+</script><script src="assets/site.js?v=49" defer></script>
 </body></html>
