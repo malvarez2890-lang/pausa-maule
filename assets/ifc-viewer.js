@@ -9,7 +9,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;",
 const fmtN = (n, d = 2) => n.toFixed(d).replace(".", ",");
 
 const CATS = ["Muros", "Montantes de muro cortina", "Pilares estructurales", "Armazón estructural", "Cimentación estructural", "Suelos", "Cubiertas", "Puertas", "Otros"];
-const EXPLODE = { "Cubiertas": 3.0, "Armazón estructural": 1.6, "Suelos": -0.9, "Cimentación estructural": -1.8 };
+const EXPLODE = { "Cubiertas": 5.2, "Armazón estructural": 3.0, "Suelos": -1.9, "Cimentación estructural": -3.6 };
 const MAT_COL = { "MT_PINO RADIATA": 0xc8975a, "MT_TIERRA_QUINCHA": 0x9c6b45, "MT_HORMIGON ARMADO": 0x8a8f94, "MT_HORMIGÓN PULIDO": 0xb9bdc1, "MT_PLANCHA ONDULADA ZINCALUM": 0x6d8ea3, "TBC_Madera": 0xa0693c };
 
 function hashColor(name) {
@@ -151,16 +151,13 @@ export async function startViewer(host, url, onStatus) {
   const R = Math.max(size.x, size.y, size.z);
   camera.near = R / 1000; camera.far = R * 100; camera.updateProjectionMatrix();
 
-  const grid = new THREE.GridHelper(Math.ceil(R * 3), Math.ceil(R * 3), 0xc4c4c4, 0xdcdcdc);
-  grid.position.set(center.x, box.min.y - 0.01, center.z);
-  scene.add(grid);
 
   // ---------- estado ----------
   const catOn = Object.fromEntries(CATS.map(c => [c, true]));
   let roofOn = true, roofAuto = false;
   let colorMode = "orig";
   let scaleNow = 1;
-  let explodeK = 0, explodeTarget = 0;
+  let explodeK = 0, explodeTarget = 0, explodeFrom = 0, explodeT0 = 0;
   const clip = { on: false, axis: "y", flip: false, v: 0 };
   const clipPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 0);
   let isolate = null; // Set de eids aislados
@@ -401,12 +398,13 @@ export async function startViewer(host, url, onStatus) {
   mk("cut", "Corte", () => openPop("cut"));
   mk("measure", "Medir", () => setMeasure(!measureOn));
   mk("explode", "Explotar", () => {
+    explodeFrom = explodeK; explodeT0 = performance.now();
     explodeTarget = explodeTarget ? 0 : 1;
     btns.explode.dataset.es = explodeTarget ? "Juntar" : "Explotar";
     btns.explode.textContent = T(btns.explode.dataset.es);
     btns.explode.classList.toggle("on", !!explodeTarget);
     clearMeasure();
-    scaleNow = explodeTarget ? 1.55 : 1;
+    scaleNow = explodeTarget ? 1.65 : 1;
     if (explodeTarget) { // al explotar siempre se muestra en isométrica y con la cubierta
       if (roofAuto) { setRoof(true); roofAuto = false; }
       viewKey = "iso"; setActive("iso");
@@ -582,8 +580,8 @@ export async function startViewer(host, url, onStatus) {
       if (k >= 1) anim = null;
     }
     if (explodeK !== explodeTarget) {
-      explodeK += Math.sign(explodeTarget - explodeK) * 0.045;
-      if (Math.abs(explodeTarget - explodeK) < 0.045) explodeK = explodeTarget;
+      const kk = Math.min(1, (performance.now() - explodeT0) / 1100); // animación por tiempo, no por cuadros
+      explodeK = kk >= 1 ? explodeTarget : explodeFrom + (explodeTarget - explodeFrom) * kk;
       const e = explodeK * explodeK * (3 - 2 * explodeK);
       meshes.forEach(m => { m.position.y = (EXPLODE[m.userData.cat] || 0) * e; });
     }
