@@ -383,6 +383,10 @@ table.qty tr.qrow:focus-visible{outline:2px solid #000;outline-offset:-2px}
 @media(max-width:800px){.v3d-room{padding:2px 5px 3px}.v3d-room b{font-size:11px}.v3d-room i{font-size:10px}}
 .zoomer{max-height:calc(100vh - 110px)}
 
+/* lámina: caja centrada con la proporción de la lámina (cabe en pantalla y queda al centro) */
+.zoomer{max-height:none;width:min(100%,calc((100vh - 110px) * 4769 / 3368));margin-left:auto;margin-right:auto}
+.zoomer:fullscreen{width:100%;aspect-ratio:auto;max-height:none;margin:0}
+
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
@@ -541,5 +545,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=49" defer></script>
+</script><script src="assets/site.js?v=50" defer></script>
 </body></html>
