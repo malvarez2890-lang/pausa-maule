@@ -151,9 +151,10 @@ export async function startViewer(host, url, onStatus) {
     ui.appendChild(b); btns[id] = b; return b;
   };
   const setActive = k => Object.keys(views).forEach(id => btns[id].classList.toggle("on", id === k));
-  Object.keys(views).forEach(k => mk(k, views[k].es, () => { goTo(k); setActive(k); if (k === "plan" && roofOn) setRoof(false); }));
+  Object.keys(views).forEach(k => mk(k, views[k].es, () => { goTo(k); setActive(k); if (k === "plan") { if (roofOn) { setRoof(false); roofAuto = true; } } else if (roofAuto) { setRoof(true); roofAuto = false; } }));
   setActive("iso");
   let roofOn = true;
+  let roofAuto = false; // cubierta oculta automáticamente por la vista Planta
   let roofBtn;
   const setRoof = on => {
     roofOn = on;
@@ -162,7 +163,7 @@ export async function startViewer(host, url, onStatus) {
     roofBtn.textContent = T(roofBtn.dataset.es);
     roofBtn.classList.toggle("on", !roofOn);
   };
-  roofBtn = mk("roof", "Ocultar cubierta", () => setRoof(!roofOn));
+  roofBtn = mk("roof", "Ocultar cubierta", () => { roofAuto = false; setRoof(!roofOn); });
   roofBtn.classList.add("sep");
   root.appendChild(ui);
   controls.addEventListener("start", () => { anim = null; Object.keys(views).forEach(id => btns[id].classList.remove("on")); });
