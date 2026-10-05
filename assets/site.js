@@ -256,7 +256,7 @@
     try { host.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
     var slow = setTimeout(function () { if (viewerStarted && st.style.display === "block" && !$("#v3d-canvas canvas")) st.setAttribute("data-slow", "1"); }, 15000);
     try {
-      import("./ifc-viewer.js?v=19").then(function (m) {
+      import("./ifc-viewer.js?v=21").then(function (m) {
         return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", show);
       }).catch(function (err) {
         console.error(err); clearTimeout(slow);

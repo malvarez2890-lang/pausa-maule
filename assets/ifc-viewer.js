@@ -12,6 +12,29 @@ const CATS = ["Muros", "Montantes de muro cortina", "Pilares estructurales", "Ar
 const EXPLODE = { "Cubiertas": 5.2, "Armazón estructural": 3.0, "Suelos": -1.9, "Cimentación estructural": -3.6 };
 const MAT_COL = { "MT_PINO RADIATA": 0xc8975a, "MT_TIERRA_QUINCHA": 0x9c6b45, "MT_HORMIGON ARMADO": 0x8a8f94, "MT_HORMIGÓN PULIDO": 0xb9bdc1, "MT_PLANCHA ONDULADA ZINCALUM": 0x6d8ea3, "TBC_Madera": 0xa0693c };
 
+// Si una pieza viene con las caras invertidas (volumen con signo negativo, p. ej. por una instancia espejada)
+// se le da vuelta el sentido de los triángulos y de las normales.
+function fixWinding(g) {
+  const p = g.getAttribute("position"), n = g.getAttribute("normal");
+  const A = new THREE.Vector3(), Bv = new THREE.Vector3(), C = new THREE.Vector3();
+  let vol = 0;
+  for (let i = 0; i < p.count; i += 3) {
+    A.fromBufferAttribute(p, i); Bv.fromBufferAttribute(p, i + 1); C.fromBufferAttribute(p, i + 2);
+    vol += A.dot(Bv.cross(C)) / 6;
+  }
+  if (vol >= -1e-6) return false;
+  for (const at of [p, n]) {
+    for (let i = 0; i < at.count; i += 3) {
+      const x = at.getX(i + 1), y = at.getY(i + 1), z = at.getZ(i + 1);
+      at.setXYZ(i + 1, at.getX(i + 2), at.getY(i + 2), at.getZ(i + 2));
+      at.setXYZ(i + 2, x, y, z);
+    }
+  }
+  for (let i = 0; i < n.count; i++) n.setXYZ(i, -n.getX(i), -n.getY(i), -n.getZ(i));
+  p.needsUpdate = true; n.needsUpdate = true;
+  return true;
+}
+
 function hashColor(name) {
   let h = 0; for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   return new THREE.Color().setHSL((h % 360) / 360, 0.45, 0.6);
@@ -70,6 +93,7 @@ export async function startViewer(host, url, onStatus) {
         bg.applyMatrix4(new THREE.Matrix4().fromArray(pg.flatTransformation));
         const ng = bg.toNonIndexed();
         bg.dispose();
+        fixWinding(ng);
         const n = ng.getAttribute("position").count;
         ng.setAttribute("eid", new THREE.BufferAttribute(new Float32Array(n).fill(eid), 1));
         ng.computeBoundingBox();
@@ -172,33 +196,34 @@ export async function startViewer(host, url, onStatus) {
   function updateVisibility() {
     meshes.forEach(m => { m.visible = catOn[m.userData.cat] && (!m.userData.roofLayer || roofOn); });
   }
-  // Relleno negro de los cortes: con el corte activo las piezas se dibujan solo por la cara exterior y las caras
-  // interiores (visibles a través del corte) se pintan de negro, como el poché de un plano.
-  const capMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide });
-  const caps = new Map(); // malla -> gemela negra
+  // Relleno negro de los cortes (poché) con búfer de plantilla: paridad de superficies a lo largo de cada rayo.
+  // No depende del sentido de las caras de cada pieza.
+  const stencilMat = new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false, depthTest: false, side: THREE.DoubleSide,
+    stencilWrite: true, stencilFunc: THREE.AlwaysStencilFunc, stencilFail: THREE.InvertStencilOp, stencilZFail: THREE.InvertStencilOp, stencilZPass: THREE.InvertStencilOp });
+  const capPlane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide,
+    stencilWrite: true, stencilRef: 0, stencilFunc: THREE.NotEqualStencilFunc, stencilFail: THREE.ReplaceStencilOp, stencilZFail: THREE.ReplaceStencilOp, stencilZPass: THREE.ReplaceStencilOp }));
+  capPlane.scale.setScalar(R * 8); capPlane.renderOrder = 1.1; capPlane.visible = false; scene.add(capPlane);
+  const caps = new Map(); // malla -> gemela de plantilla
   function refreshCaps() {
     caps.forEach((tw, src) => {
       if (!clip.on || !(meshes.includes(src) || overlays.includes(src))) { scene.remove(tw); caps.delete(src); }
     });
+    capPlane.visible = clip.on;
     if (!clip.on) return;
     [...meshes, ...overlays].forEach(src => {
       if (caps.has(src)) return;
-      const tw = new THREE.Mesh(src.geometry, capMat);
-      tw.renderOrder = src.renderOrder;
+      const tw = new THREE.Mesh(src.geometry, stencilMat);
+      tw.renderOrder = 1;
       scene.add(tw); caps.set(src, tw);
     });
   }
   function applyClip() {
     const want = clip.on ? [clipPlane] : [];
-    const mats = new Set([capMat]);
-    scene.traverse(o => { if (o.isMesh && o.material) mats.add(o.material); });
+    const mats = new Set([stencilMat]);
+    scene.traverse(o => { if (o.isMesh && o.material && o !== capPlane) mats.add(o.material); });
     mats.forEach(m => {
       if ((m.clippingPlanes || []).length !== want.length) m.needsUpdate = true;
       m.clippingPlanes = want;
-    });
-    [...meshes, ...overlays].forEach(m => {
-      const side = clip.on ? THREE.FrontSide : THREE.DoubleSide;
-      if (m.material.side !== side) { m.material.side = side; m.material.needsUpdate = true; }
     });
     refreshCaps();
   }
@@ -609,6 +634,7 @@ export async function startViewer(host, url, onStatus) {
     overlays.forEach(o => { o.visible = o.userData.src.visible; o.position.copy(o.userData.src.position); });
     hl.forEach(o => { o.visible = o.userData.src.visible; o.position.copy(o.userData.src.position); });
     caps.forEach((tw, src) => { tw.visible = src.visible && !(isolate && meshes.includes(src)); tw.position.copy(src.position); });
+    if (clip.on) { clipPlane.coplanarPoint(capPlane.position); capPlane.lookAt(capPlane.position.x + clipPlane.normal.x, capPlane.position.y + clipPlane.normal.y, capPlane.position.z + clipPlane.normal.z); }
     controls.update();
     renderer.render(scene, camera);
     placeMeasureLabel();
