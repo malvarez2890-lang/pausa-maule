@@ -172,14 +172,35 @@ export async function startViewer(host, url, onStatus) {
   function updateVisibility() {
     meshes.forEach(m => { m.visible = catOn[m.userData.cat] && (!m.userData.roofLayer || roofOn); });
   }
-  function applyClip() {
-    scene.traverse(o => {
-      if (o.isMesh && o.material) {
-        const want = clip.on ? [clipPlane] : [];
-        if ((o.material.clippingPlanes || []).length !== want.length) o.material.needsUpdate = true;
-        o.material.clippingPlanes = want;
-      }
+  // Relleno negro de los cortes: con el corte activo las piezas se dibujan solo por la cara exterior y las caras
+  // interiores (visibles a través del corte) se pintan de negro, como el poché de un plano.
+  const capMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide });
+  const caps = new Map(); // malla -> gemela negra
+  function refreshCaps() {
+    caps.forEach((tw, src) => {
+      if (!clip.on || !(meshes.includes(src) || overlays.includes(src))) { scene.remove(tw); caps.delete(src); }
     });
+    if (!clip.on) return;
+    [...meshes, ...overlays].forEach(src => {
+      if (caps.has(src)) return;
+      const tw = new THREE.Mesh(src.geometry, capMat);
+      tw.renderOrder = src.renderOrder;
+      scene.add(tw); caps.set(src, tw);
+    });
+  }
+  function applyClip() {
+    const want = clip.on ? [clipPlane] : [];
+    const mats = new Set([capMat]);
+    scene.traverse(o => { if (o.isMesh && o.material) mats.add(o.material); });
+    mats.forEach(m => {
+      if ((m.clippingPlanes || []).length !== want.length) m.needsUpdate = true;
+      m.clippingPlanes = want;
+    });
+    [...meshes, ...overlays].forEach(m => {
+      const side = clip.on ? THREE.FrontSide : THREE.DoubleSide;
+      if (m.material.side !== side) { m.material.side = side; m.material.needsUpdate = true; }
+    });
+    refreshCaps();
   }
   function updateClipPlane() {
     const s = clip.flip ? -1 : 1;
@@ -587,6 +608,7 @@ export async function startViewer(host, url, onStatus) {
     }
     overlays.forEach(o => { o.visible = o.userData.src.visible; o.position.copy(o.userData.src.position); });
     hl.forEach(o => { o.visible = o.userData.src.visible; o.position.copy(o.userData.src.position); });
+    caps.forEach((tw, src) => { tw.visible = src.visible && !(isolate && meshes.includes(src)); tw.position.copy(src.position); });
     controls.update();
     renderer.render(scene, camera);
     placeMeasureLabel();
