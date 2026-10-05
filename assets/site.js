@@ -104,7 +104,7 @@
     "Cimentación estructural": "Structural foundation", "Suelos": "Floors", "Cubiertas": "Roofs", "Armazón estructural": "Structural framing", "Capas": "Layers", "Color": "Color", "Corte": "Cut", "Medir": "Measure", "Explotar": "Explode", "Juntar": "Assemble", "Mostrar todo": "Show all", "Original": "Original", "Estructural / no estructural": "Structural / non-structural", "Exterior / interior": "Exterior / interior", "Horizontal (altura)": "Horizontal (height)", "Vertical (ancho)": "Vertical (width)", "Vertical (fondo)": "Vertical (depth)", "Invertir": "Flip", "Quitar corte": "Remove cut", "Buscar tipo o categoría…": "Search type or category…", "piezas": "parts", "Haz clic en dos puntos del modelo para medir": "Click two points on the model to measure", "Distancia": "Distance", "horizontal": "horizontal", "vertical": "vertical", "Sin dato": "No data", "No estructural": "Non-structural", "Interior": "Interior", "Otros": "Others", "Derecha": "Right", "Izquierda": "Left", "Superior": "Top", "Inferior": "Bottom", "Frontal": "Front", "Posterior": "Back", "Realista": "Realistic", "Original (IFC)": "Original (IFC)", "Colores de materiales": "Material colors", "Restaurar colores": "Reset colors", "Maqueta": "Model", "Recintos": "Rooms", "Baño 1": "Restroom 1", "Baño 2": "Restroom 2", "Zona apoyo": "Support zone", "Zona de descanso 1": "Rest zone 1", "Zona de descanso 2": "Rest zone 2", "Estacionamiento bicicletas": "Bicycle parking", "Bebederos": "Drinking fountains", "Patio": "Courtyard", "Pasillo": "Corridor",
     "Ajustar": "Fit", "Pantalla completa": "Fullscreen", "Arrastra para mover · haz clic y usa la rueda para acercar · doble clic para ampliar": "Drag to move · click and use the wheel to zoom · double-click to enlarge",
     "Haz clic en una fila para verla en el visor 3D.": "Click a row to see it in the 3D viewer.", "Descargar Excel (.xlsx) ↓": "Download Excel (.xlsx) ↓", "Descargar CSV ↓": "Download CSV ↓",
-    "Haz clic en una pieza para ver su ficha": "Click a part to see its data sheet", "Sin ficha en el modelo": "No data sheet in the model", "Familia": "Family", "Material": "Material", "Materiales": "Materials", "Estructural": "Structural", "Exterior": "Exterior", "Nivel": "Level", "Área": "Area", "Volumen": "Volume", "Longitud": "Length", "Ficha de fabricante": "Manufacturer data sheet", "ID de Revit": "Revit ID", "Sí": "Yes", "No": "No",
+    "Cambiar entre modo claro y oscuro": "Switch between light and dark mode", "Haz clic en una pieza para ver su ficha": "Click a part to see its data sheet", "Sin ficha en el modelo": "No data sheet in the model", "Familia": "Family", "Material": "Material", "Materiales": "Materials", "Estructural": "Structural", "Exterior": "Exterior", "Nivel": "Level", "Área": "Area", "Volumen": "Volume", "Longitud": "Length", "Ficha de fabricante": "Manufacturer data sheet", "ID de Revit": "Revit ID", "Sí": "Yes", "No": "No",
     "Desliza la tabla para ver todas las columnas →": "Swipe the table to see all columns →",
     "Isométrica": "Isometric", "Planta": "Plan", "Frente": "Front", "Lateral": "Side", "Ocultar cubierta": "Hide roof", "Mostrar cubierta": "Show roof",
     "Tu navegador tiene WebGL desactivado o no disponible, por eso no se puede mostrar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.": "Your browser has WebGL disabled or unavailable, so the 3D viewer cannot be shown. You can download the IFC and open it in your BIM software.",
@@ -370,10 +370,23 @@
     });
   }
 
+  /* ---------- Modo oscuro ---------- */
+  function setTheme(t) {
+    if (t === "dark") document.documentElement.setAttribute("data-theme", "dark"); else document.documentElement.removeAttribute("data-theme");
+    store.set("pm-theme", t);
+    $$("[data-theme-toggle]").forEach(function (b) { b.textContent = t === "dark" ? "☀" : "☾"; });
+    var m = $("meta[name=theme-color]"); if (m) m.setAttribute("content", t === "dark" ? "#000000" : "#ffffff");
+  }
+  function initTheme() {
+    var cur = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    setTheme(cur);
+    $$("[data-theme-toggle]").forEach(function (b) { b.addEventListener("click", function () { cur = cur === "dark" ? "light" : "dark"; setTheme(cur); }); });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     try { collect(); } catch (e) { console.error(e); }
     $$("[data-l]").forEach(function (b) { b.addEventListener("click", function () { setLang(b.getAttribute("data-l")); }); });
     setLang(store.get("pm-lang") === "en" ? "en" : "es");
-    [initLB, initBar, initZoom, initQty].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
+    [initTheme, initLB, initBar, initZoom, initQty].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
   });
 })();
