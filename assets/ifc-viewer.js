@@ -49,10 +49,10 @@ const MAT_DEF = {
 };
 // Modo "Maqueta": blancos suaves, con un matiz leve por material para que se lea cada parte
 const CLAY = {
-  "MT_PINO RADIATA": 0xdcd7cd, "MT_TIERRA_QUINCHA": 0xd6d2ca, "MT_HORMIGON ARMADO": 0xcdcdcc, "MT_HORMIGÓN PULIDO": 0xdadad9,
-  "MT_PLANCHA ONDULADA ZINCALUM": 0xe6e8eb, "TBC_Madera": 0xd9d1c4, "M_Aluminio Grafito": 0xb3b8be, "TBC_Generico": 0xe2e0dc
+  "MT_PINO RADIATA": 0xe6e4e0, "MT_TIERRA_QUINCHA": 0xe2e0dc, "MT_HORMIGON ARMADO": 0xdcdcdb, "MT_HORMIGÓN PULIDO": 0xe6e6e5,
+  "MT_PLANCHA ONDULADA ZINCALUM": 0xefeff1, "TBC_Madera": 0xe2dfd8, "M_Aluminio Grafito": 0xb9bdc2, "TBC_Generico": 0xe8e6e3
 };
-const clayColor = name => new THREE.Color(CLAY[name] || 0xdedcd8);
+const clayColor = name => new THREE.Color(CLAY[name] || 0xe6e4e1);
 const matDef = name => MAT_DEF[name] || { c: 0xcfc8bd, r: 0.85, m: 0.0 };
 const repMaterial = d => {
   if (!d.t) return null;
@@ -76,8 +76,8 @@ export async function startViewer(host, url, onStatus) {
   const bgFlat = new THREE.Color(0xf4f4f4);
   const bgClay = (() => { // degradado radial gris azulado, suave
     const c = document.createElement("canvas"); c.width = c.height = 512;
-    const g = c.getContext("2d"), r = g.createRadialGradient(256, 210, 20, 256, 256, 420);
-    r.addColorStop(0, "#d6dce4"); r.addColorStop(0.55, "#b7c0cc"); r.addColorStop(1, "#8f9aa9");
+    const g = c.getContext("2d"), r = g.createRadialGradient(256, 300, 20, 256, 256, 440);
+    r.addColorStop(0, "#b4b8be"); r.addColorStop(0.55, "#989ca3"); r.addColorStop(1, "#767b83");
     g.fillStyle = r; g.fillRect(0, 0, 512, 512);
     const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
   })();
@@ -229,25 +229,18 @@ export async function startViewer(host, url, onStatus) {
   const floatShadow = (() => {
     const c = document.createElement("canvas"); c.width = c.height = 256;
     const g = c.getContext("2d"), r = g.createRadialGradient(128, 128, 6, 128, 128, 126);
-    r.addColorStop(0, "rgba(40,52,74,0.80)"); r.addColorStop(0.5, "rgba(40,52,74,0.42)"); r.addColorStop(1, "rgba(52,64,84,0)");
+    r.addColorStop(0, "rgba(55,60,70,0.62)"); r.addColorStop(0.5, "rgba(55,60,70,0.30)"); r.addColorStop(1, "rgba(52,64,84,0)");
     g.fillStyle = r; g.fillRect(0, 0, 256, 256);
     const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(R * 2.5, R * 2.5), new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false }));
-    m.rotation.x = -Math.PI / 2; m.position.set(center.x + R * 0.32, box.min.y - R * 0.38, center.z + R * 0.22);
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(R * 2.2, R * 2.2), new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false }));
+    m.rotation.x = -Math.PI / 2; m.position.set(center.x + R * 0.16, box.min.y - R * 0.1, center.z + R * 0.12);
     m.renderOrder = -1; m.userData.noClip = true; scene.add(m); return m;
   })();
-  // luz cálida en el interior (sin sombras: solo ilumina caras que miran hacia dentro)
-  const warm = [[-0.26, -0.22], [0.27, -0.30], [-0.05, 0.28]].map(([dx, dz]) => {
-    const l = new THREE.PointLight(0xffb454, 4.5, R * 0.42, 2);
-    l.position.set(center.x + dx * R, box.min.y + (box.max.y - box.min.y) * 0.5, center.z + dz * R);
-    scene.add(l); return l;
-  });
   const applyLook = mode => {
     const clay = mode === "clay";
     scene.background = clay ? bgClay : bgFlat;
-    hemi.intensity = clay ? 0.45 : 0.85; sun.intensity = clay ? 1.5 : 2.3;
+    hemi.intensity = clay ? 0.55 : 0.85; sun.intensity = clay ? 1.65 : 2.3;
     floatShadow.visible = clay;
-    warm.forEach(l => { l.visible = clay; });
   };
 
 
@@ -334,7 +327,7 @@ export async function startViewer(host, url, onStatus) {
   }
   function paint(m, mode) {
     const mt = m.material;
-    if (mode === "clay") { mt.vertexColors = false; mt.color.copy(m.userData.matName ? clayColor(m.userData.matName) : new THREE.Color(0xdedcd8)); mt.roughness = 0.92; mt.metalness = 0; mt.envMapIntensity = 0.55; }
+    if (mode === "clay") { mt.vertexColors = false; mt.color.copy(m.userData.matName ? clayColor(m.userData.matName) : new THREE.Color(0xe6e4e1)); mt.roughness = 0.92; mt.metalness = 0; mt.envMapIntensity = 0.55; }
     else if (mode === "real") { mt.vertexColors = false; mt.color.copy(m.userData.real); mt.roughness = m.userData.def.r; mt.metalness = m.userData.def.m; mt.envMapIntensity = 0.7; }
     else {
       m.geometry.setAttribute("color", mode === "orig" ? m.geometry.getAttribute("ifc") : ensureColorAttr(m, mode));
