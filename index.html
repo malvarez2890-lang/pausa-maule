@@ -392,6 +392,7 @@ table.qty tr.qrow:focus-visible{outline:2px solid #000;outline-offset:-2px}
 .theme-btn:focus-visible{outline:2px solid currentColor;outline-offset:2px}
 html[data-theme=dark]{filter:invert(1) hue-rotate(180deg);background:#fff}
 html[data-theme=dark] img,html[data-theme=dark] video,html[data-theme=dark] canvas,html[data-theme=dark] .sw{filter:invert(1) hue-rotate(180deg)}
+.theme-fade{position:fixed;inset:0;z-index:99999;pointer-events:none;transition:opacity .26s ease}
 
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
@@ -551,5 +552,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=52" defer></script>
+</script><script src="assets/site.js?v=53" defer></script>
 </body></html>

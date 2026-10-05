@@ -377,10 +377,28 @@
     $$("[data-theme-toggle]").forEach(function (b) { b.textContent = t === "dark" ? "☀" : "☾"; });
     var m = $("meta[name=theme-color]"); if (m) m.setAttribute("content", t === "dark" ? "#000000" : "#ffffff");
   }
+  // Transición suave: un velo del color de destino aparece, se cambia el tema por debajo y el velo se desvanece.
+  function swapTheme(t) {
+    if (matchMedia("(prefers-reduced-motion:reduce)").matches) { setTheme(t); return; }
+    var X = t === "dark" ? "#000" : "#fff", invX = X === "#000" ? "#fff" : "#000";
+    var now = document.documentElement.getAttribute("data-theme") === "dark";
+    var ov = document.createElement("div"); ov.className = "theme-fade";
+    ov.style.background = now ? invX : X; ov.style.opacity = "0";
+    document.body.appendChild(ov);
+    requestAnimationFrame(function () { requestAnimationFrame(function () { ov.style.opacity = "1"; }); });
+    setTimeout(function () {
+      setTheme(t);
+      ov.style.background = t === "dark" ? invX : X; // el filtro de la página invierte el velo en modo oscuro
+      ov.getBoundingClientRect();
+      ov.style.transition = "opacity .4s ease"; ov.style.opacity = "0";
+      setTimeout(function () { if (ov.parentNode) ov.parentNode.removeChild(ov); }, 480);
+    }, 260);
+  }
+
   function initTheme() {
     var cur = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
     setTheme(cur);
-    $$("[data-theme-toggle]").forEach(function (b) { b.addEventListener("click", function () { cur = cur === "dark" ? "light" : "dark"; setTheme(cur); }); });
+    $$("[data-theme-toggle]").forEach(function (b) { b.addEventListener("click", function () { cur = cur === "dark" ? "light" : "dark"; swapTheme(cur); }); });
   }
 
   document.addEventListener("DOMContentLoaded", function () {
