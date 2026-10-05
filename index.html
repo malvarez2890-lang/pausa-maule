@@ -347,6 +347,11 @@ section.sec[id]{scroll-margin-top:84px}
 .v3d-panel{top:190px;max-height:calc(100% - 202px)}
 @media(max-width:800px){.v3d-cube{width:96px}.v3d-cube canvas{width:96px!important;height:96px!important}.v3d-panel{top:auto}}
 
+/* ventana Color: selector por material */
+.v3d-sub2{margin:8px 0 2px;padding-top:6px;border-top:1px solid #0002;font-size:12px;opacity:.65;text-transform:uppercase;letter-spacing:.04em}
+.v3d-mat input[type=color]{width:34px;height:22px;padding:0;border:1px solid #000;background:none;cursor:pointer}
+.v3d-mat span{font-size:13px}
+
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
@@ -503,5 +508,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=39" defer></script>
+</script><script src="assets/site.js?v=42" defer></script>
 </body></html>

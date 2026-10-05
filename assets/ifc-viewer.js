@@ -2,6 +2,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import * as WebIFC from "./vendor/web-ifc-api.js";
 
 const T = (k) => (window.PM_t ? window.PM_t(k) : k);
@@ -35,6 +36,24 @@ function fixWinding(g) {
   return true;
 }
 
+// Paleta realista por material (color, rugosidad, metal), pensada para parecerse a los renders del proyecto
+const MAT_DEF = {
+  "MT_PINO RADIATA":              { c: 0xcaa273, r: 0.68, m: 0.0 },
+  "MT_TIERRA_QUINCHA":            { c: 0xb8a07d, r: 0.95, m: 0.0 },
+  "MT_HORMIGON ARMADO":           { c: 0x9d9c97, r: 0.92, m: 0.0 },
+  "MT_HORMIGÓN PULIDO":           { c: 0xaeada8, r: 0.45, m: 0.05 },
+  "MT_PLANCHA ONDULADA ZINCALUM": { c: 0xb4bbc1, r: 0.45, m: 0.3 },
+  "TBC_Madera":                   { c: 0xa9764b, r: 0.65, m: 0.0 },
+  "M_Aluminio Grafito":           { c: 0x555a5f, r: 0.4, m: 0.7 },
+  "TBC_Generico":                 { c: 0xd8d2c6, r: 0.8, m: 0.0 }
+};
+const matDef = name => MAT_DEF[name] || { c: 0xcfc8bd, r: 0.85, m: 0.0 };
+const repMaterial = d => {
+  if (!d.t) return null;
+  const mats = d.t.mat || [];
+  return mats.find(m => /^MT_/.test(m)) || mats.find(m => /madera/i.test(m)) || mats[0] || null;
+};
+
 function hashColor(name) {
   let h = 0; for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   return new THREE.Color().setHSL((h % 360) / 360, 0.45, 0.6);
@@ -48,12 +67,25 @@ export async function startViewer(host, url, onStatus) {
   renderer.localClippingEnabled = true;
   host.appendChild(renderer.domElement);
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xf2f2f2);
+  {
+    const gc = document.createElement("canvas"); gc.width = 4; gc.height = 256;
+    const gg = gc.getContext("2d"), gr = gg.createLinearGradient(0, 0, 0, 256);
+    gr.addColorStop(0, "#cfe1ef"); gr.addColorStop(0.62, "#eef1ee"); gr.addColorStop(1, "#f4efe4");
+    gg.fillStyle = gr; gg.fillRect(0, 0, 4, 256);
+    const gt = new THREE.CanvasTexture(gc); gt.colorSpace = THREE.SRGBColorSpace;
+    scene.background = gt;
+  }
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  {
+    const pm = new THREE.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  }
   const camera = new THREE.PerspectiveCamera(40, W() / H(), 0.01, 100000);
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x9a9a9a, 1.1));
-  const sun = new THREE.DirectionalLight(0xffffff, 1.6);
-  sun.position.set(-1, 2, 1.2);
-  scene.add(sun);
+  scene.add(new THREE.HemisphereLight(0xe9f1fa, 0xb7aa96, 0.85));
+  const sun = new THREE.DirectionalLight(0xfff1dc, 2.3);
+  sun.castShadow = true;
+  scene.add(sun); scene.add(sun.target);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   // como en Revit: rueda = zoom, botón central = desplazar (con Mayús = girar), izquierdo/derecho = girar
@@ -96,6 +128,7 @@ export async function startViewer(host, url, onStatus) {
         fixWinding(ng);
         const n = ng.getAttribute("position").count;
         ng.setAttribute("eid", new THREE.BufferAttribute(new Float32Array(n).fill(eid), 1));
+        { const ic = new Float32Array(n * 3); for (let i = 0; i < n; i++) { ic[i * 3] = pg.color.x; ic[i * 3 + 1] = pg.color.y; ic[i * 3 + 2] = pg.color.z; } ng.setAttribute("ifc", new THREE.BufferAttribute(ic, 3)); }
         ng.computeBoundingBox();
         all.push({ eid, c: pg.color, g: ng, box: ng.boundingBox.clone() });
       }
@@ -139,7 +172,7 @@ export async function startViewer(host, url, onStatus) {
     parts.push({ eid: o.eid, c: o.c, g: o.g, minY: o.box.min.y });
   });
 
-  // Mallas por (capa, categoría, color)
+  // Mallas por (capa, categoría, material)
   const topY = fit.max.y;
   const roofLevel = topY - 0.31; // vigas y plancha de cubierta parten sobre este nivel
   const model = new THREE.Group();
@@ -149,21 +182,24 @@ export async function startViewer(host, url, onStatus) {
     parts.forEach(p => {
       const d = getData(p.eid);
       const roofLayer = p.minY >= roofLevel;
-      const key = [roofLayer ? 1 : 0, d.cat, p.c.x.toFixed(2), p.c.y.toFixed(2), p.c.z.toFixed(2), p.c.w.toFixed(2)].join("|");
-      if (!groups.has(key)) groups.set(key, { c: p.c, cat: d.cat, roofLayer, list: [] });
+      const mn = repMaterial(d);
+      const key = [roofLayer ? 1 : 0, d.cat, mn ? "m:" + mn : "c:" + [p.c.x, p.c.y, p.c.z].map(x => x.toFixed(2)).join(","), p.c.w.toFixed(2)].join("|");
+      if (!groups.has(key)) groups.set(key, { c: p.c, cat: d.cat, roofLayer, mat: mn, list: [] });
       groups.get(key).list.push(p.g);
     });
     for (const gr of groups.values()) {
       const merged = mergeGeometries(gr.list, false);
       gr.list.forEach(l => l.dispose());
       if (!merged) continue;
-      const base = new THREE.Color(gr.c.x, gr.c.y, gr.c.z);
+      const def = gr.mat ? matDef(gr.mat) : { c: new THREE.Color(gr.c.x, gr.c.y, gr.c.z).getHex(), r: 0.85, m: 0 };
+      const real = new THREE.Color(def.c);
       const mat = new THREE.MeshStandardMaterial({
-        color: base.clone(), roughness: 0.85, metalness: 0.0,
-        transparent: gr.c.w < 0.99, opacity: gr.c.w, side: THREE.DoubleSide
+        color: real.clone(), roughness: def.r, metalness: def.m, envMapIntensity: 0.7,
+        transparent: gr.c.w < 0.99, opacity: gr.c.w, side: THREE.DoubleSide, clipShadows: true
       });
       const m = new THREE.Mesh(merged, mat);
-      m.userData = { cat: gr.cat, roofLayer: gr.roofLayer, base, tr: mat.transparent, op: mat.opacity };
+      m.castShadow = true; m.receiveShadow = true;
+      m.userData = { cat: gr.cat, roofLayer: gr.roofLayer, matName: gr.mat, real, defColor: real.clone(), def, tr: mat.transparent, op: mat.opacity };
       meshes.push(m);
       model.add(m);
     }
@@ -174,12 +210,22 @@ export async function startViewer(host, url, onStatus) {
   const size = box.getSize(new THREE.Vector3()), center = box.getCenter(new THREE.Vector3());
   const R = Math.max(size.x, size.y, size.z);
   camera.near = R / 1000; camera.far = R * 100; camera.updateProjectionMatrix();
+  sun.position.copy(center).add(new THREE.Vector3(-0.8, 1.6, 1.1).multiplyScalar(R * 1.7));
+  sun.target.position.copy(center);
+  {
+    const sc = sun.shadow.camera, e = R * 2.1;
+    sc.left = -e; sc.right = e; sc.top = e; sc.bottom = -e; sc.near = R * 0.2; sc.far = R * 8; sc.updateProjectionMatrix();
+    sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
+  }
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(R * 16, R * 16), new THREE.MeshStandardMaterial({ color: 0xcdc4b3, roughness: 1, metalness: 0, envMapIntensity: 0.4 }));
+  ground.rotation.x = -Math.PI / 2; ground.position.set(center.x, box.min.y - 0.012, center.z); ground.receiveShadow = true;
+  scene.add(ground);
 
 
   // ---------- estado ----------
   const catOn = Object.fromEntries(CATS.map(c => [c, true]));
   let roofOn = true, roofAuto = false;
-  let colorMode = "orig";
+  let colorMode = "real";
   let scaleNow = 1;
   let explodeK = 0, explodeTarget = 0, explodeFrom = 0, explodeT0 = 0;
   const clip = { on: false, axis: "y", flip: false, v: 0 };
@@ -258,15 +304,20 @@ export async function startViewer(host, url, onStatus) {
     return m.userData[key];
   }
   function paint(m, mode) {
-    if (mode === "orig") { m.material.vertexColors = false; m.material.color.copy(m.userData.base); }
-    else { m.geometry.setAttribute("color", ensureColorAttr(m, mode)); m.material.vertexColors = true; m.material.color.set(0xffffff); }
-    m.material.needsUpdate = true;
+    const mt = m.material;
+    if (mode === "real") { mt.vertexColors = false; mt.color.copy(m.userData.real); mt.roughness = m.userData.def.r; mt.metalness = m.userData.def.m; mt.envMapIntensity = 0.7; }
+    else {
+      m.geometry.setAttribute("color", mode === "orig" ? m.geometry.getAttribute("ifc") : ensureColorAttr(m, mode));
+      mt.vertexColors = true; mt.color.set(0xffffff); mt.roughness = 0.85; mt.metalness = 0; mt.envMapIntensity = 0.3;
+    }
+    mt.needsUpdate = true;
   }
   function setColorMode(mode) {
     colorMode = mode;
     meshes.forEach(m => paint(m, mode));
     if (isolate) buildIsolation();
     renderLegend();
+    if (popName === "color") openPop("color", true);
   }
 
   // ---------- resaltado / aislamiento ----------
@@ -274,7 +325,7 @@ export async function startViewer(host, url, onStatus) {
     const out = [];
     for (const m of meshes) {
       const g = m.geometry, id = g.getAttribute("eid"), p = g.getAttribute("position"), nrm = g.getAttribute("normal");
-      const col = withColor && colorMode !== "orig" ? g.getAttribute("color") : null;
+      const col = withColor && m.material.vertexColors ? g.getAttribute("color") : null;
       const pos = [], cols = [], nor = [];
       for (let i = 0; i < id.count; i += 3) {
         if (!test(id.getX(i))) continue;
@@ -308,6 +359,7 @@ export async function startViewer(host, url, onStatus) {
       m.material.transparent = on ? true : m.userData.tr;
       m.material.opacity = on ? 0.07 : m.userData.op;
       m.material.depthWrite = !on;
+      m.castShadow = !on;
       m.material.needsUpdate = true;
     });
   }
@@ -315,8 +367,8 @@ export async function startViewer(host, url, onStatus) {
     clearList(overlays); overlays = [];
     if (!isolate) return;
     overlays = overlayFor(v => isolate.has(v), (m, withCol) =>
-      new THREE.MeshStandardMaterial({ color: withCol ? 0xffffff : m.userData.base.clone(), vertexColors: withCol, roughness: 0.85, metalness: 0, side: THREE.DoubleSide }), true);
-    overlays.forEach(o => { o.renderOrder = 2; scene.add(o); });
+      new THREE.MeshStandardMaterial({ color: m.material.color.clone(), vertexColors: withCol, roughness: m.material.roughness, metalness: m.material.metalness, envMapIntensity: m.material.envMapIntensity, side: THREE.DoubleSide, clipShadows: true }), true);
+    overlays.forEach(o => { o.renderOrder = 2; o.castShadow = true; o.receiveShadow = true; scene.add(o); });
     applyClip();
   }
   function setIsolation(set) {
@@ -404,10 +456,32 @@ export async function startViewer(host, url, onStatus) {
     pop.appendChild(lk);
   }
   function buildColorPop() {
-    [["orig", "Original"], ["mat", "Material"], ["str", "Estructural / no estructural"], ["ext", "Exterior / interior"]].forEach(([id, label]) => {
+    [["real", "Realista"], ["orig", "Original (IFC)"], ["str", "Estructural / no estructural"], ["ext", "Exterior / interior"]].forEach(([id, label]) => {
       const r = row("<input type=\"radio\" name=\"v3dcol\"" + (colorMode === id ? " checked" : "") + "><span data-es=\"" + esc(label) + "\"></span>");
       r.querySelector("input").addEventListener("change", () => setColorMode(id));
     });
+    if (colorMode !== "real") return;
+    const hd = document.createElement("div"); hd.className = "v3d-sub2"; hd.dataset.es = "Colores de materiales"; pop.appendChild(hd);
+    const names = [...new Set(meshes.map(m => m.userData.matName).filter(Boolean))];
+    names.forEach(n => {
+      const first = meshes.find(m => m.userData.matName === n);
+      const r = document.createElement("label"); r.className = "v3d-row v3d-mat";
+      const inp = document.createElement("input"); inp.type = "color"; inp.value = "#" + first.userData.real.getHexString();
+      const sp = document.createElement("span"); sp.textContent = n;
+      r.appendChild(inp); r.appendChild(sp); pop.appendChild(r);
+      inp.addEventListener("input", () => {
+        meshes.forEach(m => { if (m.userData.matName === n) { m.userData.real.set(inp.value); m.material.color.copy(m.userData.real); } });
+        if (isolate) buildIsolation();
+      });
+    });
+    const lk = document.createElement("div"); lk.className = "v3d-links";
+    lk.innerHTML = "<button type=\"button\" data-es=\"Restaurar colores\"></button>";
+    lk.firstChild.addEventListener("click", () => {
+      meshes.forEach(m => { m.userData.real.copy(m.userData.defColor); m.material.color.copy(m.userData.real); });
+      if (isolate) buildIsolation();
+      openPop("color", true);
+    });
+    pop.appendChild(lk);
   }
   function buildCutPop() {
     const rng = () => [box.min[clip.axis] - 0.05, box.max[clip.axis] + 0.05];
@@ -573,7 +647,7 @@ export async function startViewer(host, url, onStatus) {
   // leyenda de colores
   const legend = document.createElement("div"); legend.className = "v3d-legend"; legend.hidden = true; root.appendChild(legend);
   function renderLegend() {
-    if (colorMode === "orig") { legend.hidden = true; return; }
+    if (colorMode === "orig" || colorMode === "real") { legend.hidden = true; return; }
     const seen = new Map();
     eidData.forEach(d => { const r = colorFor(colorMode, d); if (!seen.has(r.label)) seen.set(r.label, r.c); });
     legend.innerHTML = [...seen.entries()].map(([l, c]) => "<div><i style=\"background:#" + c.getHexString() + "\"></i><span data-es=\"" + esc(l) + "\">" + esc(T(l)) + "</span></div>").join("");
