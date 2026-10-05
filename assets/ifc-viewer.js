@@ -47,6 +47,12 @@ const MAT_DEF = {
   "M_Aluminio Grafito":           { c: 0x555a5f, r: 0.4, m: 0.7 },
   "TBC_Generico":                 { c: 0xd8d2c6, r: 0.8, m: 0.0 }
 };
+// Modo "Maqueta": blancos suaves, con un matiz leve por material para que se lea cada parte
+const CLAY = {
+  "MT_PINO RADIATA": 0xdcd7cd, "MT_TIERRA_QUINCHA": 0xd6d2ca, "MT_HORMIGON ARMADO": 0xcdcdcc, "MT_HORMIGÓN PULIDO": 0xdadad9,
+  "MT_PLANCHA ONDULADA ZINCALUM": 0xe6e8eb, "TBC_Madera": 0xd9d1c4, "M_Aluminio Grafito": 0xb3b8be, "TBC_Generico": 0xe2e0dc
+};
+const clayColor = name => new THREE.Color(CLAY[name] || 0xdedcd8);
 const matDef = name => MAT_DEF[name] || { c: 0xcfc8bd, r: 0.85, m: 0.0 };
 const repMaterial = d => {
   if (!d.t) return null;
@@ -67,7 +73,15 @@ export async function startViewer(host, url, onStatus) {
   renderer.localClippingEnabled = true;
   host.appendChild(renderer.domElement);
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xf4f4f4); // fondo liso y minimalista
+  const bgFlat = new THREE.Color(0xf4f4f4);
+  const bgClay = (() => { // degradado radial gris azulado, suave
+    const c = document.createElement("canvas"); c.width = c.height = 512;
+    const g = c.getContext("2d"), r = g.createRadialGradient(256, 210, 20, 256, 256, 420);
+    r.addColorStop(0, "#d6dce4"); r.addColorStop(0.55, "#b7c0cc"); r.addColorStop(1, "#8f9aa9");
+    g.fillStyle = r; g.fillRect(0, 0, 512, 512);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+  })();
+  scene.background = bgClay;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   {
@@ -75,7 +89,8 @@ export async function startViewer(host, url, onStatus) {
     scene.environment = pm.fromScene(new RoomEnvironment(renderer), 0.04).texture;
   }
   const camera = new THREE.PerspectiveCamera(40, W() / H(), 0.01, 100000);
-  scene.add(new THREE.HemisphereLight(0xe9f1fa, 0xb7aa96, 0.85));
+  const hemi = new THREE.HemisphereLight(0xe9f1fa, 0xb7aa96, 0.85);
+  scene.add(hemi);
   const sun = new THREE.DirectionalLight(0xfff1dc, 2.3);
   sun.castShadow = true;
   scene.add(sun); scene.add(sun.target);
@@ -210,12 +225,36 @@ export async function startViewer(host, url, onStatus) {
     sc.left = -e; sc.right = e; sc.top = e; sc.bottom = -e; sc.near = R * 0.2; sc.far = R * 8; sc.updateProjectionMatrix();
     sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
   }
+  // sombra suave que flota bajo el edificio (solo en modo Maqueta)
+  const floatShadow = (() => {
+    const c = document.createElement("canvas"); c.width = c.height = 256;
+    const g = c.getContext("2d"), r = g.createRadialGradient(128, 128, 6, 128, 128, 126);
+    r.addColorStop(0, "rgba(40,52,74,0.80)"); r.addColorStop(0.5, "rgba(40,52,74,0.42)"); r.addColorStop(1, "rgba(52,64,84,0)");
+    g.fillStyle = r; g.fillRect(0, 0, 256, 256);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(R * 2.5, R * 2.5), new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false }));
+    m.rotation.x = -Math.PI / 2; m.position.set(center.x + R * 0.32, box.min.y - R * 0.38, center.z + R * 0.22);
+    m.renderOrder = -1; m.userData.noClip = true; scene.add(m); return m;
+  })();
+  // luz cálida en el interior (sin sombras: solo ilumina caras que miran hacia dentro)
+  const warm = [[-0.26, -0.22], [0.27, -0.30], [-0.05, 0.28]].map(([dx, dz]) => {
+    const l = new THREE.PointLight(0xffb454, 4.5, R * 0.42, 2);
+    l.position.set(center.x + dx * R, box.min.y + (box.max.y - box.min.y) * 0.5, center.z + dz * R);
+    scene.add(l); return l;
+  });
+  const applyLook = mode => {
+    const clay = mode === "clay";
+    scene.background = clay ? bgClay : bgFlat;
+    hemi.intensity = clay ? 0.45 : 0.85; sun.intensity = clay ? 1.5 : 2.3;
+    floatShadow.visible = clay;
+    warm.forEach(l => { l.visible = clay; });
+  };
 
 
   // ---------- estado ----------
   const catOn = Object.fromEntries(CATS.map(c => [c, true]));
   let roofOn = true, roofAuto = false;
-  let colorMode = "real";
+  let colorMode = "clay";
   let scaleNow = 1;
   let explodeK = 0, explodeTarget = 0, explodeFrom = 0, explodeT0 = 0;
   const clip = { on: false, axis: "y", flip: false, v: 0 };
@@ -256,7 +295,7 @@ export async function startViewer(host, url, onStatus) {
   function applyClip() {
     const want = clip.on ? [clipPlane] : [];
     const mats = new Set([stencilMat]);
-    scene.traverse(o => { if (o.isMesh && o.material && o !== capPlane) mats.add(o.material); });
+    scene.traverse(o => { if (o.isMesh && o.material && o !== capPlane && !o.userData.noClip) mats.add(o.material); });
     mats.forEach(m => {
       if ((m.clippingPlanes || []).length !== want.length) m.needsUpdate = true;
       m.clippingPlanes = want;
@@ -295,7 +334,8 @@ export async function startViewer(host, url, onStatus) {
   }
   function paint(m, mode) {
     const mt = m.material;
-    if (mode === "real") { mt.vertexColors = false; mt.color.copy(m.userData.real); mt.roughness = m.userData.def.r; mt.metalness = m.userData.def.m; mt.envMapIntensity = 0.7; }
+    if (mode === "clay") { mt.vertexColors = false; mt.color.copy(m.userData.matName ? clayColor(m.userData.matName) : new THREE.Color(0xdedcd8)); mt.roughness = 0.92; mt.metalness = 0; mt.envMapIntensity = 0.55; }
+    else if (mode === "real") { mt.vertexColors = false; mt.color.copy(m.userData.real); mt.roughness = m.userData.def.r; mt.metalness = m.userData.def.m; mt.envMapIntensity = 0.7; }
     else {
       m.geometry.setAttribute("color", mode === "orig" ? m.geometry.getAttribute("ifc") : ensureColorAttr(m, mode));
       mt.vertexColors = true; mt.color.set(0xffffff); mt.roughness = 0.85; mt.metalness = 0; mt.envMapIntensity = 0.3;
@@ -305,6 +345,7 @@ export async function startViewer(host, url, onStatus) {
   function setColorMode(mode) {
     colorMode = mode;
     meshes.forEach(m => paint(m, mode));
+    applyLook(mode);
     if (isolate) buildIsolation();
     renderLegend();
     if (popName === "color") openPop("color", true);
@@ -446,7 +487,7 @@ export async function startViewer(host, url, onStatus) {
     pop.appendChild(lk);
   }
   function buildColorPop() {
-    [["real", "Realista"], ["orig", "Original (IFC)"], ["str", "Estructural / no estructural"], ["ext", "Exterior / interior"]].forEach(([id, label]) => {
+    [["clay", "Maqueta"], ["real", "Realista"], ["orig", "Original (IFC)"], ["str", "Estructural / no estructural"], ["ext", "Exterior / interior"]].forEach(([id, label]) => {
       const r = row("<input type=\"radio\" name=\"v3dcol\"" + (colorMode === id ? " checked" : "") + "><span data-es=\"" + esc(label) + "\"></span>");
       r.querySelector("input").addEventListener("change", () => setColorMode(id));
     });
@@ -637,7 +678,7 @@ export async function startViewer(host, url, onStatus) {
   // leyenda de colores
   const legend = document.createElement("div"); legend.className = "v3d-legend"; legend.hidden = true; root.appendChild(legend);
   function renderLegend() {
-    if (colorMode === "orig" || colorMode === "real") { legend.hidden = true; return; }
+    if (colorMode === "orig" || colorMode === "real" || colorMode === "clay") { legend.hidden = true; return; }
     const seen = new Map();
     eidData.forEach(d => { const r = colorFor(colorMode, d); if (!seen.has(r.label)) seen.set(r.label, r.c); });
     legend.innerHTML = [...seen.entries()].map(([l, c]) => "<div><i style=\"background:#" + c.getHexString() + "\"></i><span data-es=\"" + esc(l) + "\">" + esc(T(l)) + "</span></div>").join("");
@@ -790,6 +831,8 @@ export async function startViewer(host, url, onStatus) {
   let on = true;
   new IntersectionObserver(es => { on = es[0].isIntersecting; }).observe(host);
   updateVisibility();
+  meshes.forEach(m => paint(m, colorMode));
+  applyLook(colorMode);
   relabel(root);
   (function loop() {
     requestAnimationFrame(loop);
