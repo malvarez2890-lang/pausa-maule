@@ -67,14 +67,7 @@ export async function startViewer(host, url, onStatus) {
   renderer.localClippingEnabled = true;
   host.appendChild(renderer.domElement);
   const scene = new THREE.Scene();
-  {
-    const gc = document.createElement("canvas"); gc.width = 4; gc.height = 256;
-    const gg = gc.getContext("2d"), gr = gg.createLinearGradient(0, 0, 0, 256);
-    gr.addColorStop(0, "#cfe1ef"); gr.addColorStop(0.62, "#eef1ee"); gr.addColorStop(1, "#f4efe4");
-    gg.fillStyle = gr; gg.fillRect(0, 0, 4, 256);
-    const gt = new THREE.CanvasTexture(gc); gt.colorSpace = THREE.SRGBColorSpace;
-    scene.background = gt;
-  }
+  scene.background = new THREE.Color(0xf4f4f4); // fondo liso y minimalista
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   {
@@ -217,9 +210,6 @@ export async function startViewer(host, url, onStatus) {
     sc.left = -e; sc.right = e; sc.top = e; sc.bottom = -e; sc.near = R * 0.2; sc.far = R * 8; sc.updateProjectionMatrix();
     sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
   }
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(R * 16, R * 16), new THREE.MeshStandardMaterial({ color: 0xcdc4b3, roughness: 1, metalness: 0, envMapIntensity: 0.4 }));
-  ground.rotation.x = -Math.PI / 2; ground.position.set(center.x, box.min.y - 0.012, center.z); ground.receiveShadow = true;
-  scene.add(ground);
 
 
   // ---------- estado ----------
