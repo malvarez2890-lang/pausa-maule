@@ -467,7 +467,7 @@ export async function startViewer(host, url, onStatus) {
   cubeBtns.innerHTML = "<button type=\"button\" data-a=\"l\" aria-label=\"Girar a la izquierda\">⟲</button><button type=\"button\" data-a=\"h\" aria-label=\"Isométrica\">⌂</button><button type=\"button\" data-a=\"r\" aria-label=\"Girar a la derecha\">⟳</button>";
   cubeBox.appendChild(cubeBtns);
   root.appendChild(cubeBox);
-  const CS = 112;
+  const CS = 128;
   const cubeR = new THREE.WebGLRenderer({ canvas: cubeCv, alpha: true, antialias: true });
   cubeR.setPixelRatio(Math.min(devicePixelRatio, 2)); cubeR.setSize(CS, CS, false);
   cubeCv.style.width = CS + "px"; cubeCv.style.height = CS + "px";
@@ -492,13 +492,32 @@ export async function startViewer(host, url, onStatus) {
   cubeScene.add(cubeMesh);
   const cubeEdges = new THREE.LineSegments(new THREE.EdgesGeometry(cubeMesh.geometry), new THREE.LineBasicMaterial({ color: 0x000000 }));
   cubeMesh.add(cubeEdges);
+  const spots = [];
+  const spotMat = () => new THREE.MeshBasicMaterial({ color: 0x6b7785, transparent: true, opacity: 0.22, depthWrite: false });
+  const S = 0.3, O = 0.5 - S / 2 + 0.02;
+  for (const sx of [-1, 1]) for (const sy of [-1, 1]) for (const sz of [-1, 1]) {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(S, S, S), spotMat()); // esquina
+    m.position.set(sx * O, sy * O, sz * O); m.userData.dir = new THREE.Vector3(sx, sy, sz).normalize(); m.userData.corner = true;
+    cubeMesh.add(m); spots.push(m);
+  }
+  const L = 1 - 2 * S - 0.06; // largo de las aristas, entre esquinas
+  for (const a of [-1, 1]) for (const b of [-1, 1]) {
+    const mx = new THREE.Mesh(new THREE.BoxGeometry(L, S * 0.8, S * 0.8), spotMat()); // arista paralela a X
+    mx.position.set(0, a * O, b * O); mx.userData.dir = new THREE.Vector3(0, a, b).normalize();
+    const my = new THREE.Mesh(new THREE.BoxGeometry(S * 0.8, L, S * 0.8), spotMat()); // paralela a Y
+    my.position.set(a * O, 0, b * O); my.userData.dir = new THREE.Vector3(a, 0, b).normalize();
+    const mz = new THREE.Mesh(new THREE.BoxGeometry(S * 0.8, S * 0.8, L), spotMat()); // paralela a Z
+    mz.position.set(a * O, b * O, 0); mz.userData.dir = new THREE.Vector3(a, b, 0).normalize();
+    for (const m of [mx, my, mz]) { cubeMesh.add(m); spots.push(m); }
+  }
   const cubeLabels = () => { FACES.forEach((f, i) => { const old = cubeMats[i].map; cubeMats[i].map = faceTex(f, f === "Superior" ? Math.PI : 0); cubeMats[i].needsUpdate = true; old.dispose(); }); };
   const cubeRay = new THREE.Raycaster(), cubeNdc = new THREE.Vector2();
   const cubeHit = e => {
     const r = cubeCv.getBoundingClientRect();
     cubeNdc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     cubeRay.setFromCamera(cubeNdc, cubeCam);
-    return cubeRay.intersectObject(cubeMesh, false)[0] || null;
+    const hits = cubeRay.intersectObjects([...spots, cubeMesh], false);
+    return hits.find(h => h.object.userData.corner) || hits[0] || null; // las esquinas tienen prioridad
   };
   const dirFromHit = p => { // cara, arista o esquina según la zona tocada
     const f = a => Math.abs(a) > 0.3 ? Math.sign(a) : 0;
@@ -526,17 +545,20 @@ export async function startViewer(host, url, onStatus) {
     const moved = Math.hypot(e.clientX - cubeDown.x, e.clientY - cubeDown.y); cubeDown = null;
     if (moved > 6) return;
     const h = cubeHit(e); if (!h) return;
-    const d = dirFromHit(cubeMesh.worldToLocal(h.point.clone()));
+    const d = h.object.userData.dir ? h.object.userData.dir.clone() : dirFromHit(cubeMesh.worldToLocal(h.point.clone()));
     if (d) snapDir(d);
   });
   cubeCv.addEventListener("pointermove", e => {
-    const h = cubeHit(e), idx = h ? h.face.materialIndex : -1;
-    if (idx === cubeHover) return;
-    cubeHover = idx;
+    const h = cubeHit(e), spot = h && h.object.userData.dir ? h.object : null;
+    const idx = h && !spot ? h.face.materialIndex : -1;
+    const key = spot ? spot.id : idx;
+    if (key === cubeHover) return;
+    cubeHover = key;
     cubeMats.forEach((m, i) => m.color.set(i === idx ? 0xbfe0ff : 0xffffff));
+    spots.forEach(m => { const on = m === spot; m.material.color.set(on ? 0x2f8fff : 0x6b7785); m.material.opacity = on ? 0.85 : 0.22; });
     cubeCv.style.cursor = h ? "pointer" : "";
   });
-  cubeCv.addEventListener("pointerleave", () => { cubeHover = -1; cubeMats.forEach(m => m.color.set(0xffffff)); });
+  cubeCv.addEventListener("pointerleave", () => { cubeHover = -1; cubeMats.forEach(m => m.color.set(0xffffff)); spots.forEach(m => { m.material.color.set(0x6b7785); m.material.opacity = 0.22; }); });
   cubeBtns.addEventListener("click", e => {
     const a = e.target.getAttribute && e.target.getAttribute("data-a");
     if (a === "l") spin(-90); else if (a === "r") spin(90); else if (a === "h") btns.iso.click();
