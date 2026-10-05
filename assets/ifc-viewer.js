@@ -459,6 +459,95 @@ export async function startViewer(host, url, onStatus) {
   });
   controls.addEventListener("start", () => { anim = null; Object.keys(views).forEach(id => btns[id].classList.remove("on")); });
 
+
+  // ---------- cubo de navegación (como el ViewCube de Revit) ----------
+  const cubeBox = document.createElement("div"); cubeBox.className = "v3d-cube";
+  const cubeCv = document.createElement("canvas"); cubeBox.appendChild(cubeCv);
+  const cubeBtns = document.createElement("div"); cubeBtns.className = "v3d-cube-btns";
+  cubeBtns.innerHTML = "<button type=\"button\" data-a=\"l\" aria-label=\"Girar a la izquierda\">⟲</button><button type=\"button\" data-a=\"h\" aria-label=\"Isométrica\">⌂</button><button type=\"button\" data-a=\"r\" aria-label=\"Girar a la derecha\">⟳</button>";
+  cubeBox.appendChild(cubeBtns);
+  root.appendChild(cubeBox);
+  const CS = 112;
+  const cubeR = new THREE.WebGLRenderer({ canvas: cubeCv, alpha: true, antialias: true });
+  cubeR.setPixelRatio(Math.min(devicePixelRatio, 2)); cubeR.setSize(CS, CS, false);
+  cubeCv.style.width = CS + "px"; cubeCv.style.height = CS + "px";
+  const cubeScene = new THREE.Scene();
+  const cubeCam = new THREE.PerspectiveCamera(32, 1, 0.1, 50);
+  const FACES = ["Derecha", "Izquierda", "Superior", "Inferior", "Frontal", "Posterior"]; // +x -x +y -y +z -z
+  const faceTex = (txt, rot) => {
+    const c = document.createElement("canvas"); c.width = c.height = 192;
+    const g = c.getContext("2d");
+    g.fillStyle = "#f6f6f6"; g.fillRect(0, 0, 192, 192);
+    g.strokeStyle = "#000"; g.lineWidth = 6; g.strokeRect(3, 3, 186, 186);
+    g.translate(96, 96); g.rotate(rot || 0);
+    g.fillStyle = "#000"; g.textAlign = "center"; g.textBaseline = "middle";
+    let size = 34; g.font = "700 " + size + "px 'Barlow Condensed','Arial Narrow',Arial,sans-serif";
+    const label = T(txt).toUpperCase();
+    while (g.measureText(label).width > 160 && size > 14) { size -= 2; g.font = "700 " + size + "px 'Barlow Condensed','Arial Narrow',Arial,sans-serif"; }
+    g.fillText(label, 0, 2);
+    const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t;
+  };
+  const cubeMats = FACES.map(f => new THREE.MeshBasicMaterial({ map: faceTex(f, f === "Superior" ? Math.PI : 0) }));
+  const cubeMesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), cubeMats);
+  cubeScene.add(cubeMesh);
+  const cubeEdges = new THREE.LineSegments(new THREE.EdgesGeometry(cubeMesh.geometry), new THREE.LineBasicMaterial({ color: 0x000000 }));
+  cubeMesh.add(cubeEdges);
+  const cubeLabels = () => { FACES.forEach((f, i) => { const old = cubeMats[i].map; cubeMats[i].map = faceTex(f, f === "Superior" ? Math.PI : 0); cubeMats[i].needsUpdate = true; old.dispose(); }); };
+  const cubeRay = new THREE.Raycaster(), cubeNdc = new THREE.Vector2();
+  const cubeHit = e => {
+    const r = cubeCv.getBoundingClientRect();
+    cubeNdc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    cubeRay.setFromCamera(cubeNdc, cubeCam);
+    return cubeRay.intersectObject(cubeMesh, false)[0] || null;
+  };
+  const dirFromHit = p => { // cara, arista o esquina según la zona tocada
+    const f = a => Math.abs(a) > 0.3 ? Math.sign(a) : 0;
+    const d = new THREE.Vector3(f(p.x), f(p.y), f(p.z));
+    return d.lengthSq() ? d.normalize() : null;
+  };
+  function snapDir(d) {
+    if (Math.abs(d.x) < 1e-3 && d.y > 0.99 && Math.abs(d.z) < 1e-3) { btns.plan.click(); return; }
+    Object.keys(views).forEach(id => btns[id].classList.remove("on"));
+    if (roofAuto) { setRoof(true); roofAuto = false; }
+    const dist = Math.max(camera.position.distanceTo(controls.target), R * 1.2);
+    const to = center.clone().addScaledVector(d, dist);
+    anim = { from: camera.position.clone(), to, tFrom: controls.target.clone(), tTo: center.clone(), t0: performance.now(), dur: 650 };
+  }
+  function spin(deg) { // gira la cámara alrededor del eje vertical que pasa por el centro
+    const off = camera.position.clone().sub(center);
+    off.applyAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(deg));
+    Object.keys(views).forEach(id => btns[id].classList.remove("on"));
+    anim = { from: camera.position.clone(), to: center.clone().add(off), tFrom: controls.target.clone(), tTo: center.clone(), t0: performance.now(), dur: 600 };
+  }
+  let cubeDown = null, cubeHover = -1;
+  cubeCv.addEventListener("pointerdown", e => { cubeDown = { x: e.clientX, y: e.clientY }; });
+  cubeCv.addEventListener("pointerup", e => {
+    if (!cubeDown) return;
+    const moved = Math.hypot(e.clientX - cubeDown.x, e.clientY - cubeDown.y); cubeDown = null;
+    if (moved > 6) return;
+    const h = cubeHit(e); if (!h) return;
+    const d = dirFromHit(cubeMesh.worldToLocal(h.point.clone()));
+    if (d) snapDir(d);
+  });
+  cubeCv.addEventListener("pointermove", e => {
+    const h = cubeHit(e), idx = h ? h.face.materialIndex : -1;
+    if (idx === cubeHover) return;
+    cubeHover = idx;
+    cubeMats.forEach((m, i) => m.color.set(i === idx ? 0xbfe0ff : 0xffffff));
+    cubeCv.style.cursor = h ? "pointer" : "";
+  });
+  cubeCv.addEventListener("pointerleave", () => { cubeHover = -1; cubeMats.forEach(m => m.color.set(0xffffff)); });
+  cubeBtns.addEventListener("click", e => {
+    const a = e.target.getAttribute && e.target.getAttribute("data-a");
+    if (a === "l") spin(-90); else if (a === "r") spin(90); else if (a === "h") btns.iso.click();
+  });
+  const cubeDir = new THREE.Vector3();
+  function renderCube() {
+    cubeDir.copy(camera.position).sub(controls.target).normalize().multiplyScalar(3.6);
+    cubeCam.position.copy(cubeDir); cubeCam.up.copy(camera.up); cubeCam.lookAt(0, 0, 0);
+    cubeR.render(cubeScene, cubeCam);
+  }
+
   // leyenda de colores
   const legend = document.createElement("div"); legend.className = "v3d-legend"; legend.hidden = true; root.appendChild(legend);
   function renderLegend() {
@@ -606,7 +695,7 @@ export async function startViewer(host, url, onStatus) {
     relabel(root);
     hint.textContent = T(hint.dataset.es);
     mhint.textContent = T(mhint.dataset.es);
-    renderPanel(); renderMeasure();
+    renderPanel(); renderMeasure(); cubeLabels();
     if (isolate) runSearch();
   });
 
@@ -637,6 +726,7 @@ export async function startViewer(host, url, onStatus) {
     if (clip.on) { clipPlane.coplanarPoint(capPlane.position); capPlane.lookAt(capPlane.position.x + clipPlane.normal.x, capPlane.position.y + clipPlane.normal.y, capPlane.position.z + clipPlane.normal.z); }
     controls.update();
     renderer.render(scene, camera);
+    renderCube();
     placeMeasureLabel();
   })();
   onStatus("");

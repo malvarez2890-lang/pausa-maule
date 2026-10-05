@@ -328,6 +328,20 @@ section.sec[id]{scroll-margin-top:84px}
   .v3d-top{max-height:calc(100% - 80px)}
 }
 
+/* visor 3D: cubo de navegación */
+.v3d-cube{position:absolute;right:12px;top:12px;z-index:6;width:112px;display:flex;flex-direction:column;align-items:center}
+.v3d-cube canvas{display:block}
+.v3d-cube-btns{display:flex;gap:4px;margin-top:2px}
+.v3d-cube-btns button{width:30px;height:26px;border:2px solid #000;background:#fff;color:#000;font-size:16px;line-height:1;cursor:pointer;padding:0}
+.v3d-cube-btns button:hover{background:#000;color:#fff}
+.v3d-panel{top:172px;max-height:calc(100% - 184px)}
+@media(max-width:800px){
+  .v3d-cube{top:58px;width:84px}
+  .v3d-cube canvas{width:84px!important;height:84px!important}
+  .v3d-cube-btns button{width:26px;height:24px;font-size:14px}
+  .v3d-panel{top:auto;max-height:55%}
+}
+
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
@@ -484,5 +498,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=35" defer></script>
+</script><script src="assets/site.js?v=37" defer></script>
 </body></html>
