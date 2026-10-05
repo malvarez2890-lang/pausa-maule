@@ -95,7 +95,7 @@
     "Entregable Hito 01-02 ·": "Deliverable Milestone 01-02 ·",
     "Visor 3D": "3D viewer", "Cantidades del modelo": "Model quantities", "Archivos del modelo": "Model files",
     "Cargar visor 3D": "Load 3D viewer",
-    "Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, rueda para acercar, clic derecho para desplazar.": "Downloads the IFC4x3 file (4.5 MB) and shows it in the browser. Drag to orbit, scroll to zoom, right-click to pan.",
+    "Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, usa la rueda para acercar y mantén presionada la rueda (botón central) para desplazar la vista, como en Revit.": "Downloads the IFC4x3 file (4.5 MB) and shows it in the browser. Drag to orbit, use the wheel to zoom and hold the wheel (middle button) to pan, as in Revit.",
     "Cantidades obtenidas del modelo Revit.": "Quantities taken from the Revit model.",
     "Categoría": "Category", "Tipo": "Type", "Cant.": "Qty", "Medida": "Measure",
     "Volver arriba": "Back to top", "Cerrar": "Close", "Anterior": "Previous", "Siguiente": "Next",
@@ -255,7 +255,7 @@
     show("Cargando…");
     var slow = setTimeout(function () { if (viewerStarted && st.style.display === "block" && !$("#v3d-canvas canvas")) st.setAttribute("data-slow", "1"); }, 15000);
     try {
-      import("./ifc-viewer.js?v=7").then(function (m) {
+      import("./ifc-viewer.js?v=9").then(function (m) {
         return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", show);
       }).catch(function (err) {
         console.error(err); clearTimeout(slow);

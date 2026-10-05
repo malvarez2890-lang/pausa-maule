@@ -21,6 +21,9 @@ export async function startViewer(host, url, onStatus) {
   scene.add(sun);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
+  // como en Revit: rueda = zoom, botón central = desplazar (con Mayús = girar), izquierdo/derecho = girar
+  controls.mouseButtons = { LEFT: THREE.MOUSE.ROTATE, MIDDLE: THREE.MOUSE.PAN, RIGHT: THREE.MOUSE.ROTATE };
+  controls.screenSpacePanning = true;
 
   onStatus("Iniciando motor IFC…");
   const api = new WebIFC.IfcAPI();
@@ -131,7 +134,7 @@ export async function startViewer(host, url, onStatus) {
     const v = views[key];
     const to = new THREE.Vector3(center.x + v.dir[0] * R, center.y + v.dir[1] * R, center.z + v.dir[2] * R);
     if (instant) { camera.position.copy(to); controls.target.copy(center); controls.update(); return; }
-    anim = { from: camera.position.clone(), to, t0: performance.now(), dur: 650 };
+    anim = { from: camera.position.clone(), to, tFrom: controls.target.clone(), tTo: center.clone(), t0: performance.now(), dur: 650 };
   }
   goTo("iso", true);
 
@@ -148,16 +151,18 @@ export async function startViewer(host, url, onStatus) {
     ui.appendChild(b); btns[id] = b; return b;
   };
   const setActive = k => Object.keys(views).forEach(id => btns[id].classList.toggle("on", id === k));
-  Object.keys(views).forEach(k => mk(k, views[k].es, () => { goTo(k); setActive(k); }));
+  Object.keys(views).forEach(k => mk(k, views[k].es, () => { goTo(k); setActive(k); if (k === "plan" && roofOn) setRoof(false); }));
   setActive("iso");
   let roofOn = true;
-  const roofBtn = mk("roof", "Ocultar cubierta", () => {
-    roofOn = !roofOn;
+  let roofBtn;
+  const setRoof = on => {
+    roofOn = on;
     layers.roof.forEach(m => { m.visible = roofOn; });
     roofBtn.dataset.es = roofOn ? "Ocultar cubierta" : "Mostrar cubierta";
     roofBtn.textContent = T(roofBtn.dataset.es);
     roofBtn.classList.toggle("on", !roofOn);
-  });
+  };
+  roofBtn = mk("roof", "Ocultar cubierta", () => setRoof(!roofOn));
   roofBtn.classList.add("sep");
   root.appendChild(ui);
   controls.addEventListener("start", () => { anim = null; Object.keys(views).forEach(id => btns[id].classList.remove("on")); });
@@ -269,6 +274,7 @@ export async function startViewer(host, url, onStatus) {
     if (anim) {
       const k = Math.min(1, (performance.now() - anim.t0) / anim.dur), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
       camera.position.lerpVectors(anim.from, anim.to, e);
+      controls.target.lerpVectors(anim.tFrom, anim.tTo, e);
       if (k >= 1) anim = null;
     }
     controls.update();
