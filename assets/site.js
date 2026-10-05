@@ -253,6 +253,7 @@
     btn.style.display = "none";
     host.classList.add("run");
     show("Cargando…");
+    try { host.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
     var slow = setTimeout(function () { if (viewerStarted && st.style.display === "block" && !$("#v3d-canvas canvas")) st.setAttribute("data-slow", "1"); }, 15000);
     try {
       import("./ifc-viewer.js?v=9").then(function (m) {
