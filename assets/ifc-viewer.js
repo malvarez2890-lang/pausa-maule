@@ -407,6 +407,10 @@ export async function startViewer(host, url, onStatus) {
     btns.explode.classList.toggle("on", !!explodeTarget);
     clearMeasure();
     scaleNow = explodeTarget ? 1.55 : 1;
+    if (explodeTarget) { // al explotar siempre se muestra en isométrica y con la cubierta
+      if (roofAuto) { setRoof(true); roofAuto = false; }
+      viewKey = "iso"; setActive("iso");
+    }
     goTo(viewKey);
   });
   controls.addEventListener("start", () => { anim = null; Object.keys(views).forEach(id => btns[id].classList.remove("on")); });
