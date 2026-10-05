@@ -265,6 +265,20 @@ button,.btn,a[href],#v3d-load,#up,.lang button,#lb button,.dl a,.thumb{cursor:po
 .swipe{display:none;font-size:14px;margin:0 0 8px;opacity:.7}
 @media(max-width:800px){.swipe{display:block}.v3d-b{padding:9px 12px;font-size:16px}.lang button{padding:8px 6px}#bar nav a{padding:6px 0 4px}}
 
+/* visor 3D: ficha de la pieza seleccionada */
+.v3d-hint{position:absolute;left:12px;bottom:10px;z-index:4;font-size:14px;background:rgba(255,255,255,.85);padding:3px 8px;pointer-events:none}
+.v3d-panel{position:absolute;right:12px;top:12px;z-index:6;width:min(320px,calc(100% - 24px));max-height:calc(100% - 24px);overflow:auto;background:#fff;border:2px solid #000;padding:14px 16px 12px;text-align:left}
+.v3d-panel[hidden]{display:none}
+.v3d-panel h4{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-transform:uppercase;font-size:26px;line-height:1;margin:0 28px 4px 0;letter-spacing:-.005em;overflow-wrap:anywhere}
+.v3d-sub{font-size:13px;opacity:.7;margin-bottom:10px}
+.v3d-panel dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:14px}
+.v3d-panel dt{opacity:.6}
+.v3d-panel dd{margin:0;overflow-wrap:anywhere}
+.v3d-panel a{text-decoration:underline}
+.v3d-id{margin-top:10px;font-size:12px;opacity:.55}
+.v3d-x{position:absolute;right:8px;top:8px;width:30px;height:30px;border:0;background:#000;color:#fff;font-size:15px;cursor:pointer;line-height:1}
+@media(max-width:800px){.v3d-panel{left:12px;right:12px;top:auto;bottom:12px;width:auto;max-height:55%}.v3d-hint{display:none}}
+
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><span class="lang"><button type="button" data-l="es" class="on">ES</button> / <button type="button" data-l="en">EN</button></span></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
@@ -421,5 +435,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=16" defer></script>
+</script><script src="assets/site.js?v=18" defer></script>
 </body></html>
