@@ -96,7 +96,7 @@ nav a:hover{text-decoration:none;opacity:.45}
 .stats.six b{font-size:clamp(28px,3vw,50px)}
 .sec{border-top:3px solid #000}
 .sec header{display:block;margin-bottom:34px}
-.sec header>span:first-child{display:block;font-size:clamp(36px,6vw,100px);font-weight:700;line-height:.9;letter-spacing:-.015em}
+.sec header>span:first-child{display:block;font-size:clamp(30px,4vw,65px);font-weight:700;line-height:.9;letter-spacing:-.015em}
 .sec header i{font-family:Barlow,Arial,sans-serif;font-size:14px;vertical-align:top;margin-right:14px;letter-spacing:.05em}
 .sec header>span:last-child:not(:first-child){display:block;text-align:left;margin-top:10px;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:#000}
 .sub-t{font-size:20px;font-weight:600;border-top:0;padding-top:0;color:#000}
@@ -553,5 +553,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=60" defer></script>
+</script><script src="assets/site.js?v=61" defer></script>
 </body></html>
