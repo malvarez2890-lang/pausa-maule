@@ -407,7 +407,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     try { collect(); } catch (e) { console.error(e); }
     $$("[data-l]").forEach(function (b) { b.addEventListener("click", function () { setLang(b.getAttribute("data-l")); }); });
-    setLang(store.get("pm-lang") === "en" ? "en" : "es");
+    setLang("es");
     [initTheme, initLB, initBar, initZoom, initQty].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
   });
 })();
