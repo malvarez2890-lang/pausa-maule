@@ -91,9 +91,9 @@ nav a:hover{text-decoration:none;opacity:.45}
 .hero .cap{font-size:14px;text-transform:uppercase;letter-spacing:.03em;font-weight:500}
 .intro h1{font-weight:600;font-size:clamp(44px,7vw,110px);letter-spacing:-.01em;line-height:.92;max-width:none}
 .intro small{text-transform:uppercase;letter-spacing:.06em}
-.stats b{font-weight:600;font-size:clamp(32px,4vw,65px);letter-spacing:-.01em;line-height:.9}
+.stats b{font-weight:600;font-size:clamp(28px,3vw,50px);letter-spacing:-.01em;line-height:.9}
 .stats span,.stats.six span{text-transform:uppercase;letter-spacing:.05em;font-size:13px;color:#000}
-.stats.six b{font-size:clamp(40px,5.6vw,90px)}
+.stats.six b{font-size:clamp(28px,3vw,50px)}
 .sec{border-top:3px solid #000}
 .sec header{display:block;margin-bottom:34px}
 .sec header>span:first-child{display:block;font-size:clamp(36px,6vw,100px);font-weight:700;line-height:.9;letter-spacing:-.015em}
@@ -553,5 +553,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=59" defer></script>
+</script><script src="assets/site.js?v=60" defer></script>
 </body></html>
