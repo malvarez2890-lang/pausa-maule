@@ -89,6 +89,8 @@
     "Niveles principales + subniveles": "Main levels + sublevels",
     "Modelo BIM del habitáculo Pausa Maule · 214 MB": "BIM model of the Pausa Maule shelter · 214 MB",
     "Descargar ↓": "Download ↓",
+    "Modelo BIM del habitáculo Pausa Maule · 214 MB · descarga con aprobación del autor": "BIM model of the Pausa Maule shelter · 214 MB · download requires author approval",
+    "Solicitar acceso ↗": "Request access ↗",
     "Export IFC4X3_ADD2 · MVD CoordinationView · 4,5 MB": "IFC4X3_ADD2 export · MVD CoordinationView · 4.5 MB",
     "· Workshop BIM + IA por": "· BIM + AI Workshop by",
     "· Pausa Maule — Habitáculo ciclista": "· Pausa Maule — Cyclist shelter",
