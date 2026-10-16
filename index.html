@@ -413,6 +413,9 @@ html[data-theme=dark] img,html[data-theme=dark] video,html[data-theme=dark] canv
   .zoom-ui{gap:4px}
   .zoom-ui button,.zoom-ui .zoom-pdf{font-size:13px;padding:4px 8px;border-width:1.5px}
 }
+
+.v3d-open{display:none}
+@media(max-width:800px){.v3d-open{display:block;margin:-24px 0 36px}.v3d-open .btn{display:block;text-align:center;padding:12px 16px}}
 </style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><button type="button" class="theme-btn" data-theme-toggle aria-label="Cambiar entre modo claro y oscuro" title="Cambiar entre modo claro y oscuro">☾</button></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
@@ -522,7 +525,7 @@ html[data-theme=dark] img,html[data-theme=dark] video,html[data-theme=dark] canv
 <div class="wrap">
 <section class="sec" id="revit" style="margin-top:0"><header><span><i>08</i>Modelo Revit</span><span>HAB_ARQ_MODELO_R01.RVT</span></header>
 <div class="stats six"><div><b>7 276</b><span>Elementos totales</span></div><div><b>939</b><span>Tipos</span></div><div><b>56</b><span>Familias</span></div><div><b>71</b><span>Categorías</span></div><div><b>48</b><span>Vistas</span></div><div><b>3+2</b><span>Niveles principales + subniveles</span></div></div>
-<div class="sub-t">Visor 3D</div><div class="v3d" id="v3d"><div id="v3d-canvas"></div><div id="v3d-status"></div><button type="button" class="btn p" id="v3d-load">Cargar visor 3D</button><p>Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, usa la rueda para acercar y mantén presionada la rueda (botón central) para desplazar la vista, como en Revit.</p></div><div class="sub-t">Cantidades del modelo</div>
+<div class="sub-t">Visor 3D</div><div class="v3d" id="v3d"><div id="v3d-canvas"></div><div id="v3d-status"></div><button type="button" class="btn p" id="v3d-load">Cargar visor 3D</button><p>Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, usa la rueda para acercar y mantén presionada la rueda (botón central) para desplazar la vista, como en Revit.</p></div><p class="v3d-open"><a class="btn" href="visor.html" target="_blank" rel="noopener">Abrir visor en pantalla completa ↗</a></p><div class="sub-t">Cantidades del modelo</div>
 <p class="qty-note">Cantidades obtenidas del modelo Revit.</p>
 <p class="qty-hint">Haz clic en una fila para verla en el visor 3D.</p>
 <p class="swipe">Desliza la tabla para ver todas las columnas →</p><div style="overflow-x:auto;margin-bottom:40px"><table class="qty">
@@ -571,5 +574,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=65" defer></script>
+</script><script src="assets/site.js?v=66" defer></script>
 </body></html>
