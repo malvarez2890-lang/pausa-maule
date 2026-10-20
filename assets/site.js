@@ -90,7 +90,7 @@
     "Modelo BIM del habitáculo Pausa Maule · 214 MB": "BIM model of the Pausa Maule shelter · 214 MB",
     "Descargar ↓": "Download ↓",
     "Modelo BIM del habitáculo Pausa Maule · 214 MB · descarga con aprobación del autor": "BIM model of the Pausa Maule shelter · 214 MB · download requires author approval",
-    "Solicitar acceso ↗": "Request access ↗",
+    "Descargar ↗": "Download ↗",
     "Export IFC4X3_ADD2 · MVD CoordinationView · 4,5 MB": "IFC4X3_ADD2 export · MVD CoordinationView · 4.5 MB",
     "Export IFC4X3_ADD2 · MVD CoordinationView · 4,5 MB · descarga con aprobación del autor": "IFC4X3_ADD2 export · MVD CoordinationView · 4.5 MB · download requires author approval",
     "· Workshop BIM + IA por": "· BIM + AI Workshop by",
