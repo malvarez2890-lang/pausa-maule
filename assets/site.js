@@ -62,11 +62,11 @@
     "Especificación Técnica": "Technical Specification",
     "Materiales, fichas de fabricante, categorías cerradas": "Materials, manufacturer data sheets, closed categories",
     "PEB Preliminar": "Preliminary BEP", "Plan de Ejecución BIM — etapa preliminar": "BIM Execution Plan — preliminary stage",
-    "PEB Completado": "Completed BEP", "9 recintos, nombre/número/nivel/área/perímetro": "9 rooms, name/number/level/area/perimeter",
+    "PEB Completado": "Completed BEP", "Tabla NDI por categoría y 9 recintos (nombre, número, nivel, área, perímetro)": "LOIN table by category and 9 rooms (name, number, level, area, perimeter)",
     "Tabla NDI": "LOIN Table", "Niveles de Desarrollo de la Información": "Levels of Information Need",
     "Parámetros Compartidos": "Shared Parameters", "Grupo NDI2 — parámetros compartidos del proyecto": "NDI2 group — project shared parameters",
-    "12 proveedores verificados": "12 verified suppliers", "Fichas de Proveedores": "Supplier Data Sheets",
-    "12 proveedores verificados · contacto, sitio web, ficha técnica": "12 verified suppliers · contact, website, data sheet",
+    "16 proveedores verificados": "16 verified suppliers", "Fichas de Proveedores": "Supplier Data Sheets",
+    "16 proveedores verificados · contacto, sitio web, ficha técnica": "16 verified suppliers · contact, website, data sheet",
     "Elemento": "Element", "Empresa": "Company", "Producto": "Product", "Sitio web": "Website",
     "Muro / Quincha": "Wall / Quincha", "Sistema Quincha Liviana Húmeda": "Light Wet Quincha System",
     "Cubierta": "Roof", "Panel Ondulado CN-1020": "CN-1020 Corrugated Panel",
@@ -113,6 +113,8 @@
     "Tu navegador tiene WebGL desactivado o no disponible, por eso no se puede mostrar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.": "Your browser has WebGL disabled or unavailable, so the 3D viewer cannot be shown. You can download the IFC and open it in your BIM software.",
     "Muros": "Walls", "Muros cortina": "Curtain walls", "Montantes de muro cortina": "Curtain wall mullions",
     "Paneles de muro cortina": "Curtain wall panels", "Puertas": "Doors", "Pilares estructurales": "Structural columns",
+    "Fundaciones aisladas": "Isolated foundations", "Pavimento pulido": "Polished concrete floor", "Cubierta (4 faldones)": "Roof (4 pitches)", "Cubiertas": "Roofs", "Inodoros": "Toilets", "Lavamanos": "Washbasins", "Bebederos": "Drinking fountains", "Lavaplatos": "Kitchen sinks", "Muebles base de cocina": "Kitchen base units", "Bancas": "Benches", "Bicicleteros": "Bike racks", "Aparatos sanitarios": "Plumbing fixtures", "Mobiliario": "Furniture", "Emplazamiento": "Site",
+    "Bebedero": "Drinking fountain", "Lavaplatos de sobreponer con escurridor 80×50": "Countertop sink with drainer 80×50", "Bicicletero": "Bike rack", "Banca": "Bench", "Big Harris (ficha de terceros)": "Big Harris (third-party sheet)",
     "Armazón principal": "Main framing", "Armazón secundario": "Secondary framing", "Zapatas aisladas": "Isolated footings",
     "Radier estructural": "Structural slab", "Recintos": "Rooms", "Empty (celosía)": "Empty (lattice)", "9 recintos": "9 rooms",
     "Iniciando motor IFC…": "Starting IFC engine…", "Descargando modelo…": "Downloading model…", "Leyendo geometría…": "Reading geometry…",
@@ -262,7 +264,7 @@
     try { host.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
     var slow = setTimeout(function () { if (viewerStarted && st.style.display === "block" && !$("#v3d-canvas canvas")) st.setAttribute("data-slow", "1"); }, 15000);
     try {
-      import("./ifc-viewer.js?v=33").then(function (m) {
+      import("./ifc-viewer.js?v=34").then(function (m) {
         return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", show);
       }).catch(function (err) {
         console.error(err); clearTimeout(slow);

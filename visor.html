@@ -438,7 +438,7 @@ window.PM_t = function (s) { return s; };
   try { var c = document.createElement("canvas"); ok = !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) {}
   if (!ok) { fail("Tu navegador tiene WebGL desactivado o no disponible, por eso no se puede mostrar el visor 3D."); return; }
   show("Cargando…");
-  import("./assets/ifc-viewer.js?v=33").then(function (m) {
+  import("./assets/ifc-viewer.js?v=34").then(function (m) {
     return m.startViewer(document.getElementById("v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", show);
   }).catch(function (err) { console.error(err); fail("No se pudo cargar el visor 3D.", String(err && err.message ? err.message : err)); });
 })();

@@ -9,9 +9,9 @@ const T = (k) => (window.PM_t ? window.PM_t(k) : k);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[c]));
 const fmtN = (n, d = 2) => n.toFixed(d).replace(".", ",");
 
-const CATS = ["Muros", "Montantes de muro cortina", "Pilares estructurales", "Armazón estructural", "Cimentación estructural", "Suelos", "Cubiertas", "Puertas", "Otros"];
+const CATS = ["Muros", "Montantes de muro cortina", "Pilares estructurales", "Armazón estructural", "Cimentación estructural", "Suelos", "Cubiertas", "Puertas", "Aparatos sanitarios", "Mobiliario", "Emplazamiento", "Otros"];
 const EXPLODE = { "Cubiertas": 5.2, "Armazón estructural": 3.0, "Suelos": -1.9, "Cimentación estructural": -3.6 };
-const MAT_COL = { "MT_PINO RADIATA": 0xc8975a, "MT_TIERRA_QUINCHA": 0x9c6b45, "MT_HORMIGON ARMADO": 0x8a8f94, "MT_HORMIGÓN PULIDO": 0xb9bdc1, "MT_PLANCHA ONDULADA ZINCALUM": 0x6d8ea3, "TBC_Madera": 0xa0693c };
+const MAT_COL = { "MT_PINO RADIATA": 0xc8975a, "MT_TIERRA_QUINCHA": 0x9c6b45, "MT_HORMIGON ARMADO": 0x8a8f94, "MT_HORMIGON PULIDO": 0xb9bdc1, "MT_PLANCHA ONDULADA ZINCALUM": 0x6d8ea3, "MT_PINO RADIATA PUERTA": 0xa0693c, "MT_MADERA ESTRUCTURAL": 0xb08550, "MT_LOZA INODORO": 0xf2f2ef, "MT_LOZA LAVAMANOS": 0xf2f2ef, "MT_ACERO GALVANIZADO": 0x8f979d, "MT_BANCA ASIENTO": 0xb48a58, "MT_BANCA PATAS": 0x8f979d };
 
 // Si una pieza viene con las caras invertidas (volumen con signo negativo, p. ej. por una instancia espejada)
 // se le da vuelta el sentido de los triángulos y de las normales.
@@ -41,16 +41,26 @@ const MAT_DEF = {
   "MT_PINO RADIATA":              { c: 0xcaa273, r: 0.68, m: 0.0 },
   "MT_TIERRA_QUINCHA":            { c: 0xb8a07d, r: 0.95, m: 0.0 },
   "MT_HORMIGON ARMADO":           { c: 0x9d9c97, r: 0.92, m: 0.0 },
-  "MT_HORMIGÓN PULIDO":           { c: 0xaeada8, r: 0.45, m: 0.05 },
+  "MT_HORMIGON PULIDO":           { c: 0xaeada8, r: 0.45, m: 0.05 },
   "MT_PLANCHA ONDULADA ZINCALUM": { c: 0xb4bbc1, r: 0.45, m: 0.3 },
-  "TBC_Madera":                   { c: 0xa9764b, r: 0.65, m: 0.0 },
-  "M_Aluminio Grafito":           { c: 0x555a5f, r: 0.4, m: 0.7 },
-  "TBC_Generico":                 { c: 0xd8d2c6, r: 0.8, m: 0.0 }
+  "MT_PINO RADIATA PUERTA":       { c: 0xa9764b, r: 0.65, m: 0.0 },
+  "MT_MADERA ESTRUCTURAL":        { c: 0xb08550, r: 0.7, m: 0.0 },
+  "MT_ALUMINIO GRAFITO":          { c: 0x555a5f, r: 0.4, m: 0.7 },
+  "MT_GENERICO PUERTA":           { c: 0xd8d2c6, r: 0.8, m: 0.0 },
+  "MT_LOZA INODORO":              { c: 0xf0f0ec, r: 0.15, m: 0.0 },
+  "MT_LOZA LAVAMANOS":            { c: 0xf0f0ec, r: 0.15, m: 0.0 },
+  "MT_METAL CROMADO":             { c: 0xc9ced2, r: 0.2, m: 0.9 },
+  "MT_LATON CROMADO":             { c: 0xc9ced2, r: 0.2, m: 0.9 },
+  "MT_ACERO INOXIDABLE":          { c: 0xb8bdc1, r: 0.3, m: 0.8 },
+  "MT_ACERO INOXIDABLE CEPILLADO":{ c: 0xb0b5b9, r: 0.38, m: 0.8 },
+  "MT_ACERO GALVANIZADO":         { c: 0x8f979d, r: 0.5, m: 0.7 },
+  "MT_BANCA ASIENTO":             { c: 0xb48a58, r: 0.7, m: 0.0 },
+  "MT_BANCA PATAS":               { c: 0x8f979d, r: 0.5, m: 0.7 }
 };
 // Modo "Maqueta": blancos suaves, con un matiz leve por material para que se lea cada parte
 const CLAY = {
-  "MT_PINO RADIATA": 0xe6e4e0, "MT_TIERRA_QUINCHA": 0xe2e0dc, "MT_HORMIGON ARMADO": 0xdcdcdb, "MT_HORMIGÓN PULIDO": 0xe6e6e5,
-  "MT_PLANCHA ONDULADA ZINCALUM": 0xefeff1, "TBC_Madera": 0xe2dfd8, "M_Aluminio Grafito": 0xb9bdc2, "TBC_Generico": 0xe8e6e3
+  "MT_PINO RADIATA": 0xe6e4e0, "MT_TIERRA_QUINCHA": 0xe2e0dc, "MT_HORMIGON ARMADO": 0xdcdcdb, "MT_HORMIGON PULIDO": 0xe6e6e5,
+  "MT_PLANCHA ONDULADA ZINCALUM": 0xefeff1, "MT_PINO RADIATA PUERTA": 0xe2dfd8, "MT_MADERA ESTRUCTURAL": 0xe4e1dc, "MT_ALUMINIO GRAFITO": 0xb9bdc2, "MT_GENERICO PUERTA": 0xe8e6e3, "MT_ACERO GALVANIZADO": 0xd4d6d8, "MT_BANCA ASIENTO": 0xe4e0d8, "MT_BANCA PATAS": 0xd4d6d8
 };
 const clayColor = name => new THREE.Color(CLAY[name] || 0xe6e4e1);
 const matDef = name => MAT_DEF[name] || { c: 0xcfc8bd, r: 0.85, m: 0.0 };
@@ -105,7 +115,7 @@ export async function startViewer(host, url, onStatus) {
   api.SetWasmPath(new URL("./vendor/", import.meta.url).href, true);
   await api.Init();
 
-  const infoReq = fetch(new URL("./elementos.json?v=1", import.meta.url).href).then(r => r.ok ? r.json() : null).catch(() => null);
+  const infoReq = fetch(new URL("./elementos.json?v=2", import.meta.url).href).then(r => r.ok ? r.json() : null).catch(() => null);
 
   onStatus("Descargando modelo…");
   const resp = await fetch(url);

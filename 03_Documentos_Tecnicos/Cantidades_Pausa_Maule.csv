@@ -1,26 +1,33 @@
 ﻿Categoría;Familia;Tipo;Material;Cantidad;Área (m²);Volumen (m³);Longitud (m);Estructural;Exterior
-Muros;Muro básico;MURO_EXT_QUINCHA_12cm;MADERA ESTRUCTURAL, MT_TIERRA_QUINCHA;11;55,69;6,68;;No;Sí
-Muros cortina;Muro cortina;MURO_CORTINA_EXT_MADERA;;6;36,68;;;No;Sí
-Montantes de muro cortina;Rectangular Mullion;MADERA_1.25X10cm;MT_PINO RADIATA;396;;0,62;246,6;;
-Paneles de muro cortina;;Empty (celosía);;192;30,51;;;;
-Puertas;PRT_INT_SIMPLE_MADERA;80X210;M_Aluminio Grafito, TBC_Madera, TBC_Generico;2;;;;;No
-Pilares estructurales;PILAR_Pino Radiata_Rectangular;130X130;MT_PINO RADIATA;16;;0,64;;Sí;No
-Armazón principal;VIGA_Pino Radiata Dimensionada_Rectangular;2X8_PRINCIPAL;MT_PINO RADIATA;8;;0,71;71,2;Sí;No
-Armazón secundario;VIGA_Pino Radiata Dimensionada_Rectangular;2X4_SECUNDARIA;MT_PINO RADIATA;16;;0,24;48;Sí;No
-Zapatas aisladas;Zapata;ZAPATA_Hormigon Armado_Aislada;MT_HORMIGON ARMADO;16;;3,03;;Sí;No
-Radier estructural;Suelo;RADIER_INT_HA_15cm;MT_HORMIGON ARMADO;1;76,56;11,49;;No;No
-Radier pulido;Suelo;RADIER_PULIDO_INT_HA_2cm;MT_HORMIGÓN PULIDO;1;76,31;1,53;;No;No
-Cubierta;Cubierta básica;CUBIERTA_ZINC_ONDULADO_MADERA;MT_PLANCHA ONDULADA ZINCALUM, MT_PINO RADIATA;1;76,56;7,66;;No;Sí
+Muros;Muro básico;MURO_EXT_QUINCHA_12cm;MT_MADERA ESTRUCTURAL, MT_TIERRA_QUINCHA;11;56,83;6,82;;No;Sí
+Muros cortina;Muro cortina;M.CORTINA_EXT_CELOSIA_PINO RADIATA (FIX N);;6;37,29;;;No;Sí
+Montantes de muro cortina;Rectangular Mullion;12.5x100mm_PINO RADIATA;MT_PINO RADIATA;396;;0,63;250,2;;
+Paneles de muro cortina;Empty System Panel;Empty (celosía);;192;31,04;;;;
+Puertas;PRT_Puerta_INT_Simple_1 Panel_PINO RADIATA;80x210cm;MT_PINO RADIATA PUERTA, MT_ALUMINIO GRAFITO, MT_GENERICO PUERTA;2;;;;;No
+Pilares estructurales;PILAR_Pino Radiata_Rectangular;130X130;MT_PINO RADIATA;16;;0,65;;Sí;No
+Armazón principal;VIGA_PINO RADIATA_Rectangular;"2""X8"" Sin cepillar";MT_PINO RADIATA;16;;0,70;71,4;Sí;No
+Armazón secundario;VIGA_PINO RADIATA_Rectangular;"2""X4"" Cepillada";MT_PINO RADIATA;16;;0,24;48,0;Sí;No
+Cimentación estructural;FUNDACIÓN AISLADA;FUNDACIÓN AISLADA_HA_60x60x50cm;MT_HORMIGON ARMADO;16;;3,03;;Sí;No
+Suelos;Suelo;RADIER_INT_HA_15cm;MT_HORMIGON ARMADO;1;76,56;11,49;;No;No
+Suelos;Suelo;PAV_INT_HORMIGON PULIDO_2cm;MT_HORMIGON PULIDO;1;76,26;1,53;;No;No
+Cubiertas;Cubierta básica;CUBIERTA_ZINC ONDULADO_10cm;MT_PLANCHA ONDULADA ZINCALUM, MT_PINO RADIATA;4;76,53;7,65;;No;Sí
+Aparatos sanitarios;PLM_WC_ceramica_New Valencia a muro;41x69cm;MT_LOZA INODORO;2;;0,07;;;No
+Aparatos sanitarios;PLM_Lavamanos_ceramica_Ciro pedestal;53x41cm;MT_LOZA LAVAMANOS;2;;0,02;;;No
+Aparatos sanitarios;PLM_Bebedero_acero inoxidable_Wolfen sensor pie;31x32cm;MT_ACERO INOXIDABLE CEPILLADO, MT_LATON CROMADO;3;;0,05;;;No
+Mobiliario;MBL_Mueble base cocina_Lavaplatos;80x60cm;MT_ACERO INOXIDABLE;1;;0,04;;;No
+Mobiliario;MBL_Mueble base cocina_Melamina;104x64cm;;2;;0,09;;;No
+Emplazamiento;SITIO_Banca_acero galvanizado y madera;250x50cm;MT_BANCA PATAS, MT_BANCA ASIENTO;5;;1,60;;;Sí
+Emplazamiento;SITIO_Bicicletero_acero galvanizado_U;2 bicicletas;MT_ACERO GALVANIZADO;5;;0,01;;;Sí
 Recintos;;9 recintos;;9;79,45;;;;
 
 Recinto N°;Nombre;Departamento;Área (m²)
-01;Baño 1;Servicios higiénicos;2,7
-02;Baño 2;Servicios higiénicos;2,7
+01;Baño 1;Servicios higiénicos;2,70
+02;Baño 2;Servicios higiénicos;2,70
 03;Zona apoyo;Descanso y apoyo;8,92
 04;Zona de descanso 2;Descanso y apoyo;9,04
 05;Zona de descanso 1;Descanso y apoyo;26,34
 06;Estacionamiento bicicletas;Estacionamiento;9,16
 07;Bebederos;Descanso y apoyo;9,23
 08;Patio;Patio / exterior;8,78
-09;Pasillo;;2,6
+09;Pasillo;;2,60
 ;Total recintos;;79,45
