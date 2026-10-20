@@ -264,8 +264,8 @@
     try { host.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
     var slow = setTimeout(function () { if (viewerStarted && st.style.display === "block" && !$("#v3d-canvas canvas")) st.setAttribute("data-slow", "1"); }, 15000);
     try {
-      import("./ifc-viewer.js?v=34").then(function (m) {
-        return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc", show);
+      import("./ifc-viewer.js?v=35").then(function (m) {
+        return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc?v=20261020", show);
       }).catch(function (err) {
         console.error(err); clearTimeout(slow);
         fail("No se pudo cargar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.", String(err && err.message ? err.message : err));
