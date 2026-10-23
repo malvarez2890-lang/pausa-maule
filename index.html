@@ -353,7 +353,7 @@ section.sec[id]{scroll-margin-top:84px}
 .v3d-mat span{font-size:13px}
 
 /* lámina con zoom */
-.zoomer{position:relative;aspect-ratio:4769/3368;overflow:hidden;background:#fff;border:1px solid #0003;touch-action:none;cursor:grab;user-select:none}
+.zoomer{position:relative;aspect-ratio:4768/2956;overflow:hidden;background:#fff;border:1px solid #0003;touch-action:none;cursor:grab;user-select:none}
 .zoomer.drag{cursor:grabbing}
 .zoom-stage{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
 .zoom-stage img{display:block;width:100%;height:100%;max-width:none;-webkit-user-drag:none;pointer-events:none}
@@ -384,7 +384,7 @@ table.qty tr.qrow:focus-visible{outline:2px solid #000;outline-offset:-2px}
 .zoomer{max-height:calc(100vh - 110px)}
 
 /* lámina: caja centrada con la proporción de la lámina (cabe en pantalla y queda al centro) */
-.zoomer{max-height:none;width:min(100%,calc((100vh - 110px) * 4769 / 3368));margin-left:auto;margin-right:auto}
+.zoomer{max-height:none;width:min(100%,calc((100vh - 110px) * 4768 / 2956));margin-left:auto;margin-right:auto}
 .zoomer:fullscreen{width:100%;aspect-ratio:auto;max-height:none;margin:0}
 
 /* ===== modo oscuro: se invierte la página y se devuelven a su color real las imágenes, videos y vistas 3D ===== */
@@ -480,8 +480,8 @@ html[data-theme=dark] img,html[data-theme=dark] video,html[data-theme=dark] canv
 </div></section>
 
 <section class="sec" id="laminas"><header><span><i>04</i>Láminas</span><span>planimetría técnica</span></header>
-<p class="t" style="font-size:13px">Lámina A101 — Planimetría general · planta, 4 elevaciones, 3 cortes e isométricas · 1:50</p>
-<div class="zoomer" data-hi="04_Laminas/web/L01_zoom.jpg"><div class="zoom-stage"><img src="04_Laminas/L01_HAB_ARQ_MODELO_R01.jpg" alt="Lámina A101" draggable="false"></div><div class="zoom-ui"><button type="button" data-z="in" aria-label="Acercar">+</button><button type="button" data-z="out" aria-label="Alejar">−</button><button type="button" data-z="fit">Ajustar</button><button type="button" data-z="full">Pantalla completa</button><a class="zoom-pdf" href="04_Laminas/L01_HAB_ARQ_MODELO_R01.pdf" target="_blank" rel="noopener">Abrir PDF ↗</a></div><div class="zoom-hint">Arrastra para mover · haz clic y usa la rueda para acercar · doble clic para ampliar</div></div></section>
+<p class="t" style="font-size:13px">Lámina A101 — Planimetría general · planta, 4 elevaciones, 3 cortes, cubierta, superficies, isométricas y tablas · 1:50</p>
+<div class="zoomer" data-hi="04_Laminas/web/L01_zoom.jpg?v=20261023"><div class="zoom-stage"><img src="04_Laminas/L01_HAB_ARQ_MODELO_R01.jpg?v=20261023" alt="Lámina A101" draggable="false"></div><div class="zoom-ui"><button type="button" data-z="in" aria-label="Acercar">+</button><button type="button" data-z="out" aria-label="Alejar">−</button><button type="button" data-z="fit">Ajustar</button><button type="button" data-z="full">Pantalla completa</button><a class="zoom-pdf" href="04_Laminas/L01_HAB_ARQ_MODELO_R01.pdf?v=20261023" target="_blank" rel="noopener">Abrir PDF ↗</a></div><div class="zoom-hint">Arrastra para mover · haz clic y usa la rueda para acercar · doble clic para ampliar</div></div></section>
 
 <section class="sec" id="materialidad"><header><span><i>05</i>Materialidad</span><span>verificada contra fichas de fabricante</span></header>
 <div class="mats">
@@ -528,7 +528,7 @@ html[data-theme=dark] img,html[data-theme=dark] video,html[data-theme=dark] canv
 
 <div class="wrap">
 <section class="sec" id="revit" style="margin-top:0"><header><span><i>08</i>Modelo Revit</span><span>HAB_ARQ_MODELO_R01.RVT</span></header>
-<div class="stats six"><div><b>7 469</b><span>Elementos totales</span></div><div><b>944</b><span>Tipos</span></div><div><b>194</b><span>Familias</span></div><div><b>76</b><span>Categorías</span></div><div><b>49</b><span>Vistas</span></div><div><b>3+2</b><span>Niveles principales + subniveles</span></div></div>
+<div class="stats six"><div><b>7 518</b><span>Elementos totales</span></div><div><b>944</b><span>Tipos</span></div><div><b>194</b><span>Familias</span></div><div><b>76</b><span>Categorías</span></div><div><b>52</b><span>Vistas</span></div><div><b>3+2</b><span>Niveles principales + subniveles</span></div></div>
 <div class="sub-t">Visor 3D</div><div class="v3d" id="v3d"><div id="v3d-canvas"></div><div id="v3d-status"></div><button type="button" class="btn p" id="v3d-load">Cargar visor 3D</button><p>Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, usa la rueda para acercar y mantén presionada la rueda (botón central) para desplazar la vista, como en Revit.</p></div><p class="v3d-open"><a class="btn" href="visor.html" target="_blank" rel="noopener">Abrir visor en pantalla completa ↗</a></p><div class="sub-t">Cantidades del modelo</div>
 <p class="qty-note">Cantidades obtenidas del modelo Revit.</p>
 <p class="qty-hint">Haz clic en una fila para verla en el visor 3D.</p>
@@ -585,5 +585,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=72" defer></script>
+</script><script src="assets/site.js?v=73" defer></script>
 </body></html>

@@ -46,7 +46,7 @@
     "Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario": "Exploded isometric — construction layers: roof, framing, walls and furniture",
     "Exterior — el habitáculo entre viñedos": "Exterior — the shelter among vineyards",
     "planimetría técnica": "technical drawings",
-    "Lámina A101 — Planimetría general · planta, 4 elevaciones, 3 cortes e isométricas · 1:50": "Sheet A101 — General drawings · plan, 4 elevations, 3 sections and isometrics · 1:50",
+    "Lámina A101 — Planimetría general · planta, 4 elevaciones, 3 cortes, cubierta, superficies, isométricas y tablas · 1:50": "Sheet A101 — General drawings · plan, 4 elevations, 3 sections and isometrics · 1:50",
     "Abrir PDF ↗": "Open PDF ↗",
     "verificada contra fichas de fabricante": "checked against manufacturer data sheets",
     "Sistema quincha liviana húmeda — Corporación Protierra Chile, red MINVU/DITEC.": "Light wet quincha system (cane and earth) — Corporación Protierra Chile, MINVU/DITEC network.",
@@ -265,7 +265,7 @@
     var slow = setTimeout(function () { if (viewerStarted && st.style.display === "block" && !$("#v3d-canvas canvas")) st.setAttribute("data-slow", "1"); }, 15000);
     try {
       import("./ifc-viewer.js?v=35").then(function (m) {
-        return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc?v=20261020", show);
+        return m.startViewer($("#v3d-canvas"), "05_Modelo_IFC/HAB_ARQ_MODELO_R01_IFC4x3.ifc?v=20261023", show);
       }).catch(function (err) {
         console.error(err); clearTimeout(slow);
         fail("No se pudo cargar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.", String(err && err.message ? err.message : err));
@@ -283,7 +283,7 @@
   function initZoom() {
     $$(".zoomer").forEach(function (z) {
       var stage = $(".zoom-stage", z), img = $("img", stage), hi = z.getAttribute("data-hi"), hiLoaded = false;
-      var asp = 4769 / 3368, s = 1, x = 0, y = 0, bw = 0, bh = 0, act = false;
+      var asp = 4768 / 2956, s = 1, x = 0, y = 0, bw = 0, bh = 0, act = false;
       var pts = {}, last = null, pinch = 0;
       function base() {
         var cw = z.clientWidth, ch = z.clientHeight;
