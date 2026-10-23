@@ -85,7 +85,7 @@
     "Abastecimiento local": "Local supply", "Distribución general": "General distribution",
     "Descargar documentos e imágenes": "Download documents and images",
     "Referentes, proveedores, documentos técnicos, láminas e imágenes — no incluye el modelo Revit ni el IFC (ver punto 08).": "References, suppliers, technical documents, sheets and images — does not include the Revit model or the IFC (see section 08).",
-    "↓ Descargar (.zip, 45 MB)": "↓ Download (.zip, 45 MB)",
+    "↓ Descargar (.zip, 44 MB)": "↓ Download (.zip, 44 MB)",
     "Modelo Revit": "Revit model",
     "Elementos totales": "Total elements", "Tipos": "Types", "Familias": "Families", "Categorías": "Categories", "Vistas": "Views",
     "Niveles principales + subniveles": "Main levels + sublevels",
