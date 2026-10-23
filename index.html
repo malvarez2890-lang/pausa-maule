@@ -419,7 +419,7 @@ html[data-theme=dark] img,html[data-theme=dark] video,html[data-theme=dark] canv
 .fich{display:inline-block;border:2px solid #000;padding:2px 10px;font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-transform:uppercase;letter-spacing:.04em;font-size:15px;font-weight:600;white-space:nowrap;text-decoration:none}.fich:hover,.fich:focus-visible{background:#000;color:#fff}
 .gal.pair{grid-template-columns:1fr 1fr;margin-top:12px}.gal.pair figure{aspect-ratio:16/10}.gal.pair img{transform:none}
 @media(max-width:800px){.gal.pair{grid-template-columns:1fr;margin-top:4px}}
-</style></head><body>
+.gal{display:flex!important;flex-direction:column;gap:4px!important}.gal .rr{display:flex;gap:4px;align-items:stretch}.gal .rr>a{display:block;min-width:0}.gal .rr figure{height:100%}.gal .rr img{height:100%;object-fit:cover}.gal,.iso,.vid,.iso .st{gap:4px!important}@media(max-width:800px){.gal .rr{flex-direction:column}.gal .rr>a{flex:none!important}.gal .rr img{height:auto}}</style></head><body>
 <a class="pm" href="#" aria-label="Pausa Maule — volver al inicio">PM</a>
 <div id="bar"><nav aria-label="Secciones"><a href="#partido">Partido</a><a href="#referentes">Referentes</a><a href="#imagenes">Imágenes</a><a href="#laminas">Láminas</a><a href="#materialidad">Materialidad</a><a href="#documentos">Documentos</a><a href="#proveedores">Proveedores</a><a href="#revit">Modelo</a></nav><button type="button" class="theme-btn" data-theme-toggle aria-label="Cambiar entre modo claro y oscuro" title="Cambiar entre modo claro y oscuro">☾</button></div><button id="up" type="button" aria-label="Volver arriba">↑</button>
 <div class="wrap">
@@ -464,13 +464,12 @@ html[data-theme=dark] img,html[data-theme=dark] video,html[data-theme=dark] canv
 
 <section class="sec" id="imagenes"><header><span><i>03</i>Imágenes del proyecto</span><span>renders e isométricas</span></header>
 <div class="gal">
-<a class="main" href="06_Imagenes/01_Vista_Aerea_Patio.png?v=7" data-lb="06_Imagenes/web/01_Vista_Aerea_Patio.jpg?v=7" data-full="06_Imagenes/01_Vista_Aerea_Patio.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/01_Vista_Aerea_Patio.jpg?v=7" alt="Vista aérea"><figcaption>Vista aérea — el patio y el árbol atravesando la cubierta</figcaption></figure></a>
-<a href="06_Imagenes/02_Interior_Bebederos.png?v=7" data-lb="06_Imagenes/web/02_Interior_Bebederos.jpg?v=7" data-full="06_Imagenes/02_Interior_Bebederos.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/02_Interior_Bebederos.jpg?v=7" alt="Interior bebederos"><figcaption>Interior — bebederos y descanso</figcaption></figure></a>
-<a href="06_Imagenes/03_Interior_Acceso.png?v=7" data-lb="06_Imagenes/web/03_Interior_Acceso.jpg?v=7" data-full="06_Imagenes/03_Interior_Acceso.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/03_Interior_Acceso.jpg?v=7" alt="Interior acceso"><figcaption>Interior — umbral hacia el valle</figcaption></figure></a>
-</div>
-<div class="gal pair">
-<a href="06_Imagenes/08_Interior_Exterior_Vinedo.png?v=7" data-lb="06_Imagenes/web/08_Interior_Exterior_Vinedo.jpg?v=7" data-full="06_Imagenes/08_Interior_Exterior_Vinedo.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/08_Interior_Exterior_Vinedo.jpg?v=7" alt="Del interior al viñedo"><figcaption>Del umbral al viñedo — muro de quincha y banca</figcaption></figure></a>
-<a href="06_Imagenes/09_Interior_Descanso.png?v=7" data-lb="06_Imagenes/web/09_Interior_Descanso.jpg?v=7" data-full="06_Imagenes/09_Interior_Descanso.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/09_Interior_Descanso.jpg?v=7" alt="Interior de descanso"><figcaption>Interior — banca de descanso y celosía</figcaption></figure></a>
+<div class="rr"><a style="flex:1.333 1 0" href="06_Imagenes/01_Vista_Aerea_Patio.png?v=7" data-lb="06_Imagenes/web/01_Vista_Aerea_Patio.jpg?v=7" data-full="06_Imagenes/01_Vista_Aerea_Patio.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/01_Vista_Aerea_Patio.jpg?v=7" alt="Vista aérea" style="aspect-ratio:1.333"><figcaption>Vista aérea — el patio y el árbol atravesando la cubierta</figcaption></figure></a>
+<a style="flex:1.333 1 0" href="06_Imagenes/02_Interior_Bebederos.png?v=7" data-lb="06_Imagenes/web/02_Interior_Bebederos.jpg?v=7" data-full="06_Imagenes/02_Interior_Bebederos.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/02_Interior_Bebederos.jpg?v=7" alt="Interior bebederos" style="aspect-ratio:1.333"><figcaption>Interior — bebederos y descanso</figcaption></figure></a>
+<a style="flex:1.686 1 0" href="06_Imagenes/03_Interior_Acceso.png?v=7" data-lb="06_Imagenes/web/03_Interior_Acceso.jpg?v=7" data-full="06_Imagenes/03_Interior_Acceso.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/03_Interior_Acceso.jpg?v=7" alt="Interior acceso" style="aspect-ratio:1.686"><figcaption>Interior — umbral hacia el valle</figcaption></figure></a></div>
+<div class="rr"><a style="flex:1.794 1 0" href="06_Imagenes/04_Exterior_Vinedo.png?v=7" data-lb="06_Imagenes/web/04_Exterior_Vinedo.jpg?v=7" data-full="06_Imagenes/04_Exterior_Vinedo.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/04_Exterior_Vinedo.jpg?v=7" alt="Exterior entre viñedos" style="aspect-ratio:1.794"><figcaption>Exterior — el habitáculo entre viñedos</figcaption></figure></a>
+<a style="flex:1.765 1 0" href="06_Imagenes/08_Interior_Exterior_Vinedo.png?v=7" data-lb="06_Imagenes/web/08_Interior_Exterior_Vinedo.jpg?v=7" data-full="06_Imagenes/08_Interior_Exterior_Vinedo.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/08_Interior_Exterior_Vinedo.jpg?v=7" alt="Del interior al viñedo" style="aspect-ratio:1.765"><figcaption>Del umbral al viñedo — muro de quincha y banca</figcaption></figure></a>
+<a style="flex:1.583 1 0" href="06_Imagenes/09_Interior_Descanso.png?v=7" data-lb="06_Imagenes/web/09_Interior_Descanso.jpg?v=7" data-full="06_Imagenes/09_Interior_Descanso.png?v=7"><figure><img loading="lazy" decoding="async" src="06_Imagenes/web/09_Interior_Descanso.jpg?v=7" alt="Interior de descanso" style="aspect-ratio:1.583"><figcaption>Interior — banca de descanso y celosía</figcaption></figure></a></div>
 </div>
 <div class="sub-t">Vistas isométricas</div>
 <div class="iso">
@@ -592,5 +591,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=74" defer></script>
+</script><script src="assets/site.js?v=75" defer></script>
 </body></html>

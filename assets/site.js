@@ -40,6 +40,8 @@
     "Vista aérea — el patio y el árbol atravesando la cubierta": "Aerial view — the courtyard and the tree crossing the roof",
     "Interior — bebederos y descanso": "Interior — drinking fountains and rest",
     "Interior — umbral hacia el valle": "Interior — threshold toward the valley",
+    "Del umbral al viñedo — muro de quincha y banca": "From the threshold to the vineyard — rammed-earth wall and bench",
+    "Interior — banca de descanso y celosía": "Interior — resting bench and lattice screen",
     "Vistas isométricas": "Isometric views",
     "Volumen, cubierta y patio": "Volume, roof and courtyard",
     "Sin cubierta — bebederos, baño, apoyo y bicicletas": "Roof removed — fountains, restroom, support and bikes",
