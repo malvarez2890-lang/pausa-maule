@@ -10,7 +10,7 @@ Armazón secundario;VIGA_PINO RADIATA_Rectangular;"2""X4"" Cepillada";MT_PINO RA
 Cimentación estructural;FUNDACIÓN AISLADA;FUNDACIÓN AISLADA_HA_60x60x50cm;MT_HORMIGON ARMADO;16;;3,03;;Sí;No
 Suelos;Suelo;RADIER_INT_HA_15cm;MT_HORMIGON ARMADO;1;76,56;11,49;;No;No
 Suelos;Suelo;PAV_INT_HORMIGON PULIDO_2cm;MT_HORMIGON PULIDO;1;76,26;1,53;;No;No
-Cubiertas;Cubierta básica;CUBIERTA_ZINC ONDULADO_10cm;MT_PLANCHA ONDULADA ZINCALUM;4;76,53;1,38;;No;Sí
+Cubiertas;Cubierta básica;CUBIERTA_ZINC ONDULADO_18mm;MT_PLANCHA ONDULADA ZINCALUM;4;76,53;1,38;;No;Sí
 Aparatos sanitarios;PLM_WC_ceramica_New Valencia a muro;41x69cm;MT_LOZA INODORO;2;;0,07;;;No
 Aparatos sanitarios;PLM_Lavamanos_ceramica_Ciro pedestal;53x41cm;MT_LOZA LAVAMANOS;2;;0,02;;;No
 Aparatos sanitarios;PLM_Bebedero_acero inoxidable_Wolfen sensor pie;31x32cm;MT_ACERO INOXIDABLE CEPILLADO, MT_LATON CROMADO;3;;0,05;;;No

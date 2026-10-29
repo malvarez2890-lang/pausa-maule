@@ -486,7 +486,7 @@ html[data-theme=dark] img,html[data-theme=dark] video,html[data-theme=dark] canv
 
 <section class="sec" id="laminas"><header><span><i>04</i>Láminas</span><span>planimetría técnica</span></header>
 <p class="t" style="font-size:13px">Lámina A101 — Planimetría general · planta, 4 elevaciones, 3 cortes, cubierta, superficies, isométricas y tablas · 1:50</p>
-<div class="zoomer" data-hi="04_Laminas/web/L01_zoom.jpg?v=20261023b"><div class="zoom-stage"><img src="04_Laminas/L01_HAB_ARQ_MODELO_R01.jpg?v=20261023b" alt="Lámina A101" draggable="false"></div><div class="zoom-ui"><button type="button" data-z="in" aria-label="Acercar">+</button><button type="button" data-z="out" aria-label="Alejar">−</button><button type="button" data-z="fit">Ajustar</button><button type="button" data-z="full">Pantalla completa</button><a class="zoom-pdf" href="04_Laminas/L01_HAB_ARQ_MODELO_R01.pdf?v=20261023b" target="_blank" rel="noopener">Abrir PDF ↗</a></div><div class="zoom-hint">Arrastra para mover · haz clic y usa la rueda para acercar · doble clic para ampliar</div></div></section>
+<div class="zoomer" data-hi="04_Laminas/web/L01_zoom.jpg?v=20261029"><div class="zoom-stage"><img src="04_Laminas/L01_HAB_ARQ_MODELO_R01.jpg?v=20261029" alt="Lámina A101" draggable="false"></div><div class="zoom-ui"><button type="button" data-z="in" aria-label="Acercar">+</button><button type="button" data-z="out" aria-label="Alejar">−</button><button type="button" data-z="fit">Ajustar</button><button type="button" data-z="full">Pantalla completa</button><a class="zoom-pdf" href="04_Laminas/L01_HAB_ARQ_MODELO_R01.pdf?v=20261029" target="_blank" rel="noopener">Abrir PDF ↗</a></div><div class="zoom-hint">Arrastra para mover · haz clic y usa la rueda para acercar · doble clic para ampliar</div></div></section>
 
 <section class="sec" id="materialidad"><header><span><i>05</i>Materialidad</span><span>verificada contra fichas de fabricante</span></header>
 <div class="mats">
@@ -550,7 +550,7 @@ html[data-theme=dark] img,html[data-theme=dark] video,html[data-theme=dark] canv
 <tr class="qrow" data-q="FUNDACIÓN AISLADA_HA_60x60x50cm"><td>Fundaciones aisladas</td><td>FUNDACIÓN AISLADA_HA_60x60x50cm</td><td>16</td><td>3,03 m³</td></tr>
 <tr class="qrow" data-q="RADIER_INT_HA_15cm"><td>Radier estructural</td><td>RADIER_INT_HA_15cm</td><td>1</td><td>76,56 m² · 11,49 m³</td></tr>
 <tr class="qrow" data-q="PAV_INT_HORMIGON PULIDO_2cm"><td>Pavimento pulido</td><td>PAV_INT_HORMIGON PULIDO_2cm</td><td>1</td><td>76,26 m² · 1,53 m³</td></tr>
-<tr class="qrow" data-q="CUBIERTA_ZINC ONDULADO_10cm"><td>Cubierta (4 faldones)</td><td>CUBIERTA_ZINC ONDULADO_10cm</td><td>4</td><td>76,53 m² · 1,38 m³</td></tr>
+<tr class="qrow" data-q="CUBIERTA_ZINC ONDULADO_18mm"><td>Cubierta (4 faldones)</td><td>CUBIERTA_ZINC ONDULADO_18mm</td><td>4</td><td>76,53 m² · 1,38 m³</td></tr>
 <tr class="qrow" data-q="41x69cm"><td>Inodoros</td><td>41x69cm</td><td>2</td><td>0,07 m³</td></tr>
 <tr class="qrow" data-q="53x41cm"><td>Lavamanos</td><td>53x41cm</td><td>2</td><td>0,02 m³</td></tr>
 <tr class="qrow" data-q="31x32cm"><td>Bebederos</td><td>31x32cm</td><td>3</td><td>0,05 m³</td></tr>
@@ -590,5 +590,5 @@ var Z=[].slice.call(document.querySelectorAll(".hbg,.gal img"));
 function tick(){var h=innerHeight;Z.forEach(function(im){var r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var p=(h-r.top)/(h+r.height);p=Math.max(0,Math.min(1,p));var hero=im.classList.contains("hbg");var sc=hero?(1.02+0.16*Math.max(0,Math.min(1,-r.top/r.height))):(1.14-0.12*p);im.style.transform="scale("+sc.toFixed(4)+")"})}
 if(!rm){addEventListener("scroll",tick,{passive:true});addEventListener("resize",tick);tick()}
 })();
-</script><script src="assets/site.js?v=78" defer></script>
+</script><script src="assets/site.js?v=79" defer></script>
 </body></html>
