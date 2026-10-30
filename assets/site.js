@@ -10,7 +10,7 @@
   /* ---------- Idioma ES / EN ---------- */
   var EN = {
     "Talca / Región del Maule — Chile": "Talca / Maule Region — Chile",
-    "Entregable Hito 01-02": "Deliverable Milestone 01-02",
+    "Entrega Final": "Final Delivery",
     "Partido": "Concept", "Referentes": "References", "Imágenes": "Images", "Láminas": "Sheets",
     "Materialidad": "Materials", "Documentos": "Documents", "Proveedores": "Suppliers", "Modelo": "Model",
     "Habitáculo para ciclistas · Workshop BIM + IA · Método TBC": "Shelter for cyclists · BIM + AI Workshop · TBC Method",
@@ -63,7 +63,7 @@
     "Resumen del Estándar PlanBIM Chile aplicado a Pausa Maule · Paso 01": "Summary of the PlanBIM Chile Standard applied to Pausa Maule · Step 01",
     "Especificación Técnica": "Technical Specification",
     "Materiales, fichas de fabricante, categorías cerradas": "Materials, manufacturer data sheets, closed categories",
-    "PEB Preliminar": "Preliminary BEP", "Plan de Ejecución BIM — etapa preliminar": "BIM Execution Plan — preliminary stage",
+    "Nomenclatura IFC": "IFC Nomenclature", "Nombre en la vida real, clase IFC y nombre en Revit de cada entidad del modelo": "Real-world name, IFC class and Revit name of each model entity", "Tablas del modelo": "Model schedules", "Tablas de planificación exportadas desde Revit (20 hojas)": "Schedules exported from Revit (20 sheets)", "Reporte de cumplimiento BEP": "BEP compliance report", "Verificación del modelo contra el Plan de Ejecución BIM": "Model check against the BIM Execution Plan", "Láminas del modelo": "Model sheets", "Láminas A101 y A102 exportadas desde Revit": "Sheets A101 and A102 exported from Revit", "PEB Preliminar": "Preliminary BEP", "Plan de Ejecución BIM — etapa preliminar": "BIM Execution Plan — preliminary stage",
     "PEB Completado": "Completed BEP", "Tabla NDI por categoría y 9 recintos (nombre, número, nivel, área, perímetro)": "LOIN table by category and 9 rooms (name, number, level, area, perimeter)",
     "Tabla NDI": "LOIN Table", "Niveles de Desarrollo de la Información": "Levels of Information Need",
     "Parámetros Compartidos": "Shared Parameters", "Grupo NDI2 — parámetros compartidos del proyecto": "NDI2 group — project shared parameters",
@@ -97,7 +97,7 @@
     "Export IFC4X3_ADD2 · MVD CoordinationView · 4,5 MB": "IFC4X3_ADD2 export · MVD CoordinationView · 4.5 MB",
     "· Workshop BIM + IA por": "· BIM + AI Workshop by",
     "· Pausa Maule — Habitáculo ciclista": "· Pausa Maule — Cyclist shelter",
-    "Entregable Hito 01-02 ·": "Deliverable Milestone 01-02 ·",
+    "Entrega Final ·": "Final Delivery ·",
     "Visor 3D": "3D viewer", "Cantidades del modelo": "Model quantities", "Archivos del modelo": "Model files",
     "Cargar visor 3D": "Load 3D viewer",
     "Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, usa la rueda para acercar y mantén presionada la rueda (botón central) para desplazar la vista, como en Revit.": "Downloads the IFC4x3 file (4.5 MB) and shows it in the browser. Drag to orbit, use the wheel to zoom and hold the wheel (middle button) to pan, as in Revit.",
