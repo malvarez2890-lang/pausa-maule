@@ -48,7 +48,7 @@
     "Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario": "Exploded isometric — construction layers: roof, framing, walls and furniture",
     "Exterior — el habitáculo entre viñedos": "Exterior — the shelter among vineyards",
     "planimetría técnica": "technical drawings",
-    "Lámina A101 — Planimetría general · planta, 4 elevaciones, 3 cortes, cubierta, superficies, isométricas y tablas · 1:50": "Sheet A101 — General drawings · plan, 4 elevations, 3 sections and isometrics · 1:50",
+    "Lámina A101 — Planimetría general · planta, 4 elevaciones, 3 cortes, cubierta, superficies, isométricas y tablas de superficie · 1:50": "Sheet A101 — General drawings · plan, 4 elevations, 3 sections, roof, areas, isometrics and area tables · 1:50", "Lámina A102 — Tablas de especificaciones · keynotes, fichas técnicas, armazón, vanos y planta de fundaciones": "Sheet A102 — Specification schedules · keynotes, technical data sheets, framing, openings and foundation plan",
     "Abrir PDF ↗": "Open PDF ↗",
     "verificada contra fichas de fabricante": "checked against manufacturer data sheets",
     "Sistema quincha liviana húmeda — Corporación Protierra Chile, red MINVU/DITEC.": "Light wet quincha system (cane and earth) — Corporación Protierra Chile, MINVU/DITEC network.",
