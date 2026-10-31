@@ -7,154 +7,8 @@
     set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   };
 
-  /* ---------- Idioma ES / EN ---------- */
-  var EN = {
-    "Talca / Región del Maule — Chile": "Talca / Maule Region — Chile",
-    "Entrega Final": "Final Delivery",
-    "Partido": "Concept", "Referentes": "References", "Imágenes": "Images", "Láminas": "Sheets",
-    "Materialidad": "Materials", "Documentos": "Documents", "Proveedores": "Suppliers", "Modelo": "Model",
-    "Habitáculo para ciclistas · Workshop BIM + IA · Método TBC": "Shelter for cyclists · BIM + AI Workshop · TBC Method",
-    "Exterior — el habitáculo entre el valle y cordillera de la costa": "Exterior — the shelter between the valley and the coastal range",
-    "Ver imágenes ↗": "See images ↗",
-    "Habitáculo para ciclistas": "Shelter for cyclists",
-    "Un punto de descanso en el corredor vitivinícola de Talca.": "A resting point on the Talca wine route.",
-    "Pausa Maule es un punto de descanso para ciclistas de ruta en el corredor vitivinícola de Talca, Región del Maule. Un vacío central bajo una retícula de nueve cuadrantes ordena masa, umbral y paisaje.": "Pausa Maule is a resting point for road cyclists on the Talca wine route, Maule Region. A central void under a grid of nine quadrants organizes mass, threshold and landscape.",
-    "Autor": "Author", "Redes": "Social", "Curso": "Course", "Proyecto": "Project", "Ubicación": "Location", "Programa": "Program",
-    "Workshop BIM + IA · creado por": "BIM + AI Workshop · created by",
-    "Habitáculo Pausa Maule": "Pausa Maule Shelter",
-    "Talca, Región del Maule": "Talca, Maule Region",
-    "9 recintos, 79.45 m² totales": "9 rooms, 79.45 m² total",
-    "Retícula nine-square": "Nine-square grid", "Recintos modelados": "Modeled rooms", "m² área total": "m² total area", "Proveedores verificados": "Verified suppliers",
-    "El partido": "The concept", "concepto sobre la grilla 3×3": "concept on the 3×3 grid",
-    "El partido organiza el programa sobre una retícula de nueve cuadrantes: cuatro llenos estructurales (madera + quincha) sostienen un vacío central, el patio, donde crece un árbol a través de la cubierta.": "The concept organizes the program on a grid of nine quadrants: four structural solids (timber + quincha) hold a central void, the courtyard, where a tree grows through the roof.",
-    "Acceso principal": "Main entrance", "resuelto en el cuadrante superior izquierdo, sin cruzar muros cortina.": "placed in the upper-left quadrant, without crossing curtain walls.",
-    "Los": "The", "muros cortina": "curtain walls",
-    "perimetrales quedaron libres de accesos tras la corrección del partido: los recorridos pasan entre los llenos, no a través de los paños vidriados.": "on the perimeter are free of entrances after the concept revision: circulation runs between the solids, not through the glazed panels.",
-    "El": "The", "patio central": "central courtyard", "es el umbral entre paisaje y recinto — ahí ocurre la pausa.": "is the threshold between landscape and room — that is where the pause happens.",
-    "Lámina del Partido (PDF) ↗": "Concept sheet (PDF) ↗", "llenos, vacíos, accesos y volumen principal": "solids, voids, entrances and main volume",
-    "5 precedentes de Aires Mateus": "5 precedents by Aires Mateus",
-    "Masa": "Mass", "Vacío": "Void", "Umbral": "Threshold", "Paisaje": "Landscape", "Recorrido": "Path",
-    "Referentes Aires Mateus — contraste nine-square · 5 precedentes contrastados contra el partido de Pausa Maule · selección de 4 láminas, PDF completo de 9 páginas": "Aires Mateus references — nine-square comparison · 5 precedents compared against the Pausa Maule concept · selection of 4 sheets, full 9-page PDF",
-    "Abrir PDF completo ↗": "Open full PDF ↗",
-    "Imágenes del proyecto": "Project images", "renders e isométricas": "renders and isometrics",
-    "Vista aérea — el patio y el árbol atravesando la cubierta": "Aerial view — the courtyard and the tree crossing the roof",
-    "Interior — bebederos y descanso": "Interior — drinking fountains and rest",
-    "Interior — umbral hacia el valle": "Interior — threshold toward the valley",
-    "Del umbral al viñedo — muro de quincha y banca": "From the threshold to the vineyard — rammed-earth wall and bench",
-    "Interior — banca de descanso y celosía": "Interior — resting bench and lattice screen",
-    "Vistas isométricas": "Isometric views",
-    "Volumen, cubierta y patio": "Volume, roof and courtyard",
-    "Sin cubierta — bebederos, baño, apoyo y bicicletas": "Roof removed — fountains, restroom, support and bikes",
-    "Isométrica explotada — capas constructivas: cubierta, armazón, paramentos y mobiliario": "Exploded isometric — construction layers: roof, framing, walls and furniture",
-    "Exterior — el habitáculo entre viñedos": "Exterior — the shelter among vineyards",
-    "planimetría técnica": "technical drawings",
-    "Lámina A101 — Planimetría general · planta, 4 elevaciones, 3 cortes, cubierta, superficies, isométricas y tablas de superficie · 1:50": "Sheet A101 — General drawings · plan, 4 elevations, 3 sections, roof, areas, isometrics and area tables · 1:50", "Abrir PDF ↗": "Open PDF ↗",
-    "verificada contra fichas de fabricante": "checked against manufacturer data sheets",
-    "Sistema quincha liviana húmeda — Corporación Protierra Chile, red MINVU/DITEC.": "Light wet quincha system (cane and earth) — Corporación Protierra Chile, MINVU/DITEC network.",
-    "Ver elemento ↗": "See detail ↗",
-    "Pino Radiata": "Radiata Pine",
-    "Pilares glulam Hilam MLE, armazón dimensionado y montantes Arauco. Los paneles del muro cortina quedan vacíos (celosía).": "Hilam MLE glulam columns, dimensioned timber framing and Arauco mullions. Curtain wall panels are left empty (lattice).",
-    "Plancha ondulada sobre estructura de madera — Cubiertas Nacionales CN-1020.": "Corrugated sheet over a timber structure — Cubiertas Nacionales CN-1020.",
-    "Hormigón": "Concrete",
-    "Radier con fibra Melón + endurecedor superficial Sikafloor-3 QuartzTop. El mismo hormigón armado forma las 16 zapatas aisladas bajo los pilares.": "Fiber-reinforced Melón slab + Sikafloor-3 QuartzTop surface hardener. The same reinforced concrete forms the 16 isolated footings under the columns.",
-    "Documentos técnicos": "Technical documents", "reglas, PEB, NDI y parámetros": "rules, BEP, LOIN and parameters",
-    "Reglas de Trabajo BIM": "BIM Working Rules",
-    "Resumen del Estándar PlanBIM Chile aplicado a Pausa Maule · Paso 01": "Summary of the PlanBIM Chile Standard applied to Pausa Maule · Step 01",
-    "Especificación Técnica": "Technical Specification",
-    "Materiales, fichas de fabricante, categorías cerradas": "Materials, manufacturer data sheets, closed categories",
-    "Nomenclatura IFC": "IFC Nomenclature", "Nombre en la vida real, clase IFC y nombre en Revit de cada entidad del modelo": "Real-world name, IFC class and Revit name of each model entity", "Tablas del modelo": "Model schedules", "Tablas de planificación exportadas desde Revit (20 hojas)": "Schedules exported from Revit (20 sheets)", "Reporte de cumplimiento BEP": "BEP compliance report", "Verificación del modelo contra el Plan de Ejecución BIM": "Model check against the BIM Execution Plan", "Láminas del modelo": "Model sheets", "Láminas A101 y A102 exportadas desde Revit": "Sheets A101 and A102 exported from Revit", "Ventana proyectante de aluminio negro, a medida": "Black aluminium awning window, made to measure", "Bebedero de agua BAG-40 (acero inoxidable)": "BAG-40 water fountain (stainless steel)", "Bicicletero U invertida TB170": "TB170 inverted-U bike rack", "Fabricación local a pedido": "Made to order locally", "Banca de acero galvanizado y madera, 2500 × 400 × 450 mm": "Galvanized steel and wood bench, 2500 × 400 × 450 mm", "Sodimac / Construmart Talca": "Sodimac / Construmart Talca", "Distribución general": "General distribution", "DMC Ventanas de Aluminio": "DMC Aluminium Windows", "Inodoro New Valencia a muro / Lavamanos Ciro con pedestal / Lavaplatos de sobreponer 80×50": "New Valencia wall-hung toilet / Ciro pedestal washbasin / Countertop sink 80×50", "Inodoro": "Toilet", "Lavamanos": "Washbasin", "Lavaplatos": "Kitchen sink", "Inodoro New Valencia a muro / Lavamanos Ciro con pedestal / Lavaplatos de sobreponer 80×50 / Bebedero BAG-40": "New Valencia wall-hung toilet / Ciro pedestal washbasin / Countertop sink 80×50 / BAG-40 water fountain", "Bebedero": "Water fountain", "Lavaplatos de sobreponer 80×50": "Countertop sink 80×50", "Lavamanos Ciro con pedestal": "Ciro pedestal washbasin", "Inodoro New Valencia a muro": "New Valencia wall-hung toilet", "Bebedero BAG-40": "BAG-40 water fountain", "WC": "Toilet", "Radier": "Slab on grade", "Pavimento de hormigón pulido": "Polished concrete floor", "Pilar de madera": "Timber column", "Viga principal": "Main beam", "Viga secundaria": "Secondary beam", "Muro de quincha": "Quincha wall", "Muro de celosía": "Lattice wall", "Montante de celosía": "Lattice mullion", "Puerta": "Door", "Cubierta": "Roof", "Mueble base de cocina": "Kitchen base cabinet", "Lavaplatos con mueble base": "Kitchen sink with base cabinet", "Banca": "Bench", "Bicicletero": "Bike rack", "Inodoro": "Toilet", "Fundación aislada": "Isolated footing", "Ventana": "Window", "PEB Preliminar": "Preliminary BEP", "Plan de Ejecución BIM — etapa preliminar": "BIM Execution Plan — preliminary stage",
-    "PEB Completado": "Completed BEP", "Tabla NDI por categoría y 9 recintos (nombre, número, nivel, área, perímetro)": "LOIN table by category and 9 rooms (name, number, level, area, perimeter)",
-    "Tabla NDI": "LOIN Table", "Niveles de Desarrollo de la Información": "Levels of Information Need",
-    "Parámetros Compartidos": "Shared Parameters", "Grupo NDI2 — parámetros compartidos del proyecto": "NDI2 group — project shared parameters",
-    "16 proveedores verificados": "16 verified suppliers", "Fichas de Proveedores": "Supplier Data Sheets",
-    "16 proveedores verificados · contacto, sitio web, ficha técnica": "16 verified suppliers · contact, website, data sheet",
-    "Elemento": "Element", "Empresa": "Company", "Producto": "Product", "Sitio web": "Website",
-    "Muro / Quincha": "Wall / Quincha", "Sistema Quincha Liviana Húmeda": "Light Wet Quincha System",
-    "Cubierta": "Roof", "Panel Ondulado CN-1020": "CN-1020 Corrugated Panel",
-    "Radier y zapatas": "Slab and footings", "Hormigón con Fibra": "Fiber-Reinforced Concrete",
-    "Radier pulido": "Polished slab",
-    "Pilar estructural": "Structural column", "Madera Laminada Encolada MLE 20c": "Glued Laminated Timber MLE 20c",
-    "Armazón": "Framing", "Construcción Premium MSD": "Premium MSD Construction",
-    "Muro cortina — montante": "Curtain wall — mullion", "Pino Radiata Cepillado": "Planed Radiata Pine",
-    "Muro cortina — panel": "Curtain wall — panel",
-    "Panel vacío (celosía) — ficha de referencia: MSD Revestimiento Machihembrado": "Empty panel (lattice) — reference sheet: MSD Tongue-and-Groove Cladding",
-    "Puerta": "Door", "Puerta Pino Radiata Italia 80×210": "Italia Radiata Pine Door 80×210",
-    "Herrajes": "Hardware", "Häfele (vía El Carpintero)": "Häfele (via El Carpintero)", "Bisagras y cerraduras": "Hinges and locks",
-    "Sanitarios": "Sanitary ware", "New Valencia a Muro / Lavamanos Ciro": "New Valencia wall-hung / Ciro washbasin",
-    "Abastecimiento local": "Local supply", "Distribución general": "General distribution",
-    "Descargar documentos e imágenes": "Download documents and images",
-    "Referentes, proveedores, documentos técnicos, láminas e imágenes — no incluye el modelo Revit ni el IFC (ver punto 08).": "References, suppliers, technical documents, sheets and images — does not include the Revit model or the IFC (see section 08).",
-    "↓ Descargar (.zip, 30 MB)": "↓ Download (.zip, 30 MB)",
-    "Modelo Revit": "Revit model",
-    "Elementos totales": "Total elements", "Tipos": "Types", "Familias": "Families", "Categorías": "Categories", "Vistas": "Views",
-    "Niveles principales + subniveles": "Main levels + sublevels",
-    "Modelo BIM del habitáculo Pausa Maule · 233 MB": "BIM model of the Pausa Maule shelter · 233 MB",
-    "Descargar ↓": "Download ↓",
-    "Modelo BIM del habitáculo Pausa Maule · 233 MB": "BIM model of the Pausa Maule shelter · 233 MB",
-    "Descargar ↗": "Download ↗",
-    "Export IFC4X3_ADD2 · MVD CoordinationView · 4,5 MB": "IFC4X3_ADD2 export · MVD CoordinationView · 4.5 MB",
-    "Export IFC4X3_ADD2 · MVD CoordinationView · 4,5 MB": "IFC4X3_ADD2 export · MVD CoordinationView · 4.5 MB",
-    "· Workshop BIM + IA por": "· BIM + AI Workshop by",
-    "· Pausa Maule — Habitáculo ciclista": "· Pausa Maule — Cyclist shelter",
-    "Entrega Final ·": "Final Delivery ·",
-    "Visor 3D": "3D viewer", "Cantidades del modelo": "Model quantities", "Archivos del modelo": "Model files",
-    "Cargar visor 3D": "Load 3D viewer",
-    "Se descarga el IFC4x3 (4,5 MB) y se muestra en el navegador. Arrastra para girar, usa la rueda para acercar y mantén presionada la rueda (botón central) para desplazar la vista, como en Revit.": "Downloads the IFC4x3 file (4.5 MB) and shows it in the browser. Drag to orbit, use the wheel to zoom and hold the wheel (middle button) to pan, as in Revit.",
-    "Cantidades obtenidas del modelo Revit.": "Quantities taken from the Revit model.",
-    "Categoría": "Category", "Tipo": "Type", "Cant.": "Qty", "Medida": "Measure",
-    "Volver arriba": "Back to top", "Cerrar": "Close", "Anterior": "Previous", "Siguiente": "Next",
-    "Abrir original ↗": "Open original ↗",
-    "Cargando…": "Loading…",
-    "Cimentación estructural": "Structural foundation", "Suelos": "Floors", "Cubiertas": "Roofs", "Armazón estructural": "Structural framing", "Capas": "Layers", "Color": "Color", "Corte": "Cut", "Medir": "Measure", "Explotar": "Explode", "Juntar": "Assemble", "Mostrar todo": "Show all", "Original": "Original", "Estructural / no estructural": "Structural / non-structural", "Exterior / interior": "Exterior / interior", "Horizontal (altura)": "Horizontal (height)", "Vertical (ancho)": "Vertical (width)", "Vertical (fondo)": "Vertical (depth)", "Invertir": "Flip", "Quitar corte": "Remove cut", "Buscar elemento…": "Search element…", "piezas": "parts", "Haz clic en dos puntos del modelo para medir": "Click two points on the model to measure", "Distancia": "Distance", "horizontal": "horizontal", "vertical": "vertical", "Sin dato": "No data", "No estructural": "Non-structural", "Interior": "Interior", "Otros": "Others", "Derecha": "Right", "Izquierda": "Left", "Superior": "Top", "Inferior": "Bottom", "Frontal": "Front", "Posterior": "Back", "Realista": "Realistic", "Original (IFC)": "Original (IFC)", "Colores de materiales": "Material colors", "Restaurar colores": "Reset colors", "Maqueta": "Model", "Recintos": "Rooms", "Baño 1": "Restroom 1", "Baño 2": "Restroom 2", "Zona apoyo": "Support zone", "Zona de descanso 1": "Rest zone 1", "Zona de descanso 2": "Rest zone 2", "Estacionamiento bicicletas": "Bicycle parking", "Bebederos": "Drinking fountains", "Patio": "Courtyard", "Pasillo": "Corridor",
-    "Ajustar": "Fit", "Pantalla completa": "Fullscreen", "Arrastra para mover · haz clic y usa la rueda para acercar · doble clic para ampliar": "Drag to move · click and use the wheel to zoom · double-click to enlarge",
-    "Haz clic en una fila para verla en el visor 3D.": "Click a row to see it in the 3D viewer.", "Descargar Excel (.xlsx) ↓": "Download Excel (.xlsx) ↓", "Descargar CSV ↓": "Download CSV ↓",
-    "Cambiar entre modo claro y oscuro": "Switch between light and dark mode", "Haz clic en una pieza para ver su ficha": "Click a part to see its data sheet", "Sin ficha en el modelo": "No data sheet in the model", "Familia": "Family", "Material": "Material", "Materiales": "Materials", "Estructural": "Structural", "Exterior": "Exterior", "Nivel": "Level", "Área": "Area", "Volumen": "Volume", "Longitud": "Length", "Ficha de fabricante": "Manufacturer data sheet", "ID de Revit": "Revit ID", "Sí": "Yes", "No": "No",
-    "Desliza la tabla para ver todas las columnas →": "Swipe the table to see all columns →",
-    "Isométrica": "Isometric", "Planta": "Plan", "Frente": "Front", "Lateral": "Side", "Ocultar cubierta": "Hide roof", "Mostrar cubierta": "Show roof",
-    "Tu navegador tiene WebGL desactivado o no disponible, por eso no se puede mostrar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.": "Your browser has WebGL disabled or unavailable, so the 3D viewer cannot be shown. You can download the IFC and open it in your BIM software.",
-    "Muros": "Walls", "Muros cortina": "Curtain walls", "Montantes de muro cortina": "Curtain wall mullions",
-    "Paneles de muro cortina": "Curtain wall panels", "Puertas": "Doors", "Pilares estructurales": "Structural columns",
-    "Fundaciones aisladas": "Isolated foundations", "Pavimento pulido": "Polished concrete floor", "Cubierta (4 faldones)": "Roof (4 pitches)", "Cubiertas": "Roofs", "Inodoros": "Toilets", "Lavamanos": "Washbasins", "Bebederos": "Drinking fountains", "Lavaplatos": "Kitchen sinks", "Muebles base de cocina": "Kitchen base units", "Bancas": "Benches", "Bicicleteros": "Bike racks", "Aparatos sanitarios": "Plumbing fixtures", "Mobiliario": "Furniture", "Emplazamiento": "Site",
-    "Bebedero": "Drinking fountain", "Lavaplatos de sobreponer con escurridor 80×50": "Countertop sink with drainer 80×50", "Bicicletero": "Bike rack", "Banca": "Bench", "Big Harris (ficha de terceros)": "Big Harris (third-party sheet)",
-    "Armazón principal": "Main framing", "Armazón secundario": "Secondary framing", "Zapatas aisladas": "Isolated footings",
-    "Radier estructural": "Structural slab", "Recintos": "Rooms", "Empty (celosía)": "Empty (lattice)", "9 recintos": "9 rooms",
-    "Iniciando motor IFC…": "Starting IFC engine…", "Descargando modelo…": "Downloading model…", "Leyendo geometría…": "Reading geometry…",
-    "No se pudo cargar el visor 3D. Puedes descargar el IFC y abrirlo en tu programa BIM.": "The 3D viewer could not be loaded. You can download the IFC and open it in your BIM software."
-  };
-  var CUR = "es", nodes = [], attrs = [];
-  function collect() {
-    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (n) {
-        var p = n.parentNode && n.parentNode.nodeName;
-        if (p === "SCRIPT" || p === "STYLE" || !n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-    var n;
-    while ((n = w.nextNode())) nodes.push({ n: n, es: n.nodeValue });
-    $$("[alt],[aria-label],[title]").forEach(function (e) {
-      ["alt", "aria-label", "title"].forEach(function (a) {
-        if (e.hasAttribute(a)) attrs.push({ e: e, a: a, es: e.getAttribute(a) });
-      });
-    });
-  }
-  function tr(s, lang) {
-    if (lang === "es") return s;
-    var m = s.match(/^(\s*)([\s\S]*?)(\s*)$/), key = m[2].replace(/\s+/g, " ");
-    return EN[key] ? m[1] + EN[key] + m[3] : s;
-  }
-  var titleES = document.title;
-  function setLang(l) {
-    CUR = l;
-    nodes.forEach(function (o) { o.n.nodeValue = tr(o.es, l); });
-    attrs.forEach(function (o) { o.e.setAttribute(o.a, tr(o.es, l)); });
-    document.documentElement.lang = l;
-    document.dispatchEvent(new CustomEvent("pm-lang"));
-    document.title = l === "en" ? "Pausa Maule — Deliverable Milestone 01-02" : titleES;
-    $$("[data-l]").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-l") === l); });
-    store.set("pm-lang", l);
-  }
-  window.PM_t = function (k) { return CUR === "en" && EN[k] ? EN[k] : k; };
+  /* Texto: la página está solo en español */
+  window.PM_t = function (k) { return k; };
 
   /* ---------- Lightbox ---------- */
   var items = [], idx = 0, lb;
@@ -408,9 +262,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    try { collect(); } catch (e) { console.error(e); }
-    $$("[data-l]").forEach(function (b) { b.addEventListener("click", function () { setLang(b.getAttribute("data-l")); }); });
-    setLang("es");
+    try { collect(); } catch (e) { console.error(e); }
     [initTheme, initLB, initBar, initZoom, initQty].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
   });
 })();
