@@ -262,7 +262,6 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    try { collect(); } catch (e) { console.error(e); }
     [initTheme, initLB, initBar, initZoom, initQty].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
   });
 })();
