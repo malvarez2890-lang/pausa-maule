@@ -115,7 +115,7 @@ export async function startViewer(host, url, onStatus) {
   api.SetWasmPath(new URL("./vendor/", import.meta.url).href, true);
   await api.Init();
 
-  const infoReq = fetch(new URL("./elementos.json?v=20261030", import.meta.url).href).then(r => r.ok ? r.json() : null).catch(() => null);
+  const infoReq = fetch(new URL("./elementos.json?v=20261031", import.meta.url).href).then(r => r.ok ? r.json() : null).catch(() => null);
 
   onStatus("Descargando modelo…");
   const resp = await fetch(url);
@@ -719,11 +719,10 @@ export async function startViewer(host, url, onStatus) {
 
   // búsqueda y aislamiento
   const sbox = document.createElement("div"); sbox.className = "v3d-search";
-  sbox.innerHTML = "<input type=\"search\" list=\"v3d-dl\" data-es-ph=\"Buscar tipo o categoría…\" aria-label=\"Buscar\"><datalist id=\"v3d-dl\"></datalist><span class=\"v3d-count\"></span>";
+  sbox.innerHTML = "<input type=\"search\" list=\"v3d-dl\" data-es-ph=\"Buscar elemento…\" aria-label=\"Buscar\"><datalist id=\"v3d-dl\"></datalist><span class=\"v3d-count\"></span>";
   const sin = sbox.querySelector("input"), cnt = sbox.querySelector(".v3d-count");
   const names = new Set();
-  eidData.forEach(d => { if (d.t) names.add(d.t.type); });
-  presentCats.forEach(c => { if (c !== "Otros") names.add(T(c)); });
+  eidData.forEach(d => { if (d.t) names.add(T(d.t.nom || d.t.type)); });
   sbox.querySelector("datalist").innerHTML = [...names].sort().map(n => "<option value=\"" + esc(n) + "\">").join("");
   root.appendChild(sbox);
   let sTimer = null;
@@ -733,7 +732,7 @@ export async function startViewer(host, url, onStatus) {
     const set = new Set();
     eidData.forEach(d => {
       if (!d.t) return;
-      const hay = [d.t.type, d.t.fam, d.t.cat, T(d.t.cat), (d.t.mat || []).join(" ")].join(" ").toLowerCase();
+      const hay = [d.t.nom, T(d.t.nom || ""), d.t.type, d.t.fam, d.t.cat, T(d.t.cat), (d.t.mat || []).join(" ")].join(" ").toLowerCase();
       if (hay.includes(qy)) set.add(d.eid);
     });
     cnt.textContent = set.size + " " + T("piezas");
@@ -797,7 +796,7 @@ export async function startViewer(host, url, onStatus) {
     let h = "<button type=\"button\" class=\"v3d-x\" aria-label=\"" + esc(T("Cerrar")) + "\">✕</button>";
     if (rec) {
       const t = info.types[rec[0]];
-      h += "<h4>" + esc(t.type) + "</h4><div class=\"v3d-sub\">" + esc(T(t.cat)) + (t.fam ? " · " + esc(t.fam) : "") + "</div><dl>";
+      h += "<h4>" + esc(T(t.nom || t.type)) + "</h4><div class=\"v3d-sub\">" + esc(T(t.cat)) + (t.nom ? " · " + esc(t.type) : (t.fam ? " · " + esc(t.fam) : "")) + "</div><dl>";
       const r2 = (k, v) => { if (v) h += "<dt>" + esc(T(k)) + "</dt><dd>" + v + "</dd>"; };
       r2(t.mat.length > 1 ? "Materiales" : "Material", t.mat.length ? esc(t.mat.join(", ")) : null);
       r2("Estructural", esc(yn(rec[5])));
