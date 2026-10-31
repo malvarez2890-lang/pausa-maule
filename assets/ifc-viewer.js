@@ -9,9 +9,9 @@ const T = (k) => (window.PM_t ? window.PM_t(k) : k);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[c]));
 const fmtN = (n, d = 2) => n.toFixed(d).replace(".", ",");
 
-const CATS = ["Muros", "Montantes de muro cortina", "Pilares estructurales", "Armazón estructural", "Cimentación estructural", "Suelos", "Cubiertas", "Puertas", "Aparatos sanitarios", "Mobiliario", "Emplazamiento", "Otros"];
+const CATS = ["Muros", "Montantes de muro cortina", "Pilares estructurales", "Armazón estructural", "Cimentación estructural", "Suelos", "Cubiertas", "Puertas", "Ventanas", "Aparatos sanitarios", "Mobiliario", "Emplazamiento", "Otros"];
 const EXPLODE = { "Cubiertas": 5.2, "Armazón estructural": 3.0, "Suelos": -1.9, "Cimentación estructural": -3.6 };
-const MAT_COL = { "MT_PINO RADIATA": 0xc8975a, "MT_TIERRA_QUINCHA": 0x9c6b45, "MT_HORMIGON ARMADO": 0x8a8f94, "MT_HORMIGON PULIDO": 0xb9bdc1, "MT_PLANCHA ONDULADA ZINCALUM": 0x6d8ea3, "MT_PINO RADIATA PUERTA": 0xa0693c, "MT_MADERA ESTRUCTURAL": 0xb08550, "MT_LOZA INODORO": 0xf2f2ef, "MT_LOZA LAVAMANOS": 0xf2f2ef, "MT_ACERO GALVANIZADO": 0x8f979d, "MT_BANCA ASIENTO": 0xb48a58, "MT_BANCA PATAS": 0x8f979d };
+const MAT_COL = { "MT_PINO RADIATA": 0xc8975a, "MT_TIERRA_QUINCHA": 0x9c6b45, "MT_HORMIGON ARMADO": 0x8a8f94, "MT_HORMIGON PULIDO": 0xb9bdc1, "MT_PLANCHA ONDULADA ZINCALUM": 0x6d8ea3, "MT_PINO RADIATA PUERTA": 0xa0693c, "MT_MADERA ESTRUCTURAL": 0xb08550, "MT_LOZA INODORO": 0xf2f2ef, "MT_LOZA LAVAMANOS": 0xf2f2ef, "MT_ACERO GALVANIZADO": 0x8f979d, "MT_BANCA ASIENTO": 0xb48a58, "MT_BANCA PATAS": 0x8f979d, "MT_ALUMINIO NEGRO": 0x2b2b2b, "MT_VIDRIO": 0x9cc3d5 };
 
 // Si una pieza viene con las caras invertidas (volumen con signo negativo, p. ej. por una instancia espejada)
 // se le da vuelta el sentido de los triángulos y de las normales.
@@ -115,7 +115,7 @@ export async function startViewer(host, url, onStatus) {
   api.SetWasmPath(new URL("./vendor/", import.meta.url).href, true);
   await api.Init();
 
-  const infoReq = fetch(new URL("./elementos.json?v=20261029b", import.meta.url).href).then(r => r.ok ? r.json() : null).catch(() => null);
+  const infoReq = fetch(new URL("./elementos.json?v=20261030", import.meta.url).href).then(r => r.ok ? r.json() : null).catch(() => null);
 
   onStatus("Descargando modelo…");
   const resp = await fetch(url);
