@@ -96,6 +96,36 @@
     up.addEventListener("click", function () { scrollTo({ top: 0, behavior: "smooth" }); });
   }
 
+
+  /* ---------- Menú: llegar siempre a la sección elegida ----------
+     Las imágenes con carga diferida cambian la altura de la página mientras se
+     desplaza, y el destino queda corrido. Se corrige hasta que el scroll se estabiliza. */
+  function initAnchors() {
+    var timer = null, cancel = false;
+    function stop() { cancel = true; clearTimeout(timer); }
+    ["wheel", "touchstart", "keydown"].forEach(function (ev) { addEventListener(ev, stop, { passive: true }); });
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute("href").slice(1), t = id && document.getElementById(id);
+      if (!t || !t.classList.contains("sec")) return;
+      e.preventDefault(); cancel = false; clearTimeout(timer);
+      var tries = 0, last = -1, still = 0;
+      function top() { return t.getBoundingClientRect().top - (parseFloat(getComputedStyle(t).scrollMarginTop) || 0); }
+      scrollTo({ top: scrollY + top(), behavior: "smooth" });
+      history.replaceState(null, "", "#" + id);
+      (function check() {
+        if (cancel) return;
+        still = Math.abs(scrollY - last) < 1 ? still + 1 : 0; last = scrollY;
+        if (still >= 2) {
+          if (Math.abs(top()) > 3 && tries < 8) { tries++; still = 0; scrollTo({ top: scrollY + top(), behavior: "smooth" }); }
+          else return;
+        }
+        timer = setTimeout(check, 120);
+      })();
+    });
+  }
+
   /* ---------- Visor IFC (delegado: funciona aunque falle otra inicializacion) ---------- */
   var viewerStarted = false;
   function hasWebGL() {
@@ -262,6 +292,6 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    [initTheme, initLB, initBar, initZoom, initQty].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
+    [initTheme, initLB, initBar, initAnchors, initZoom, initQty].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
   });
 })();
