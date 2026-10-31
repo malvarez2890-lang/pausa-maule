@@ -115,7 +115,7 @@ export async function startViewer(host, url, onStatus) {
   api.SetWasmPath(new URL("./vendor/", import.meta.url).href, true);
   await api.Init();
 
-  const infoReq = fetch(new URL("./elementos.json?v=20261031", import.meta.url).href).then(r => r.ok ? r.json() : null).catch(() => null);
+  const infoReq = fetch(new URL("./elementos.json?v=20261031b", import.meta.url).href).then(r => r.ok ? r.json() : null).catch(() => null);
 
   onStatus("Descargando modelo…");
   const resp = await fetch(url);
